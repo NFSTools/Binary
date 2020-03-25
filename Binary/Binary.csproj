@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GlobalLib">
-      <HintPath>..\..\..\GlobalLib\GlobalLib\bin\Release\GlobalLib.dll</HintPath>
+      <HintPath>..\..\GlobalLib\GlobalLib\bin\Release\GlobalLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,8 +55,35 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DataSet\DataSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DataSet\DataSet.Designer.cs">
+      <DependentUpon>DataSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Interact\Welcome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Interact\Welcome.Designer.cs">
+      <DependentUpon>Welcome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Main\Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\DataSet\DataSet.resx">
+      <DependentUpon>DataSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Interact\Welcome.resx">
+      <DependentUpon>Welcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Main\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -65,6 +92,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,6 +106,31 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Endscript\" />
+    <Folder Include="Forms\Tools\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\binary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hasher1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Raider.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Picker1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Swatcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Unlock1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Readme1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
