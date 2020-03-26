@@ -15,10 +15,9 @@ using GlobalLib.Reflection.Abstract;
 
 namespace Binary.Support
 {
-	public partial class Carbon : Form
+	public partial class Underground2 : Form
 	{
-		private bool forceload = false;
-		private GlobalLib.Database.Carbon dbC;
+		private GlobalLib.Database.Underground2 dbUG2;
 
 		private void InstantiateControls()
 		{
@@ -29,22 +28,19 @@ namespace Binary.Support
 			Process.MessageShow = true;
 		}
 
-		public Carbon()
+		public Underground2()
 		{
 			InitializeComponent();
 			InstantiateControls();
 		}
 
-		public Carbon(bool forceload)
+		public Underground2(bool forceload)
 		{
 			InitializeComponent();
 			InstantiateControls();
 			DataSet_MenuStrip.Renderer = new MyRenderer();
 			if (forceload)
-			{
-				this.forceload = forceload;
-				//this.DataSet_ReloadFile_Click(null, EventArgs.Empty);
-			}
+				this.LoadDBUnderground2(Process.GlobalDir, false);
 		}
 
 		private class MyRenderer : ToolStripProfessionalRenderer
@@ -110,10 +106,10 @@ namespace Binary.Support
 				string a2 = Process.GlobalDir + @"\GLOBAL\GlobalA.bun.bacc";
 				string b1 = Process.GlobalDir + @"\GLOBAL\GlobalB.lzc";
 				string b2 = Process.GlobalDir + @"\GLOBAL\GlobalB.lzc.bacc";
-				string c1 = Process.GlobalDir + @"\LANGUAGES\English_Global.bin";
-				string c2 = Process.GlobalDir + @"\LANGUAGES\English_Global.bin.bacc";
-				string d1 = Process.GlobalDir + @"\LANGUAGES\Labels_Global.bin";
-				string d2 = Process.GlobalDir + @"\LANGUAGES\Labels_Global.bin.bacc";
+				string c1 = Process.GlobalDir + @"\LANGUAGES\English.bin";
+				string c2 = Process.GlobalDir + @"\LANGUAGES\English.bin.bacc";
+				string d1 = Process.GlobalDir + @"\LANGUAGES\Labels.bin";
+				string d2 = Process.GlobalDir + @"\LANGUAGES\Labels.bin.bacc";
 				if (!force)
 				{
 					if (!File.Exists(a2)) File.Copy(a1, a2);
@@ -140,33 +136,36 @@ namespace Binary.Support
 
 		private void TerminateLoad()
 		{
-			this.dbC = null;
+			this.dbUG2 = null;
 			DataSet_Status.Text = $"Failed to load data | {DateTime.Now.ToString()}";
 			BinaryTree.Nodes.Clear();
 			BinaryDataView.Columns.Clear();
 			this.DisableButtons();
 		}
 
-		private void LoadDBCarbon(string foldername)
+		private void LoadDBUnderground2(string foldername, bool showerror)
 		{
 			var GlobalA = File.Exists(foldername + @"\Global\GlobalA.bun");
 			var GlobalB = File.Exists(foldername + @"\Global\GlobalB.lzc");
-			var LangGen = File.Exists(foldername + @"\Languages\English_Global.bin");
-			var LangLab = File.Exists(foldername + @"\Languages\Labels_Global.bin");
-			var Stream = File.Exists(foldername + @"\Tracks\StreamL5RA.bun");
-			var NFSC = File.Exists(foldername + @"\nfsc.exe");
-			var Load = GlobalA && GlobalB && LangGen && LangLab && Stream && NFSC;
+			var LangGen = File.Exists(foldername + @"\Languages\English.bin");
+			var LangLab = File.Exists(foldername + @"\Languages\Labels.bin");
+			var WheelsD = Directory.Exists(foldername + @"\Cars\Wheels");
+			var AudiosD = Directory.Exists(foldername + @"\Cars\Audio");
+			var Stream = File.Exists(foldername + @"\Tracks\StreamL4RA.bun");
+			var NFSUG2 = File.Exists(foldername + @"\speed2.exe");
+			var Load = GlobalA && GlobalB && LangGen && LangLab && WheelsD && AudiosD && Stream && NFSUG2;
 			if (!Load)
 			{
-				MessageBox.Show("Folder is not game's directory." + Environment.NewLine + "Please select the correct folder.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				if (showerror)
+					MessageBox.Show("Folder is not game's directory." + Environment.NewLine + "Please select the correct folder.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 			Process.GlobalDir = foldername;
-			dbC = null;
-			dbC = new GlobalLib.Database.Carbon();
+			dbUG2 = null;
+			dbUG2 = new GlobalLib.Database.Underground2();
 			var watch = new System.Diagnostics.Stopwatch();
 			watch.Start();
-			bool valid = Process.LoadData(dbC);
+			bool valid = Process.LoadData(dbUG2);
 			watch.Stop();
 			if (!valid) { this.TerminateLoad(); return; }
 			LoadBinaryTree();
@@ -186,10 +185,24 @@ namespace Binary.Support
 
 		private void LoadBinaryTree()
 		{
-			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbC.CarTypeInfos.ThisName, this.dbC.CarTypeInfos.GetAllNodes()));
-			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbC.Materials.ThisName, this.dbC.Materials.GetAllNodes()));
-			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbC.PresetRides.ThisName, this.dbC.PresetRides.GetAllNodes()));
-			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbC.PresetSkins.ThisName, this.dbC.PresetSkins.GetAllNodes()));
+			this.BinaryTree.Nodes.Clear();
+			this.BinaryDataView.Columns.Clear();
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.BankTriggers.ThisName, this.dbUG2.BankTriggers.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.CarTypeInfos.ThisName, this.dbUG2.CarTypeInfos.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.GCareerBrands.ThisName, this.dbUG2.GCareerBrands.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.GCareerRaces.ThisName, this.dbUG2.GCareerRaces.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.GCareerStages.ThisName, this.dbUG2.GCareerStages.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.GCarUnlocks.ThisName, this.dbUG2.GCarUnlocks.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.GShowcases.ThisName, this.dbUG2.GShowcases.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.Materials.ThisName, this.dbUG2.Materials.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.PartPerformances.ThisName, this.dbUG2.PartPerformances.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.PartUnlockables.ThisName, this.dbUG2.PartUnlockables.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.PerfSliderTunings.ThisName, this.dbUG2.PerfSliderTunings.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.PresetRides.ThisName, this.dbUG2.PresetRides.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.SMSMessages.ThisName, this.dbUG2.SMSMessages.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.Sponsors.ThisName, this.dbUG2.Sponsors.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.SunInfos.ThisName, this.dbUG2.SunInfos.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.Tracks.ThisName, this.dbUG2.Tracks.GetAllNodes()));
 		}
 
 		private void BinaryDataViewColumnInit()
@@ -220,11 +233,11 @@ namespace Binary.Support
 
 		private void DataSet_OpenFile_Click(object sender, EventArgs e)
 		{
-			this.BrowseGameDirDialog.Description = "Select the NFS: Carbon directory that you want to work on.";
+			this.BrowseGameDirDialog.Description = "Select the NFS: Underground 2 directory that you want to work on.";
 
 			if (BrowseGameDirDialog.ShowDialog() == DialogResult.OK)
 			{
-				this.LoadDBCarbon(BrowseGameDirDialog.SelectedPath);
+				this.LoadDBUnderground2(BrowseGameDirDialog.SelectedPath, true);
 			}
 		}
 
@@ -233,7 +246,7 @@ namespace Binary.Support
 			BinaryDataView.Columns.Clear();
 
 			if (BinaryTree.SelectedNode == null || BinaryTree.SelectedNode.Parent == null) return;
-			var obj = dbC.GetPrimitive(Utils.Path.SplitPath(BinaryTree.SelectedNode.FullPath));
+			var obj = dbUG2.GetPrimitive(Utils.Path.SplitPath(BinaryTree.SelectedNode.FullPath));
 			if (obj == null) return;
 			var list = obj.GetAccessibles(GlobalLib.Database.Collection.eGetInfoType.PROPERTY_NAMES);
 
@@ -272,6 +285,11 @@ namespace Binary.Support
 					this.BinaryDataView.Rows.Add(row);
 				}
 			}
+		}
+
+		private void DataSet_ReloadFile_Click(object sender, EventArgs e)
+		{
+			this.LoadDBUnderground2(Process.GlobalDir, true);
 		}
 	}
 }

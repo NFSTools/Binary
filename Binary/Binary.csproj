@@ -56,54 +56,78 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Support\Carbon\Carbon.cs">
+    <Compile Include="Support\Carbon\Carbon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Support\Carbon\Carbon.Designer.cs">
+    <Compile Include="Support\Carbon\Carbon.Designer.cs">
       <DependentUpon>Carbon.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Support\MostWanted\MostWanted.cs">
+    <Compile Include="Support\MostWanted\MostWanted.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Support\MostWanted\MostWanted.Designer.cs">
+    <Compile Include="Support\MostWanted\MostWanted.Designer.cs">
       <DependentUpon>MostWanted.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Support\Underground2\Underground2.cs">
+    <Compile Include="Support\Underground2\Underground2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Support\Underground2\Underground2.Designer.cs">
+    <Compile Include="Support\Underground2\Underground2.Designer.cs">
       <DependentUpon>Underground2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Interact\Welcome.cs">
+    <Compile Include="Interact\Welcome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Interact\Welcome.Designer.cs">
+    <Compile Include="Interact\Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Main\Main.cs">
+    <Compile Include="Main\Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Main\Main.Designer.cs">
+    <Compile Include="Main\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Node\Collection.cs" />
     <Compile Include="Node\Mark.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\ColorPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\ColorPicker.Designer.cs">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Hasher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\Hasher.Designer.cs">
+      <DependentUpon>Hasher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Raider.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\Raider.Designer.cs">
+      <DependentUpon>Raider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\SwatchPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\SwatchPicker.Designer.cs">
+      <DependentUpon>SwatchPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Path.cs" />
-    <EmbeddedResource Include="Forms\Support\Carbon\Carbon.resx">
+    <EmbeddedResource Include="Support\Carbon\Carbon.resx">
       <DependentUpon>Carbon.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Support\MostWanted\MostWanted.resx">
+    <EmbeddedResource Include="Support\MostWanted\MostWanted.resx">
       <DependentUpon>MostWanted.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Support\Underground2\Underground2.resx">
+    <EmbeddedResource Include="Support\Underground2\Underground2.resx">
       <DependentUpon>Underground2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Interact\Welcome.resx">
+    <EmbeddedResource Include="Interact\Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Main\Main.resx">
+    <EmbeddedResource Include="Main\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -116,6 +140,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Tools\ColorPicker.resx">
+      <DependentUpon>ColorPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\Hasher.resx">
+      <DependentUpon>Hasher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\Raider.resx">
+      <DependentUpon>Raider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\SwatchPicker.resx">
+      <DependentUpon>SwatchPicker.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -131,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Endscript\" />
-    <Folder Include="Forms\Tools\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\binary.png" />
@@ -153,6 +188,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Readme1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\About1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -17,7 +17,6 @@ namespace Binary.Support
 {
 	public partial class MostWanted : Form
 	{
-		private bool forceload = false;
 		private GlobalLib.Database.MostWanted dbMW;
 
 		private void InstantiateControls()
@@ -41,10 +40,7 @@ namespace Binary.Support
 			InstantiateControls();
 			DataSet_MenuStrip.Renderer = new MyRenderer();
 			if (forceload)
-			{
-				this.forceload = forceload;
-				//this.DataSet_ReloadFile_Click(null, EventArgs.Empty);
-			}
+				this.LoadDBMostWanted(Process.GlobalDir, false);
 		}
 
 		private class MyRenderer : ToolStripProfessionalRenderer
@@ -147,7 +143,7 @@ namespace Binary.Support
 			this.DisableButtons();
 		}
 
-		private void LoadDBMostWanted(string foldername)
+		private void LoadDBMostWanted(string foldername, bool showerror)
 		{
 			var GlobalA = File.Exists(foldername + @"\Global\GlobalA.bun");
 			var GlobalB = File.Exists(foldername + @"\Global\GlobalB.lzc");
@@ -158,7 +154,8 @@ namespace Binary.Support
 			var Load = GlobalA && GlobalB && LangGen && LangLab && Stream && NFSC;
 			if (!Load)
 			{
-				MessageBox.Show("Folder is not game's directory." + Environment.NewLine + "Please select the correct folder.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				if (showerror)
+					MessageBox.Show("Folder is not game's directory." + Environment.NewLine + "Please select the correct folder.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 			Process.GlobalDir = foldername;
@@ -186,6 +183,8 @@ namespace Binary.Support
 
 		private void LoadBinaryTree()
 		{
+			this.BinaryTree.Nodes.Clear();
+			this.BinaryDataView.Columns.Clear();
 			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbMW.CarTypeInfos.ThisName, this.dbMW.CarTypeInfos.GetAllNodes()));
 			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbMW.Materials.ThisName, this.dbMW.Materials.GetAllNodes()));
 			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbMW.PresetRides.ThisName, this.dbMW.PresetRides.GetAllNodes()));
@@ -223,7 +222,7 @@ namespace Binary.Support
 
 			if (BrowseGameDirDialog.ShowDialog() == DialogResult.OK)
 			{
-				this.LoadDBMostWanted(BrowseGameDirDialog.SelectedPath);
+				this.LoadDBMostWanted(BrowseGameDirDialog.SelectedPath, true);
 			}
 		}
 
@@ -271,6 +270,11 @@ namespace Binary.Support
 					this.BinaryDataView.Rows.Add(row);
 				}
 			}
+		}
+
+		private void DataSet_ReloadFile_Click(object sender, EventArgs e)
+		{
+			this.LoadDBMostWanted(Process.GlobalDir, true);
 		}
 	}
 }

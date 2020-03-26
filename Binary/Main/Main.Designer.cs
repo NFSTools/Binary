@@ -443,6 +443,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Main";
 			this.Text = "Binary by MaxHwoy";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
 			this.Load += new System.EventHandler(this.Main_Load);
 			this.panel1.ResumeLayout(false);
 			this.PanelOther.ResumeLayout(false);

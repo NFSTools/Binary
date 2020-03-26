@@ -1,6 +1,6 @@
 ﻿namespace Binary.Support
 {
-	partial class Carbon
+	partial class MostWanted
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -34,7 +34,7 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Carbon));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MostWanted));
 			this.DataSet_MenuStrip = new System.Windows.Forms.MenuStrip();
 			this.mainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.DataSet_OpenFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -133,7 +133,7 @@
 			this.DataSet_OpenFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_OpenFile.Name = "DataSet_OpenFile";
 			this.DataSet_OpenFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.DataSet_OpenFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_OpenFile.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_OpenFile.Text = "Open";
 			this.DataSet_OpenFile.Click += new System.EventHandler(this.DataSet_OpenFile_Click);
 			// 
@@ -144,8 +144,9 @@
 			this.DataSet_ReloadFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ReloadFile.Name = "DataSet_ReloadFile";
 			this.DataSet_ReloadFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-			this.DataSet_ReloadFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_ReloadFile.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_ReloadFile.Text = "Reload";
+			this.DataSet_ReloadFile.Click += new System.EventHandler(this.DataSet_ReloadFile_Click);
 			// 
 			// DataSet_SaveFile
 			// 
@@ -154,7 +155,7 @@
 			this.DataSet_SaveFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_SaveFile.Name = "DataSet_SaveFile";
 			this.DataSet_SaveFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.DataSet_SaveFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_SaveFile.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_SaveFile.Text = "Save";
 			// 
 			// DataSet_ImportFile
@@ -170,7 +171,7 @@
 			this.DataSet_ImportFile.Enabled = false;
 			this.DataSet_ImportFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ImportFile.Name = "DataSet_ImportFile";
-			this.DataSet_ImportFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_ImportFile.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_ImportFile.Text = "Import";
 			// 
 			// EndscriptToolStripMenuItemI
@@ -229,7 +230,7 @@
 			this.DataSet_Exit.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_Exit.Name = "DataSet_Exit";
 			this.DataSet_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-			this.DataSet_Exit.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_Exit.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_Exit.Text = "Exit";
 			// 
 			// toolsToolStripMenuItem
@@ -639,7 +640,7 @@
 			// 
 			this.OpenEndscriptDialog.Filter = "Binary Endscript files|*.end";
 			// 
-			// Carbon
+			// MostWanted
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -650,7 +651,7 @@
 			this.Controls.Add(this.DataSet_MenuStrip);
 			this.ForeColor = System.Drawing.SystemColors.Info;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "Carbon";
+			this.Name = "MostWanted";
 			this.Text = "Binary by MaxHwoy";
 			this.DataSet_MenuStrip.ResumeLayout(false);
 			this.DataSet_MenuStrip.PerformLayout();

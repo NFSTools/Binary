@@ -129,5 +129,10 @@ namespace Binary.Main
             Properties.Settings.Default.DirectoryUG2 = GlobalLib.Core.Process.GlobalDir;
             this.Show();
         }
+
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
     }
 }
