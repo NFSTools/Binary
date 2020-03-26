@@ -1,6 +1,6 @@
-﻿namespace Binary.Forms.DataSet
+﻿namespace Binary.Support
 {
-	partial class DataSet
+	partial class Carbon
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,6 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Carbon));
 			this.DataSet_MenuStrip = new System.Windows.Forms.MenuStrip();
 			this.mainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.DataSet_OpenFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,10 +72,13 @@
 			this.DataSet_StatusStrip = new System.Windows.Forms.StatusStrip();
 			this.DataSet_Status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.DataSet_Split1 = new System.Windows.Forms.SplitContainer();
+			this.BinaryTree = new System.Windows.Forms.TreeView();
 			this.DataSet_Split2 = new System.Windows.Forms.SplitContainer();
-			this.treeView1 = new System.Windows.Forms.TreeView();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.BinaryDataView = new System.Windows.Forms.DataGridView();
+			this.EndscriptEditor = new System.Windows.Forms.TextBox();
+			this.BinaryTreeImageList = new System.Windows.Forms.ImageList(this.components);
+			this.BrowseGameDirDialog = new System.Windows.Forms.FolderBrowserDialog();
+			this.OpenEndscriptDialog = new System.Windows.Forms.OpenFileDialog();
 			this.DataSet_MenuStrip.SuspendLayout();
 			this.DataSet_StatusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split1)).BeginInit();
@@ -84,7 +89,7 @@
 			this.DataSet_Split2.Panel1.SuspendLayout();
 			this.DataSet_Split2.Panel2.SuspendLayout();
 			this.DataSet_Split2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.BinaryDataView)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// DataSet_MenuStrip
@@ -105,6 +110,7 @@
 			// 
 			// mainToolStripMenuItem
 			// 
+			this.mainToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.mainToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DataSet_OpenFile,
             this.DataSet_ReloadFile,
@@ -118,16 +124,17 @@
 			// 
 			// DataSet_OpenFile
 			// 
-			this.DataSet_OpenFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_OpenFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_OpenFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_OpenFile.Name = "DataSet_OpenFile";
 			this.DataSet_OpenFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
 			this.DataSet_OpenFile.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_OpenFile.Text = "Open";
+			this.DataSet_OpenFile.Click += new System.EventHandler(this.DataSet_OpenFile_Click);
 			// 
 			// DataSet_ReloadFile
 			// 
-			this.DataSet_ReloadFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_ReloadFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_ReloadFile.Enabled = false;
 			this.DataSet_ReloadFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ReloadFile.Name = "DataSet_ReloadFile";
@@ -137,7 +144,7 @@
 			// 
 			// DataSet_SaveFile
 			// 
-			this.DataSet_SaveFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_SaveFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_SaveFile.Enabled = false;
 			this.DataSet_SaveFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_SaveFile.Name = "DataSet_SaveFile";
@@ -147,7 +154,7 @@
 			// 
 			// DataSet_ImportFile
 			// 
-			this.DataSet_ImportFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_ImportFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_ImportFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.EndscriptToolStripMenuItemI,
             this.MaterialToolStripMenuItemI,
@@ -163,7 +170,7 @@
 			// 
 			// EndscriptToolStripMenuItemI
 			// 
-			this.EndscriptToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.EndscriptToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.EndscriptToolStripMenuItemI.Enabled = false;
 			this.EndscriptToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.EndscriptToolStripMenuItemI.Name = "EndscriptToolStripMenuItemI";
@@ -173,7 +180,7 @@
 			// 
 			// MaterialToolStripMenuItemI
 			// 
-			this.MaterialToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.MaterialToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.MaterialToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.MaterialToolStripMenuItemI.Name = "MaterialToolStripMenuItemI";
 			this.MaterialToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
@@ -181,7 +188,7 @@
 			// 
 			// CarTypeInfoToolStripMenuItemI
 			// 
-			this.CarTypeInfoToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.CarTypeInfoToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.CarTypeInfoToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.CarTypeInfoToolStripMenuItemI.Name = "CarTypeInfoToolStripMenuItemI";
 			this.CarTypeInfoToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
@@ -189,7 +196,7 @@
 			// 
 			// PresetRideToolStripMenuItemI
 			// 
-			this.PresetRideToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.PresetRideToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.PresetRideToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.PresetRideToolStripMenuItemI.Name = "PresetRideToolStripMenuItemI";
 			this.PresetRideToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
@@ -197,7 +204,7 @@
 			// 
 			// PresetSkinToolStripMenuItemI
 			// 
-			this.PresetSkinToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.PresetSkinToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.PresetSkinToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.PresetSkinToolStripMenuItemI.Name = "PresetSkinToolStripMenuItemI";
 			this.PresetSkinToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
@@ -205,7 +212,7 @@
 			// 
 			// CollisionToolStripMenuItemI
 			// 
-			this.CollisionToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.CollisionToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.CollisionToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.CollisionToolStripMenuItemI.Name = "CollisionToolStripMenuItemI";
 			this.CollisionToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
@@ -213,7 +220,7 @@
 			// 
 			// DataSet_Exit
 			// 
-			this.DataSet_Exit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_Exit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_Exit.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_Exit.Name = "DataSet_Exit";
 			this.DataSet_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
@@ -222,6 +229,7 @@
 			// 
 			// toolsToolStripMenuItem
 			// 
+			this.toolsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DataSet_Hasher,
             this.DataSet_Raider,
@@ -234,7 +242,7 @@
 			// 
 			// DataSet_Hasher
 			// 
-			this.DataSet_Hasher.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_Hasher.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_Hasher.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_Hasher.Name = "DataSet_Hasher";
 			this.DataSet_Hasher.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
@@ -243,7 +251,7 @@
 			// 
 			// DataSet_Raider
 			// 
-			this.DataSet_Raider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_Raider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_Raider.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_Raider.Name = "DataSet_Raider";
 			this.DataSet_Raider.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
@@ -252,7 +260,7 @@
 			// 
 			// DataSet_Color
 			// 
-			this.DataSet_Color.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_Color.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_Color.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_Color.Name = "DataSet_Color";
 			this.DataSet_Color.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
@@ -261,7 +269,7 @@
 			// 
 			// DataSet_Swatch
 			// 
-			this.DataSet_Swatch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_Swatch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_Swatch.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_Swatch.Name = "DataSet_Swatch";
 			this.DataSet_Swatch.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
@@ -270,6 +278,7 @@
 			// 
 			// optionsToolStripMenuItem
 			// 
+			this.optionsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DataSet_CreateBackups,
             this.DataSet_RestoreBackups,
@@ -282,7 +291,7 @@
 			// 
 			// DataSet_CreateBackups
 			// 
-			this.DataSet_CreateBackups.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_CreateBackups.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_CreateBackups.Enabled = false;
 			this.DataSet_CreateBackups.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_CreateBackups.Name = "DataSet_CreateBackups";
@@ -291,7 +300,7 @@
 			// 
 			// DataSet_RestoreBackups
 			// 
-			this.DataSet_RestoreBackups.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_RestoreBackups.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_RestoreBackups.Enabled = false;
 			this.DataSet_RestoreBackups.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_RestoreBackups.Name = "DataSet_RestoreBackups";
@@ -300,7 +309,7 @@
 			// 
 			// DataSet_UnlockFiles
 			// 
-			this.DataSet_UnlockFiles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_UnlockFiles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_UnlockFiles.Enabled = false;
 			this.DataSet_UnlockFiles.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_UnlockFiles.Name = "DataSet_UnlockFiles";
@@ -309,7 +318,7 @@
 			// 
 			// DataSet_ExportAllTextures
 			// 
-			this.DataSet_ExportAllTextures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_ExportAllTextures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_ExportAllTextures.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ExportAsddsToolStripMenuItem,
             this.ExportAspngToolStripMenuItem,
@@ -324,7 +333,7 @@
 			// 
 			// ExportAsddsToolStripMenuItem
 			// 
-			this.ExportAsddsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.ExportAsddsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ExportAsddsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportAsddsToolStripMenuItem.Name = "ExportAsddsToolStripMenuItem";
 			this.ExportAsddsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
@@ -332,7 +341,7 @@
 			// 
 			// ExportAspngToolStripMenuItem
 			// 
-			this.ExportAspngToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.ExportAspngToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ExportAspngToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportAspngToolStripMenuItem.Name = "ExportAspngToolStripMenuItem";
 			this.ExportAspngToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
@@ -340,7 +349,7 @@
 			// 
 			// ExportAsjpgToolStripMenuItem
 			// 
-			this.ExportAsjpgToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.ExportAsjpgToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ExportAsjpgToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportAsjpgToolStripMenuItem.Name = "ExportAsjpgToolStripMenuItem";
 			this.ExportAsjpgToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
@@ -348,7 +357,7 @@
 			// 
 			// ExportAstiffToolStripMenuItem
 			// 
-			this.ExportAstiffToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.ExportAstiffToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ExportAstiffToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportAstiffToolStripMenuItem.Name = "ExportAstiffToolStripMenuItem";
 			this.ExportAstiffToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
@@ -356,7 +365,7 @@
 			// 
 			// ExportAsbmpToolStripMenuItem
 			// 
-			this.ExportAsbmpToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.ExportAsbmpToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ExportAsbmpToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportAsbmpToolStripMenuItem.Name = "ExportAsbmpToolStripMenuItem";
 			this.ExportAsbmpToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
@@ -364,6 +373,7 @@
 			// 
 			// scriptingToolStripMenuItem
 			// 
+			this.scriptingToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.scriptingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DataSet_ProcessCommand,
             this.DataSet_GenerateCommand,
@@ -375,7 +385,7 @@
 			// 
 			// DataSet_ProcessCommand
 			// 
-			this.DataSet_ProcessCommand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_ProcessCommand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_ProcessCommand.Enabled = false;
 			this.DataSet_ProcessCommand.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ProcessCommand.Name = "DataSet_ProcessCommand";
@@ -385,7 +395,7 @@
 			// 
 			// DataSet_GenerateCommand
 			// 
-			this.DataSet_GenerateCommand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_GenerateCommand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_GenerateCommand.Enabled = false;
 			this.DataSet_GenerateCommand.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_GenerateCommand.Name = "DataSet_GenerateCommand";
@@ -395,7 +405,7 @@
 			// 
 			// DataSet_ClearEditor
 			// 
-			this.DataSet_ClearEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_ClearEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_ClearEditor.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ClearEditor.Name = "DataSet_ClearEditor";
 			this.DataSet_ClearEditor.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
@@ -404,6 +414,7 @@
 			// 
 			// windowsToolStripMenuItem
 			// 
+			this.windowsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.windowsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DataSet_RunGame,
             this.DataSet_DBInfo,
@@ -415,7 +426,7 @@
 			// 
 			// DataSet_RunGame
 			// 
-			this.DataSet_RunGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_RunGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_RunGame.Enabled = false;
 			this.DataSet_RunGame.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_RunGame.Name = "DataSet_RunGame";
@@ -426,7 +437,7 @@
 			// 
 			// DataSet_DBInfo
 			// 
-			this.DataSet_DBInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_DBInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_DBInfo.Enabled = false;
 			this.DataSet_DBInfo.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_DBInfo.Name = "DataSet_DBInfo";
@@ -435,7 +446,7 @@
 			// 
 			// DataSet_BoundsList
 			// 
-			this.DataSet_BoundsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_BoundsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_BoundsList.Enabled = false;
 			this.DataSet_BoundsList.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_BoundsList.Name = "DataSet_BoundsList";
@@ -454,7 +465,7 @@
 			// 
 			// DataSet_AboutBox
 			// 
-			this.DataSet_AboutBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.DataSet_AboutBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.DataSet_AboutBox.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_AboutBox.Name = "DataSet_AboutBox";
 			this.DataSet_AboutBox.ShortcutKeys = System.Windows.Forms.Keys.F1;
@@ -463,7 +474,7 @@
 			// 
 			// OpenReadmeToolStripMenuItem
 			// 
-			this.OpenReadmeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.OpenReadmeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.OpenReadmeToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.OpenReadmeToolStripMenuItem.Name = "OpenReadmeToolStripMenuItem";
 			this.OpenReadmeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
@@ -500,7 +511,7 @@
 			// 
 			// DataSet_Split1.Panel1
 			// 
-			this.DataSet_Split1.Panel1.Controls.Add(this.treeView1);
+			this.DataSet_Split1.Panel1.Controls.Add(this.BinaryTree);
 			// 
 			// DataSet_Split1.Panel2
 			// 
@@ -508,6 +519,19 @@
 			this.DataSet_Split1.Size = new System.Drawing.Size(800, 404);
 			this.DataSet_Split1.SplitterDistance = 266;
 			this.DataSet_Split1.TabIndex = 6;
+			// 
+			// BinaryTree
+			// 
+			this.BinaryTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.BinaryTree.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+			this.BinaryTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.BinaryTree.ForeColor = System.Drawing.SystemColors.Info;
+			this.BinaryTree.Location = new System.Drawing.Point(3, 3);
+			this.BinaryTree.Name = "BinaryTree";
+			this.BinaryTree.Size = new System.Drawing.Size(261, 398);
+			this.BinaryTree.TabIndex = 0;
 			// 
 			// DataSet_Split2
 			// 
@@ -518,53 +542,56 @@
 			// 
 			// DataSet_Split2.Panel1
 			// 
-			this.DataSet_Split2.Panel1.Controls.Add(this.dataGridView1);
+			this.DataSet_Split2.Panel1.Controls.Add(this.BinaryDataView);
 			// 
 			// DataSet_Split2.Panel2
 			// 
-			this.DataSet_Split2.Panel2.Controls.Add(this.textBox1);
+			this.DataSet_Split2.Panel2.Controls.Add(this.EndscriptEditor);
 			this.DataSet_Split2.Size = new System.Drawing.Size(530, 404);
 			this.DataSet_Split2.SplitterDistance = 285;
 			this.DataSet_Split2.TabIndex = 0;
 			// 
-			// treeView1
+			// BinaryDataView
 			// 
-			this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.BinaryDataView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.treeView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-			this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.treeView1.Location = new System.Drawing.Point(3, 3);
-			this.treeView1.Name = "treeView1";
-			this.treeView1.Size = new System.Drawing.Size(261, 398);
-			this.treeView1.TabIndex = 0;
+			this.BinaryDataView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+			this.BinaryDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.BinaryDataView.Location = new System.Drawing.Point(0, 3);
+			this.BinaryDataView.Name = "BinaryDataView";
+			this.BinaryDataView.Size = new System.Drawing.Size(527, 279);
+			this.BinaryDataView.TabIndex = 0;
 			// 
-			// dataGridView1
+			// EndscriptEditor
 			// 
-			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.EndscriptEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(0, 3);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.Size = new System.Drawing.Size(527, 279);
-			this.dataGridView1.TabIndex = 0;
+			this.EndscriptEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+			this.EndscriptEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.EndscriptEditor.Location = new System.Drawing.Point(29, 3);
+			this.EndscriptEditor.Multiline = true;
+			this.EndscriptEditor.Name = "EndscriptEditor";
+			this.EndscriptEditor.Size = new System.Drawing.Size(498, 108);
+			this.EndscriptEditor.TabIndex = 0;
 			// 
-			// textBox1
+			// BinaryTreeImageList
 			// 
-			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-			this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.textBox1.Location = new System.Drawing.Point(29, 3);
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(498, 108);
-			this.textBox1.TabIndex = 0;
+			this.BinaryTreeImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.BinaryTreeImageList.ImageSize = new System.Drawing.Size(16, 16);
+			this.BinaryTreeImageList.TransparentColor = System.Drawing.Color.Transparent;
 			// 
-			// DataSet
+			// BrowseGameDirDialog
+			// 
+			this.BrowseGameDirDialog.Description = "Select the main directory of the game you want to work on.";
+			this.BrowseGameDirDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
+			// 
+			// OpenEndscriptDialog
+			// 
+			this.OpenEndscriptDialog.Filter = "Binary Endscript files|*.end";
+			// 
+			// Carbon
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -574,8 +601,9 @@
 			this.Controls.Add(this.DataSet_StatusStrip);
 			this.Controls.Add(this.DataSet_MenuStrip);
 			this.ForeColor = System.Drawing.SystemColors.Info;
-			this.Name = "DataSet";
-			this.Text = "DataSet";
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.Name = "Carbon";
+			this.Text = "Binary by MaxHwoy";
 			this.DataSet_MenuStrip.ResumeLayout(false);
 			this.DataSet_MenuStrip.PerformLayout();
 			this.DataSet_StatusStrip.ResumeLayout(false);
@@ -589,7 +617,7 @@
 			this.DataSet_Split2.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split2)).EndInit();
 			this.DataSet_Split2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.BinaryDataView)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -639,9 +667,12 @@
 		private System.Windows.Forms.StatusStrip DataSet_StatusStrip;
 		private System.Windows.Forms.ToolStripStatusLabel DataSet_Status;
 		private System.Windows.Forms.SplitContainer DataSet_Split1;
-		private System.Windows.Forms.TreeView treeView1;
+		private System.Windows.Forms.TreeView BinaryTree;
 		private System.Windows.Forms.SplitContainer DataSet_Split2;
-		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.DataGridView BinaryDataView;
+		private System.Windows.Forms.TextBox EndscriptEditor;
+		private System.Windows.Forms.ImageList BinaryTreeImageList;
+		private System.Windows.Forms.FolderBrowserDialog BrowseGameDirDialog;
+		private System.Windows.Forms.OpenFileDialog OpenEndscriptDialog;
 	}
 }

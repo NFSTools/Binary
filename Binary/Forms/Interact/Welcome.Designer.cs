@@ -1,4 +1,4 @@
-﻿namespace Binary.Forms.Interact
+﻿namespace Binary.Support.Interact
 {
 	partial class Welcome
 	{

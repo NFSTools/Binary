@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 
 
-namespace Binary.Forms.Interact
+namespace Binary.Support.Interact
 {
 	public partial class Welcome : Form
 	{

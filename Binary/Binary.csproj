@@ -55,11 +55,23 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DataSet\DataSet.cs">
+    <Compile Include="Forms\Support\Carbon\Carbon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DataSet\DataSet.Designer.cs">
-      <DependentUpon>DataSet.cs</DependentUpon>
+    <Compile Include="Forms\Support\Carbon\Carbon.Designer.cs">
+      <DependentUpon>Carbon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Support\MostWanted\MostWanted.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Support\MostWanted\MostWanted.Designer.cs">
+      <DependentUpon>MostWanted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Support\Underground2\Underground2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Support\Underground2\Underground2.Designer.cs">
+      <DependentUpon>Underground2.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Interact\Welcome.cs">
       <SubType>Form</SubType>
@@ -73,10 +85,18 @@
     <Compile Include="Forms\Main\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Node\Collection.cs" />
+    <Compile Include="Node\Mark.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\DataSet\DataSet.resx">
-      <DependentUpon>DataSet.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Support\Carbon\Carbon.resx">
+      <DependentUpon>Carbon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Support\MostWanted\MostWanted.resx">
+      <DependentUpon>MostWanted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Support\Underground2\Underground2.resx">
+      <DependentUpon>Underground2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Interact\Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>

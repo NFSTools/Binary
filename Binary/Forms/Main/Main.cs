@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Binary.Forms.Main
+namespace Binary.Main
 {
 	public partial class Main : Form
 	{
@@ -51,9 +51,9 @@ namespace Binary.Forms.Main
             WindowToolTip.InitialDelay = 1000;
             WindowToolTip.ReshowDelay = 500;
 
-            NFSCToolTip.SetToolTip(this.ChooseNFSC, "Launch NFS-Binary for Need for Speed: Carbon");
-            NFSMWToolTip.SetToolTip(this.ChooseNFSMW, "Launch NFS-Binary for Need for Speed: Most Wanted");
-            NFSUG2ToolTip.SetToolTip(this.ChooseNFSUG2, "Launch NFS-Binary for Need for Speed: Underground 2");
+            NFSCToolTip.SetToolTip(this.ChooseNFSC, "Launch Binary for Need for Speed: Carbon");
+            NFSMWToolTip.SetToolTip(this.ChooseNFSMW, "Launch Binary for Need for Speed: Most Wanted");
+            NFSUG2ToolTip.SetToolTip(this.ChooseNFSUG2, "Launch Binary for Need for Speed: Underground 2");
             SoonToolTip.SetToolTip(this.ChooseSoon, "Coming Soon?!");
 
             WindowToolTip.SetToolTip(this.LaunchHasher, "Launch NFS-Hasher");
@@ -79,10 +79,54 @@ namespace Binary.Forms.Main
                 ForceLoad = true;
                 GlobalLib.Core.Process.GlobalDir = Properties.Settings.Default.DirectoryC;
             }
-            var CarbonForm = new DataSet.DataSet(ForceLoad);
+            var CarbonForm = new Support.Carbon(ForceLoad);
             CarbonForm.ShowDialog();
             CarbonForm = null;
             Properties.Settings.Default.DirectoryC = GlobalLib.Core.Process.GlobalDir;
+            this.Show();
+        }
+
+        private void ChooseNFSMW_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.MostWanted;
+            Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
+            Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
+            Properties.Settings.Default.EnableModscriptLog = ConfigCommand.Checked;
+            Properties.Settings.Default.EnableNewModscripts = ConfigEndscript.Checked;
+
+            bool ForceLoad = false;
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryMW))
+            {
+                ForceLoad = true;
+                GlobalLib.Core.Process.GlobalDir = Properties.Settings.Default.DirectoryMW;
+            }
+            var MostWantedForm = new Support.MostWanted(ForceLoad);
+            MostWantedForm.ShowDialog();
+            MostWantedForm = null;
+            Properties.Settings.Default.DirectoryMW = GlobalLib.Core.Process.GlobalDir;
+            this.Show();
+        }
+
+        private void ChooseNFSUG2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.Underground2;
+            Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
+            Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
+            Properties.Settings.Default.EnableModscriptLog = ConfigCommand.Checked;
+            Properties.Settings.Default.EnableNewModscripts = ConfigEndscript.Checked;
+
+            bool ForceLoad = false;
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryUG2))
+            {
+                ForceLoad = true;
+                GlobalLib.Core.Process.GlobalDir = Properties.Settings.Default.DirectoryUG2;
+            }
+            var Underground2Form = new Support.Underground2(ForceLoad);
+            Underground2Form.ShowDialog();
+            Underground2Form = null;
+            Properties.Settings.Default.DirectoryUG2 = GlobalLib.Core.Process.GlobalDir;
             this.Show();
         }
     }

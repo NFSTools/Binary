@@ -1,4 +1,4 @@
-﻿namespace Binary.Forms.Main
+﻿namespace Binary.Main
 {
 	partial class Main
 	{
@@ -265,6 +265,7 @@
 			this.ChooseNFSUG2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.ChooseNFSUG2.TabIndex = 2;
 			this.ChooseNFSUG2.TabStop = false;
+			this.ChooseNFSUG2.Click += new System.EventHandler(this.ChooseNFSUG2_Click);
 			// 
 			// ChooseNFSMW
 			// 
@@ -277,6 +278,7 @@
 			this.ChooseNFSMW.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.ChooseNFSMW.TabIndex = 1;
 			this.ChooseNFSMW.TabStop = false;
+			this.ChooseNFSMW.Click += new System.EventHandler(this.ChooseNFSMW_Click);
 			// 
 			// ChooseNFSC
 			// 
@@ -438,8 +440,9 @@
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.PanelDescription);
 			this.Controls.Add(this.PanelConfiguration);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Main";
-			this.Text = "Main";
+			this.Text = "Binary by MaxHwoy";
 			this.Load += new System.EventHandler(this.Main_Load);
 			this.panel1.ResumeLayout(false);
 			this.PanelOther.ResumeLayout(false);

@@ -1,0 +1,678 @@
+﻿namespace Binary.Support
+{
+	partial class Underground2
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
+
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
+
+		#region Windows Form Designer generated code
+
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Underground2));
+			this.DataSet_MenuStrip = new System.Windows.Forms.MenuStrip();
+			this.mainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_OpenFile = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_ReloadFile = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_SaveFile = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_ImportFile = new System.Windows.Forms.ToolStripMenuItem();
+			this.EndscriptToolStripMenuItemI = new System.Windows.Forms.ToolStripMenuItem();
+			this.MaterialToolStripMenuItemI = new System.Windows.Forms.ToolStripMenuItem();
+			this.CarTypeInfoToolStripMenuItemI = new System.Windows.Forms.ToolStripMenuItem();
+			this.PresetRideToolStripMenuItemI = new System.Windows.Forms.ToolStripMenuItem();
+			this.PresetSkinToolStripMenuItemI = new System.Windows.Forms.ToolStripMenuItem();
+			this.CollisionToolStripMenuItemI = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_Exit = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_Hasher = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_Raider = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_Color = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_Swatch = new System.Windows.Forms.ToolStripMenuItem();
+			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_CreateBackups = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_RestoreBackups = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_UnlockFiles = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_ExportAllTextures = new System.Windows.Forms.ToolStripMenuItem();
+			this.ExportAsddsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ExportAspngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ExportAsjpgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ExportAstiffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ExportAsbmpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.scriptingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_ProcessCommand = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_GenerateCommand = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_ClearEditor = new System.Windows.Forms.ToolStripMenuItem();
+			this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_RunGame = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_DBInfo = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_BoundsList = new System.Windows.Forms.ToolStripMenuItem();
+			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_AboutBox = new System.Windows.Forms.ToolStripMenuItem();
+			this.OpenReadmeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_StatusStrip = new System.Windows.Forms.StatusStrip();
+			this.DataSet_Status = new System.Windows.Forms.ToolStripStatusLabel();
+			this.DataSet_Split1 = new System.Windows.Forms.SplitContainer();
+			this.BinaryTree = new System.Windows.Forms.TreeView();
+			this.DataSet_Split2 = new System.Windows.Forms.SplitContainer();
+			this.BinaryDataView = new System.Windows.Forms.DataGridView();
+			this.EndscriptEditor = new System.Windows.Forms.TextBox();
+			this.BinaryTreeImageList = new System.Windows.Forms.ImageList(this.components);
+			this.BrowseGameDirDialog = new System.Windows.Forms.FolderBrowserDialog();
+			this.OpenEndscriptDialog = new System.Windows.Forms.OpenFileDialog();
+			this.DataSet_MenuStrip.SuspendLayout();
+			this.DataSet_StatusStrip.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split1)).BeginInit();
+			this.DataSet_Split1.Panel1.SuspendLayout();
+			this.DataSet_Split1.Panel2.SuspendLayout();
+			this.DataSet_Split1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split2)).BeginInit();
+			this.DataSet_Split2.Panel1.SuspendLayout();
+			this.DataSet_Split2.Panel2.SuspendLayout();
+			this.DataSet_Split2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.BinaryDataView)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// DataSet_MenuStrip
+			// 
+			this.DataSet_MenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainToolStripMenuItem,
+            this.toolsToolStripMenuItem,
+            this.optionsToolStripMenuItem,
+            this.scriptingToolStripMenuItem,
+            this.windowsToolStripMenuItem,
+            this.helpToolStripMenuItem});
+			this.DataSet_MenuStrip.Location = new System.Drawing.Point(0, 0);
+			this.DataSet_MenuStrip.Name = "DataSet_MenuStrip";
+			this.DataSet_MenuStrip.Size = new System.Drawing.Size(800, 24);
+			this.DataSet_MenuStrip.TabIndex = 1;
+			this.DataSet_MenuStrip.Text = "menuStrip1";
+			// 
+			// mainToolStripMenuItem
+			// 
+			this.mainToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.mainToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DataSet_OpenFile,
+            this.DataSet_ReloadFile,
+            this.DataSet_SaveFile,
+            this.DataSet_ImportFile,
+            this.DataSet_Exit});
+			this.mainToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.mainToolStripMenuItem.Name = "mainToolStripMenuItem";
+			this.mainToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+			this.mainToolStripMenuItem.Text = "Main";
+			// 
+			// DataSet_OpenFile
+			// 
+			this.DataSet_OpenFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_OpenFile.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_OpenFile.Name = "DataSet_OpenFile";
+			this.DataSet_OpenFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+			this.DataSet_OpenFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_OpenFile.Text = "Open";
+			this.DataSet_OpenFile.Click += new System.EventHandler(this.DataSet_OpenFile_Click);
+			// 
+			// DataSet_ReloadFile
+			// 
+			this.DataSet_ReloadFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_ReloadFile.Enabled = false;
+			this.DataSet_ReloadFile.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_ReloadFile.Name = "DataSet_ReloadFile";
+			this.DataSet_ReloadFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+			this.DataSet_ReloadFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_ReloadFile.Text = "Reload";
+			// 
+			// DataSet_SaveFile
+			// 
+			this.DataSet_SaveFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_SaveFile.Enabled = false;
+			this.DataSet_SaveFile.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_SaveFile.Name = "DataSet_SaveFile";
+			this.DataSet_SaveFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+			this.DataSet_SaveFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_SaveFile.Text = "Save";
+			// 
+			// DataSet_ImportFile
+			// 
+			this.DataSet_ImportFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_ImportFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.EndscriptToolStripMenuItemI,
+            this.MaterialToolStripMenuItemI,
+            this.CarTypeInfoToolStripMenuItemI,
+            this.PresetRideToolStripMenuItemI,
+            this.PresetSkinToolStripMenuItemI,
+            this.CollisionToolStripMenuItemI});
+			this.DataSet_ImportFile.Enabled = false;
+			this.DataSet_ImportFile.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_ImportFile.Name = "DataSet_ImportFile";
+			this.DataSet_ImportFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_ImportFile.Text = "Import";
+			// 
+			// EndscriptToolStripMenuItemI
+			// 
+			this.EndscriptToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.EndscriptToolStripMenuItemI.Enabled = false;
+			this.EndscriptToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
+			this.EndscriptToolStripMenuItemI.Name = "EndscriptToolStripMenuItemI";
+			this.EndscriptToolStripMenuItemI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+			this.EndscriptToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.EndscriptToolStripMenuItemI.Text = "Endscript";
+			// 
+			// MaterialToolStripMenuItemI
+			// 
+			this.MaterialToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.MaterialToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
+			this.MaterialToolStripMenuItemI.Name = "MaterialToolStripMenuItemI";
+			this.MaterialToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.MaterialToolStripMenuItemI.Text = "Material";
+			// 
+			// CarTypeInfoToolStripMenuItemI
+			// 
+			this.CarTypeInfoToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.CarTypeInfoToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
+			this.CarTypeInfoToolStripMenuItemI.Name = "CarTypeInfoToolStripMenuItemI";
+			this.CarTypeInfoToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.CarTypeInfoToolStripMenuItemI.Text = "CarTypeInfo";
+			// 
+			// PresetRideToolStripMenuItemI
+			// 
+			this.PresetRideToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.PresetRideToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
+			this.PresetRideToolStripMenuItemI.Name = "PresetRideToolStripMenuItemI";
+			this.PresetRideToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.PresetRideToolStripMenuItemI.Text = "Preset Ride";
+			// 
+			// PresetSkinToolStripMenuItemI
+			// 
+			this.PresetSkinToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.PresetSkinToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
+			this.PresetSkinToolStripMenuItemI.Name = "PresetSkinToolStripMenuItemI";
+			this.PresetSkinToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.PresetSkinToolStripMenuItemI.Text = "Preset Skin";
+			// 
+			// CollisionToolStripMenuItemI
+			// 
+			this.CollisionToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.CollisionToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
+			this.CollisionToolStripMenuItemI.Name = "CollisionToolStripMenuItemI";
+			this.CollisionToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.CollisionToolStripMenuItemI.Text = "Collision";
+			// 
+			// DataSet_Exit
+			// 
+			this.DataSet_Exit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_Exit.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_Exit.Name = "DataSet_Exit";
+			this.DataSet_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+			this.DataSet_Exit.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_Exit.Text = "Exit";
+			// 
+			// toolsToolStripMenuItem
+			// 
+			this.toolsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DataSet_Hasher,
+            this.DataSet_Raider,
+            this.DataSet_Color,
+            this.DataSet_Swatch});
+			this.toolsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+			this.toolsToolStripMenuItem.Text = "Tools";
+			// 
+			// DataSet_Hasher
+			// 
+			this.DataSet_Hasher.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_Hasher.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_Hasher.Name = "DataSet_Hasher";
+			this.DataSet_Hasher.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
+			this.DataSet_Hasher.Size = new System.Drawing.Size(183, 22);
+			this.DataSet_Hasher.Text = "NFS-Hasher";
+			// 
+			// DataSet_Raider
+			// 
+			this.DataSet_Raider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_Raider.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_Raider.Name = "DataSet_Raider";
+			this.DataSet_Raider.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
+			this.DataSet_Raider.Size = new System.Drawing.Size(183, 22);
+			this.DataSet_Raider.Text = "NFS-Raider";
+			// 
+			// DataSet_Color
+			// 
+			this.DataSet_Color.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_Color.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_Color.Name = "DataSet_Color";
+			this.DataSet_Color.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
+			this.DataSet_Color.Size = new System.Drawing.Size(183, 22);
+			this.DataSet_Color.Text = "Color Picker";
+			// 
+			// DataSet_Swatch
+			// 
+			this.DataSet_Swatch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_Swatch.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_Swatch.Name = "DataSet_Swatch";
+			this.DataSet_Swatch.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
+			this.DataSet_Swatch.Size = new System.Drawing.Size(183, 22);
+			this.DataSet_Swatch.Text = "Swatch Picker";
+			// 
+			// optionsToolStripMenuItem
+			// 
+			this.optionsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DataSet_CreateBackups,
+            this.DataSet_RestoreBackups,
+            this.DataSet_UnlockFiles,
+            this.DataSet_ExportAllTextures});
+			this.optionsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+			this.optionsToolStripMenuItem.Text = "Options";
+			// 
+			// DataSet_CreateBackups
+			// 
+			this.DataSet_CreateBackups.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_CreateBackups.Enabled = false;
+			this.DataSet_CreateBackups.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_CreateBackups.Name = "DataSet_CreateBackups";
+			this.DataSet_CreateBackups.Size = new System.Drawing.Size(207, 22);
+			this.DataSet_CreateBackups.Text = "Create Backups";
+			// 
+			// DataSet_RestoreBackups
+			// 
+			this.DataSet_RestoreBackups.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_RestoreBackups.Enabled = false;
+			this.DataSet_RestoreBackups.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_RestoreBackups.Name = "DataSet_RestoreBackups";
+			this.DataSet_RestoreBackups.Size = new System.Drawing.Size(207, 22);
+			this.DataSet_RestoreBackups.Text = "Restore Backups";
+			// 
+			// DataSet_UnlockFiles
+			// 
+			this.DataSet_UnlockFiles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_UnlockFiles.Enabled = false;
+			this.DataSet_UnlockFiles.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_UnlockFiles.Name = "DataSet_UnlockFiles";
+			this.DataSet_UnlockFiles.Size = new System.Drawing.Size(207, 22);
+			this.DataSet_UnlockFiles.Text = "Unlock Files for Modding";
+			// 
+			// DataSet_ExportAllTextures
+			// 
+			this.DataSet_ExportAllTextures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_ExportAllTextures.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ExportAsddsToolStripMenuItem,
+            this.ExportAspngToolStripMenuItem,
+            this.ExportAsjpgToolStripMenuItem,
+            this.ExportAstiffToolStripMenuItem,
+            this.ExportAsbmpToolStripMenuItem});
+			this.DataSet_ExportAllTextures.Enabled = false;
+			this.DataSet_ExportAllTextures.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_ExportAllTextures.Name = "DataSet_ExportAllTextures";
+			this.DataSet_ExportAllTextures.Size = new System.Drawing.Size(207, 22);
+			this.DataSet_ExportAllTextures.Text = "Export All Textures";
+			// 
+			// ExportAsddsToolStripMenuItem
+			// 
+			this.ExportAsddsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.ExportAsddsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.ExportAsddsToolStripMenuItem.Name = "ExportAsddsToolStripMenuItem";
+			this.ExportAsddsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.ExportAsddsToolStripMenuItem.Text = "Export as .dds";
+			// 
+			// ExportAspngToolStripMenuItem
+			// 
+			this.ExportAspngToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.ExportAspngToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.ExportAspngToolStripMenuItem.Name = "ExportAspngToolStripMenuItem";
+			this.ExportAspngToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.ExportAspngToolStripMenuItem.Text = "Export as .png";
+			// 
+			// ExportAsjpgToolStripMenuItem
+			// 
+			this.ExportAsjpgToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.ExportAsjpgToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.ExportAsjpgToolStripMenuItem.Name = "ExportAsjpgToolStripMenuItem";
+			this.ExportAsjpgToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.ExportAsjpgToolStripMenuItem.Text = "Export as .jpg";
+			// 
+			// ExportAstiffToolStripMenuItem
+			// 
+			this.ExportAstiffToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.ExportAstiffToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.ExportAstiffToolStripMenuItem.Name = "ExportAstiffToolStripMenuItem";
+			this.ExportAstiffToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.ExportAstiffToolStripMenuItem.Text = "Export as .tiff";
+			// 
+			// ExportAsbmpToolStripMenuItem
+			// 
+			this.ExportAsbmpToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.ExportAsbmpToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.ExportAsbmpToolStripMenuItem.Name = "ExportAsbmpToolStripMenuItem";
+			this.ExportAsbmpToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.ExportAsbmpToolStripMenuItem.Text = "Export as .bmp";
+			// 
+			// scriptingToolStripMenuItem
+			// 
+			this.scriptingToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.scriptingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DataSet_ProcessCommand,
+            this.DataSet_GenerateCommand,
+            this.DataSet_ClearEditor});
+			this.scriptingToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.scriptingToolStripMenuItem.Name = "scriptingToolStripMenuItem";
+			this.scriptingToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+			this.scriptingToolStripMenuItem.Text = "Scripting";
+			// 
+			// DataSet_ProcessCommand
+			// 
+			this.DataSet_ProcessCommand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_ProcessCommand.Enabled = false;
+			this.DataSet_ProcessCommand.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_ProcessCommand.Name = "DataSet_ProcessCommand";
+			this.DataSet_ProcessCommand.ShortcutKeys = System.Windows.Forms.Keys.F5;
+			this.DataSet_ProcessCommand.Size = new System.Drawing.Size(200, 22);
+			this.DataSet_ProcessCommand.Text = "Process Command";
+			// 
+			// DataSet_GenerateCommand
+			// 
+			this.DataSet_GenerateCommand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_GenerateCommand.Enabled = false;
+			this.DataSet_GenerateCommand.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_GenerateCommand.Name = "DataSet_GenerateCommand";
+			this.DataSet_GenerateCommand.ShortcutKeys = System.Windows.Forms.Keys.F6;
+			this.DataSet_GenerateCommand.Size = new System.Drawing.Size(200, 22);
+			this.DataSet_GenerateCommand.Text = "Generate Command";
+			// 
+			// DataSet_ClearEditor
+			// 
+			this.DataSet_ClearEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_ClearEditor.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_ClearEditor.Name = "DataSet_ClearEditor";
+			this.DataSet_ClearEditor.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+			this.DataSet_ClearEditor.Size = new System.Drawing.Size(200, 22);
+			this.DataSet_ClearEditor.Text = "Clear Editor";
+			// 
+			// windowsToolStripMenuItem
+			// 
+			this.windowsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.windowsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DataSet_RunGame,
+            this.DataSet_DBInfo,
+            this.DataSet_BoundsList});
+			this.windowsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
+			this.windowsToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+			this.windowsToolStripMenuItem.Text = "Windows";
+			// 
+			// DataSet_RunGame
+			// 
+			this.DataSet_RunGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_RunGame.Enabled = false;
+			this.DataSet_RunGame.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_RunGame.Name = "DataSet_RunGame";
+			this.DataSet_RunGame.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.G)));
+			this.DataSet_RunGame.Size = new System.Drawing.Size(214, 22);
+			this.DataSet_RunGame.Text = "Run the Game";
+			// 
+			// DataSet_DBInfo
+			// 
+			this.DataSet_DBInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_DBInfo.Enabled = false;
+			this.DataSet_DBInfo.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_DBInfo.Name = "DataSet_DBInfo";
+			this.DataSet_DBInfo.Size = new System.Drawing.Size(214, 22);
+			this.DataSet_DBInfo.Text = "Database Info";
+			// 
+			// DataSet_BoundsList
+			// 
+			this.DataSet_BoundsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_BoundsList.Enabled = false;
+			this.DataSet_BoundsList.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_BoundsList.Name = "DataSet_BoundsList";
+			this.DataSet_BoundsList.Size = new System.Drawing.Size(214, 22);
+			this.DataSet_BoundsList.Text = "List of Collision Bounds";
+			// 
+			// helpToolStripMenuItem
+			// 
+			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DataSet_AboutBox,
+            this.OpenReadmeToolStripMenuItem});
+			this.helpToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.helpToolStripMenuItem.Text = "Help";
+			// 
+			// DataSet_AboutBox
+			// 
+			this.DataSet_AboutBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_AboutBox.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_AboutBox.Name = "DataSet_AboutBox";
+			this.DataSet_AboutBox.ShortcutKeys = System.Windows.Forms.Keys.F1;
+			this.DataSet_AboutBox.Size = new System.Drawing.Size(222, 22);
+			this.DataSet_AboutBox.Text = "About";
+			// 
+			// OpenReadmeToolStripMenuItem
+			// 
+			this.OpenReadmeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.OpenReadmeToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.OpenReadmeToolStripMenuItem.Name = "OpenReadmeToolStripMenuItem";
+			this.OpenReadmeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.R)));
+			this.OpenReadmeToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+			this.OpenReadmeToolStripMenuItem.Text = "Open Readme";
+			// 
+			// DataSet_StatusStrip
+			// 
+			this.DataSet_StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DataSet_Status});
+			this.DataSet_StatusStrip.Location = new System.Drawing.Point(0, 428);
+			this.DataSet_StatusStrip.Name = "DataSet_StatusStrip";
+			this.DataSet_StatusStrip.Size = new System.Drawing.Size(800, 22);
+			this.DataSet_StatusStrip.TabIndex = 5;
+			this.DataSet_StatusStrip.Text = "Ready.";
+			// 
+			// DataSet_Status
+			// 
+			this.DataSet_Status.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+			this.DataSet_Status.Name = "DataSet_Status";
+			this.DataSet_Status.Size = new System.Drawing.Size(785, 17);
+			this.DataSet_Status.Spring = true;
+			this.DataSet_Status.Text = "Ready.";
+			this.DataSet_Status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// DataSet_Split1
+			// 
+			this.DataSet_Split1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.DataSet_Split1.Location = new System.Drawing.Point(0, 24);
+			this.DataSet_Split1.Name = "DataSet_Split1";
+			// 
+			// DataSet_Split1.Panel1
+			// 
+			this.DataSet_Split1.Panel1.Controls.Add(this.BinaryTree);
+			// 
+			// DataSet_Split1.Panel2
+			// 
+			this.DataSet_Split1.Panel2.Controls.Add(this.DataSet_Split2);
+			this.DataSet_Split1.Size = new System.Drawing.Size(800, 404);
+			this.DataSet_Split1.SplitterDistance = 266;
+			this.DataSet_Split1.TabIndex = 6;
+			// 
+			// BinaryTree
+			// 
+			this.BinaryTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.BinaryTree.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+			this.BinaryTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.BinaryTree.ForeColor = System.Drawing.SystemColors.Info;
+			this.BinaryTree.Location = new System.Drawing.Point(3, 3);
+			this.BinaryTree.Name = "BinaryTree";
+			this.BinaryTree.Size = new System.Drawing.Size(261, 398);
+			this.BinaryTree.TabIndex = 0;
+			// 
+			// DataSet_Split2
+			// 
+			this.DataSet_Split2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.DataSet_Split2.Location = new System.Drawing.Point(0, 0);
+			this.DataSet_Split2.Name = "DataSet_Split2";
+			this.DataSet_Split2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// DataSet_Split2.Panel1
+			// 
+			this.DataSet_Split2.Panel1.Controls.Add(this.BinaryDataView);
+			// 
+			// DataSet_Split2.Panel2
+			// 
+			this.DataSet_Split2.Panel2.Controls.Add(this.EndscriptEditor);
+			this.DataSet_Split2.Size = new System.Drawing.Size(530, 404);
+			this.DataSet_Split2.SplitterDistance = 285;
+			this.DataSet_Split2.TabIndex = 0;
+			// 
+			// BinaryDataView
+			// 
+			this.BinaryDataView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.BinaryDataView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+			this.BinaryDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.BinaryDataView.Location = new System.Drawing.Point(0, 3);
+			this.BinaryDataView.Name = "BinaryDataView";
+			this.BinaryDataView.Size = new System.Drawing.Size(527, 279);
+			this.BinaryDataView.TabIndex = 0;
+			// 
+			// EndscriptEditor
+			// 
+			this.EndscriptEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.EndscriptEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+			this.EndscriptEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.EndscriptEditor.Location = new System.Drawing.Point(29, 3);
+			this.EndscriptEditor.Multiline = true;
+			this.EndscriptEditor.Name = "EndscriptEditor";
+			this.EndscriptEditor.Size = new System.Drawing.Size(498, 108);
+			this.EndscriptEditor.TabIndex = 0;
+			// 
+			// BinaryTreeImageList
+			// 
+			this.BinaryTreeImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.BinaryTreeImageList.ImageSize = new System.Drawing.Size(16, 16);
+			this.BinaryTreeImageList.TransparentColor = System.Drawing.Color.Transparent;
+			// 
+			// BrowseGameDirDialog
+			// 
+			this.BrowseGameDirDialog.Description = "Select the main directory of the game you want to work on.";
+			this.BrowseGameDirDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
+			// 
+			// OpenEndscriptDialog
+			// 
+			this.OpenEndscriptDialog.Filter = "Binary Endscript files|*.end";
+			// 
+			// Underground2
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.DataSet_Split1);
+			this.Controls.Add(this.DataSet_StatusStrip);
+			this.Controls.Add(this.DataSet_MenuStrip);
+			this.ForeColor = System.Drawing.SystemColors.Info;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.Name = "Underground2";
+			this.Text = "Binary by MaxHwoy";
+			this.DataSet_MenuStrip.ResumeLayout(false);
+			this.DataSet_MenuStrip.PerformLayout();
+			this.DataSet_StatusStrip.ResumeLayout(false);
+			this.DataSet_StatusStrip.PerformLayout();
+			this.DataSet_Split1.Panel1.ResumeLayout(false);
+			this.DataSet_Split1.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split1)).EndInit();
+			this.DataSet_Split1.ResumeLayout(false);
+			this.DataSet_Split2.Panel1.ResumeLayout(false);
+			this.DataSet_Split2.Panel2.ResumeLayout(false);
+			this.DataSet_Split2.Panel2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split2)).EndInit();
+			this.DataSet_Split2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.BinaryDataView)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
+
+		}
+
+		#endregion
+
+		private System.Windows.Forms.MenuStrip DataSet_MenuStrip;
+		private System.Windows.Forms.ToolStripMenuItem mainToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_OpenFile;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_ReloadFile;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_SaveFile;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_ImportFile;
+		private System.Windows.Forms.ToolStripMenuItem EndscriptToolStripMenuItemI;
+		private System.Windows.Forms.ToolStripMenuItem MaterialToolStripMenuItemI;
+		private System.Windows.Forms.ToolStripMenuItem CarTypeInfoToolStripMenuItemI;
+		private System.Windows.Forms.ToolStripMenuItem PresetRideToolStripMenuItemI;
+		private System.Windows.Forms.ToolStripMenuItem PresetSkinToolStripMenuItemI;
+		private System.Windows.Forms.ToolStripMenuItem CollisionToolStripMenuItemI;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_Exit;
+		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_Hasher;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_Raider;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_Color;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_Swatch;
+		private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_CreateBackups;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_RestoreBackups;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_UnlockFiles;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_ExportAllTextures;
+		private System.Windows.Forms.ToolStripMenuItem ExportAsddsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ExportAspngToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ExportAsjpgToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ExportAstiffToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ExportAsbmpToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem scriptingToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_ProcessCommand;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_GenerateCommand;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_ClearEditor;
+		private System.Windows.Forms.ToolStripMenuItem windowsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_RunGame;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_DBInfo;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_BoundsList;
+		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_AboutBox;
+		private System.Windows.Forms.ToolStripMenuItem OpenReadmeToolStripMenuItem;
+		private System.Windows.Forms.StatusStrip DataSet_StatusStrip;
+		private System.Windows.Forms.ToolStripStatusLabel DataSet_Status;
+		private System.Windows.Forms.SplitContainer DataSet_Split1;
+		private System.Windows.Forms.TreeView BinaryTree;
+		private System.Windows.Forms.SplitContainer DataSet_Split2;
+		private System.Windows.Forms.DataGridView BinaryDataView;
+		private System.Windows.Forms.TextBox EndscriptEditor;
+		private System.Windows.Forms.ImageList BinaryTreeImageList;
+		private System.Windows.Forms.FolderBrowserDialog BrowseGameDirDialog;
+		private System.Windows.Forms.OpenFileDialog OpenEndscriptDialog;
+	}
+}

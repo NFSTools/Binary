@@ -36,13 +36,13 @@ namespace Binary
             // If password check was not done yet
             if (!Properties.Settings.Default.PasswordPassed)
             {
-                Application.Run(new Forms.Interact.Welcome());
+                Application.Run(new Support.Interact.Welcome());
             }
 
             // Run if was done/entered
             if (Properties.Settings.Default.PasswordPassed)
             {
-                Application.Run(new Forms.Main.Main());
+                Application.Run(new Main.Main());
             }
         }
     }
