@@ -226,6 +226,15 @@ namespace Binary.Support
 			}
 		}
 
+		private void DataSet_SaveFile_Click(object sender, EventArgs e)
+		{
+			var watch = new System.Diagnostics.Stopwatch();
+			watch.Start();
+			Process.SaveData(dbMW, Properties.Settings.Default.EnableCompression);
+			watch.Stop();
+			DataSet_Status.Text = $"Finished saving data in {watch.ElapsedMilliseconds}ms | {DateTime.Now.ToString()}";
+		}
+
 		private void BinaryTree_AfterSelect(object sender, TreeViewEventArgs e)
 		{
 			BinaryDataView.Columns.Clear();
@@ -275,6 +284,54 @@ namespace Binary.Support
 		private void DataSet_ReloadFile_Click(object sender, EventArgs e)
 		{
 			this.LoadDBMostWanted(Process.GlobalDir, true);
+		}
+
+		private void DataSet_Hasher_Click(object sender, EventArgs e)
+		{
+			var HasherWindow = new Tools.Hasher();
+			HasherWindow.Show();
+		}
+
+		private void DataSet_Raider_Click(object sender, EventArgs e)
+		{
+			var RaiderWindow = new Tools.Raider();
+			RaiderWindow.Show();
+		}
+
+		private void DataSet_Color_Click(object sender, EventArgs e)
+		{
+			var ColorWindow = new Tools.ColorPicker();
+			ColorWindow.Show();
+		}
+
+		private void DataSet_Swatch_Click(object sender, EventArgs e)
+		{
+			var SwatchWindow = new Tools.SwatchPicker();
+			SwatchWindow.Show();
+		}
+
+		private void DataSet_Exit_Click(object sender, EventArgs e)
+		{
+			this.MostWanted_FormClosed(this, null);
+			this.Close();
+		}
+
+		private void MostWanted_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			var list = Application.OpenForms.Cast<Form>().ToList();
+			for (int a1 = list.Count - 1; a1 >= 0; --a1)
+			{
+				if (list[a1].Name != "Main" && list[a1].Name != this.Name)
+					list[a1].Close();
+			}
+		}
+
+		private void MostWanted_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			this.dbMW = null;
+			GC.Collect(0, GCCollectionMode.Forced);
+			GC.Collect(1, GCCollectionMode.Forced);
+			GC.Collect(2, GCCollectionMode.Forced);
 		}
 	}
 }

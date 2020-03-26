@@ -157,6 +157,7 @@
 			this.DataSet_SaveFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
 			this.DataSet_SaveFile.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_SaveFile.Text = "Save";
+			this.DataSet_SaveFile.Click += new System.EventHandler(this.DataSet_SaveFile_Click);
 			// 
 			// DataSet_ImportFile
 			// 
@@ -232,6 +233,7 @@
 			this.DataSet_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
 			this.DataSet_Exit.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_Exit.Text = "Exit";
+			this.DataSet_Exit.Click += new System.EventHandler(this.DataSet_Exit_Click);
 			// 
 			// toolsToolStripMenuItem
 			// 
@@ -254,6 +256,7 @@
 			this.DataSet_Hasher.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
 			this.DataSet_Hasher.Size = new System.Drawing.Size(183, 22);
 			this.DataSet_Hasher.Text = "NFS-Hasher";
+			this.DataSet_Hasher.Click += new System.EventHandler(this.DataSet_Hasher_Click);
 			// 
 			// DataSet_Raider
 			// 
@@ -263,6 +266,7 @@
 			this.DataSet_Raider.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
 			this.DataSet_Raider.Size = new System.Drawing.Size(183, 22);
 			this.DataSet_Raider.Text = "NFS-Raider";
+			this.DataSet_Raider.Click += new System.EventHandler(this.DataSet_Raider_Click);
 			// 
 			// DataSet_Color
 			// 
@@ -272,6 +276,7 @@
 			this.DataSet_Color.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
 			this.DataSet_Color.Size = new System.Drawing.Size(183, 22);
 			this.DataSet_Color.Text = "Color Picker";
+			this.DataSet_Color.Click += new System.EventHandler(this.DataSet_Color_Click);
 			// 
 			// DataSet_Swatch
 			// 
@@ -281,6 +286,7 @@
 			this.DataSet_Swatch.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
 			this.DataSet_Swatch.Size = new System.Drawing.Size(183, 22);
 			this.DataSet_Swatch.Text = "Swatch Picker";
+			this.DataSet_Swatch.Click += new System.EventHandler(this.DataSet_Swatch_Click);
 			// 
 			// optionsToolStripMenuItem
 			// 
@@ -654,6 +660,8 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Underground2";
 			this.Text = "Binary by MaxHwoy";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Underground2_FormClosing);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Underground2_FormClosed);
 			this.DataSet_MenuStrip.ResumeLayout(false);
 			this.DataSet_MenuStrip.PerformLayout();
 			this.DataSet_StatusStrip.ResumeLayout(false);

@@ -172,6 +172,7 @@
 			this.LaunchSwatcher.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.LaunchSwatcher.TabIndex = 6;
 			this.LaunchSwatcher.TabStop = false;
+			this.LaunchSwatcher.Click += new System.EventHandler(this.LaunchSwatcher_Click);
 			// 
 			// LaunchUnlock
 			// 
@@ -183,6 +184,7 @@
 			this.LaunchUnlock.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.LaunchUnlock.TabIndex = 5;
 			this.LaunchUnlock.TabStop = false;
+			this.LaunchUnlock.Click += new System.EventHandler(this.LaunchUnlock_Click);
 			// 
 			// LaunchPicker
 			// 
@@ -194,6 +196,7 @@
 			this.LaunchPicker.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.LaunchPicker.TabIndex = 4;
 			this.LaunchPicker.TabStop = false;
+			this.LaunchPicker.Click += new System.EventHandler(this.LaunchPicker_Click);
 			// 
 			// LaunchReadme
 			// 
@@ -205,6 +208,7 @@
 			this.LaunchReadme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.LaunchReadme.TabIndex = 3;
 			this.LaunchReadme.TabStop = false;
+			this.LaunchReadme.Click += new System.EventHandler(this.LaunchReadme_Click);
 			// 
 			// LaunchRaider
 			// 
@@ -216,6 +220,7 @@
 			this.LaunchRaider.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.LaunchRaider.TabIndex = 2;
 			this.LaunchRaider.TabStop = false;
+			this.LaunchRaider.Click += new System.EventHandler(this.LaunchRaider_Click);
 			// 
 			// LaunchHasher
 			// 
@@ -227,6 +232,7 @@
 			this.LaunchHasher.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.LaunchHasher.TabIndex = 0;
 			this.LaunchHasher.TabStop = false;
+			this.LaunchHasher.Click += new System.EventHandler(this.LaunchHasher_Click);
 			// 
 			// PanelGames
 			// 

@@ -134,5 +134,81 @@ namespace Binary.Main
         {
             Properties.Settings.Default.Save();
         }
+
+        private void LaunchHasher_Click(object sender, EventArgs e)
+        {
+            var HasherWindow = new Tools.Hasher();
+            HasherWindow.Show();
+        }
+
+        private void LaunchRaider_Click(object sender, EventArgs e)
+        {
+            var RaiderWindow = new Tools.Raider();
+            RaiderWindow.Show();
+        }
+
+        private void LaunchPicker_Click(object sender, EventArgs e)
+        {
+            var ColorPickerWindow = new Tools.ColorPicker();
+            ColorPickerWindow.Show();
+        }
+
+        private void LaunchSwatcher_Click(object sender, EventArgs e)
+        {
+            var SwatchPickerWindow = new Tools.SwatchPicker();
+            SwatchPickerWindow.Show();
+        }
+
+        private void LaunchReadme_Click(object sender, EventArgs e)
+        {
+            if (System.IO.File.Exists("Readme.txt"))
+                System.Diagnostics.Process.Start("explorer", "Readme.txt");
+            else
+                MessageBox.Show("Could not find Readme.txt file.", "Failure");
+        }
+
+        private void LaunchUnlock_Click(object sender, EventArgs e)
+        {
+            var OpenFolderDialog = new FolderBrowserDialog();
+            OpenFolderDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+            OpenFolderDialog.Description = "Select the NFS: Carbon or NFS: Most Wanted directory that you want to unlock files in.";
+            if (OpenFolderDialog.ShowDialog() == DialogResult.OK)
+            {
+                string GlobalB_dir = OpenFolderDialog.SelectedPath;
+
+                bool NFSC = System.IO.File.Exists(GlobalB_dir + @"\Tracks\StreamL5RA.bun");
+                bool NFSMW = System.IO.File.Exists(GlobalB_dir + @"\Tracks\StreamL2RA.bun");
+                bool NFSUG2 = System.IO.File.Exists(GlobalB_dir + @"\Tracks\StreamL4RA.bun");
+
+                if (NFSC)
+                {
+                    // Unlock Memory Files
+                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\CarHeadersMemoryFile.bin");
+                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\FrontEndMemoryFile.bin");
+                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\InGameMemoryFile.bin");
+                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\PermanentMemoryFile.bin");
+                    GlobalLib.Utils.MemoryUnlock.LongUnlock(GlobalB_dir + @"\GLOBAL\GlobalMemoryFile.bin");
+
+                    MessageBox.Show("Memory files were successfully unlocked for modding.", "Success");
+                }
+                else if (NFSMW)
+                {
+                    // Unlock Memory Files
+                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\FrontEndMemoryFile.bin");
+                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\InGameMemoryFile.bin");
+                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\PermanentMemoryFile.bin");
+                    GlobalLib.Utils.MemoryUnlock.LongUnlock(GlobalB_dir + @"\GLOBAL\GlobalMemoryFile.bin");
+
+                    MessageBox.Show("Memory files were successfully unlocked for modding.", "Success");
+                }
+                else if (NFSUG2)
+                {
+                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\CarHeadersMemoryFile.bin");
+                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\FrontEndMemoryFile.bin");
+                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\InGameMemoryFile.bin");
+                    GlobalLib.Utils.MemoryUnlock.LongUnlock(GlobalB_dir + @"\GLOBAL\GlobalMemoryFile.bin");
+                }
+            }
+        }
     }
 }
