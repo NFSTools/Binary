@@ -33,7 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GlobalLib">
+    <Reference Include="GlobalLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\GlobalLib\GlobalLib\bin\Release\GlobalLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -89,6 +90,7 @@
     <Compile Include="Node\Mark.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Path.cs" />
     <EmbeddedResource Include="Forms\Support\Carbon\Carbon.resx">
       <DependentUpon>Carbon.cs</DependentUpon>
     </EmbeddedResource>

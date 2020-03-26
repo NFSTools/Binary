@@ -530,6 +530,7 @@
 			this.BinaryTree.ForeColor = System.Drawing.SystemColors.Info;
 			this.BinaryTree.Location = new System.Drawing.Point(3, 3);
 			this.BinaryTree.Name = "BinaryTree";
+			this.BinaryTree.PathSeparator = "/";
 			this.BinaryTree.Size = new System.Drawing.Size(261, 398);
 			this.BinaryTree.TabIndex = 0;
 			// 
