@@ -191,6 +191,32 @@ namespace Binary.Support
 			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbMW.PresetRides.ThisName, this.dbMW.PresetRides.GetAllNodes()));
 		}
 
+		private void BinaryDataViewColumnInit()
+		{
+			var column_descr = new DataGridViewTextBoxColumn();
+			var column_value = new DataGridViewTextBoxColumn();
+
+			column_descr.Name = "Attribute";
+			column_descr.HeaderText = "Attribute";
+			column_descr.ReadOnly = true;
+			column_descr.Resizable = DataGridViewTriState.False;
+
+			column_value.Name = "Value";
+			column_value.HeaderText = "Value";
+			column_value.Resizable = DataGridViewTriState.False;
+
+			column_descr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_value.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+			column_descr.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_value.SortMode = DataGridViewColumnSortMode.NotSortable;
+			BinaryDataView.MultiSelect = false;
+
+			BinaryDataView.Columns.Add(column_descr);
+			BinaryDataView.Columns.Add(column_value);
+			BinaryDataView.RowHeadersWidth = 30;
+		}
+
 		private void DataSet_OpenFile_Click(object sender, EventArgs e)
 		{
 			this.BrowseGameDirDialog.Description = "Select the NFS: Most Wanted directory that you want to work on.";
@@ -198,6 +224,52 @@ namespace Binary.Support
 			if (BrowseGameDirDialog.ShowDialog() == DialogResult.OK)
 			{
 				this.LoadDBMostWanted(BrowseGameDirDialog.SelectedPath);
+			}
+		}
+
+		private void BinaryTree_AfterSelect(object sender, TreeViewEventArgs e)
+		{
+			BinaryDataView.Columns.Clear();
+
+			if (BinaryTree.SelectedNode == null || BinaryTree.SelectedNode.Parent == null) return;
+			var obj = dbMW.GetPrimitive(Utils.Path.SplitPath(BinaryTree.SelectedNode.FullPath));
+			if (obj == null) return;
+			var list = obj.GetAccessibles(GlobalLib.Database.Collection.eGetInfoType.PROPERTY_NAMES);
+
+			this.BinaryDataViewColumnInit();
+
+			var accessibles = new List<string>(list.Length);
+			for (int a1 = 0; a1 < list.Length; ++a1)
+				accessibles.Add(list[a1].ToString());
+			accessibles.Sort();
+
+			foreach (var access in accessibles)
+			{
+				string field = access.ToString();
+				if (obj.OfEnumerableType(field))
+				{
+					var attribcell = new DataGridViewTextBoxCell();
+					var valuecell = new DataGridViewComboBoxCell();
+					attribcell.Value = field;
+					valuecell.Items.AddRange(obj.GetPropertyEnumerableTypes(field));
+					valuecell.Value = obj.GetValue(field);
+					valuecell.FlatStyle = FlatStyle.Flat;
+					valuecell.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
+					valuecell.Style.BackColor = Color.FromArgb(30, 30, 45);
+					var row = new DataGridViewRow();
+					row.Cells.AddRange(attribcell, valuecell);
+					this.BinaryDataView.Rows.Add(row);
+				}
+				else
+				{
+					var attribcell = new DataGridViewTextBoxCell();
+					var valuecell = new DataGridViewTextBoxCell();
+					attribcell.Value = field;
+					valuecell.Value = obj.GetValue(field);
+					var row = new DataGridViewRow();
+					row.Cells.AddRange(attribcell, valuecell);
+					this.BinaryDataView.Rows.Add(row);
+				}
 			}
 		}
 	}

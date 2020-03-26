@@ -286,7 +286,6 @@ namespace Binary.Support
 					this.BinaryDataView.Rows.Add(row);
 				}
 			}
-
 		}
 	}
 }
