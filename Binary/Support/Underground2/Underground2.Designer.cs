@@ -133,7 +133,7 @@
 			this.DataSet_OpenFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_OpenFile.Name = "DataSet_OpenFile";
 			this.DataSet_OpenFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.DataSet_OpenFile.Size = new System.Drawing.Size(180, 22);
+			this.DataSet_OpenFile.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_OpenFile.Text = "Open";
 			this.DataSet_OpenFile.Click += new System.EventHandler(this.DataSet_OpenFile_Click);
 			// 
@@ -144,7 +144,7 @@
 			this.DataSet_ReloadFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ReloadFile.Name = "DataSet_ReloadFile";
 			this.DataSet_ReloadFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-			this.DataSet_ReloadFile.Size = new System.Drawing.Size(180, 22);
+			this.DataSet_ReloadFile.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_ReloadFile.Text = "Reload";
 			this.DataSet_ReloadFile.Click += new System.EventHandler(this.DataSet_ReloadFile_Click);
 			// 
@@ -155,7 +155,7 @@
 			this.DataSet_SaveFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_SaveFile.Name = "DataSet_SaveFile";
 			this.DataSet_SaveFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.DataSet_SaveFile.Size = new System.Drawing.Size(180, 22);
+			this.DataSet_SaveFile.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_SaveFile.Text = "Save";
 			this.DataSet_SaveFile.Click += new System.EventHandler(this.DataSet_SaveFile_Click);
 			// 
@@ -172,7 +172,7 @@
 			this.DataSet_ImportFile.Enabled = false;
 			this.DataSet_ImportFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ImportFile.Name = "DataSet_ImportFile";
-			this.DataSet_ImportFile.Size = new System.Drawing.Size(180, 22);
+			this.DataSet_ImportFile.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_ImportFile.Text = "Import";
 			// 
 			// EndscriptToolStripMenuItemI
@@ -231,7 +231,7 @@
 			this.DataSet_Exit.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_Exit.Name = "DataSet_Exit";
 			this.DataSet_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-			this.DataSet_Exit.Size = new System.Drawing.Size(180, 22);
+			this.DataSet_Exit.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_Exit.Text = "Exit";
 			this.DataSet_Exit.Click += new System.EventHandler(this.DataSet_Exit_Click);
 			// 
@@ -626,10 +626,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.EndscriptEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
 			this.EndscriptEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.EndscriptEditor.Location = new System.Drawing.Point(29, 3);
+			this.EndscriptEditor.ForeColor = System.Drawing.SystemColors.Info;
+			this.EndscriptEditor.Location = new System.Drawing.Point(3, 3);
 			this.EndscriptEditor.Multiline = true;
 			this.EndscriptEditor.Name = "EndscriptEditor";
-			this.EndscriptEditor.Size = new System.Drawing.Size(498, 108);
+			this.EndscriptEditor.Size = new System.Drawing.Size(524, 108);
 			this.EndscriptEditor.TabIndex = 0;
 			// 
 			// BinaryTreeImageList

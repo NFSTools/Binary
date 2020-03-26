@@ -625,10 +625,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.EndscriptEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
 			this.EndscriptEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.EndscriptEditor.Location = new System.Drawing.Point(29, 3);
+			this.EndscriptEditor.ForeColor = System.Drawing.SystemColors.Info;
+			this.EndscriptEditor.Location = new System.Drawing.Point(3, 3);
 			this.EndscriptEditor.Multiline = true;
 			this.EndscriptEditor.Name = "EndscriptEditor";
-			this.EndscriptEditor.Size = new System.Drawing.Size(498, 108);
+			this.EndscriptEditor.Size = new System.Drawing.Size(524, 108);
 			this.EndscriptEditor.TabIndex = 0;
 			// 
 			// BinaryTreeImageList

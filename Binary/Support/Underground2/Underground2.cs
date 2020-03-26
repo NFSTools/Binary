@@ -18,9 +18,23 @@ namespace Binary.Support
 	public partial class Underground2 : Form
 	{
 		private GlobalLib.Database.Underground2 dbUG2;
+		private FastColoredTextBoxNS.FastColoredTextBox ColoredTextForm;
 
 		private void InstantiateControls()
 		{
+			ColoredTextForm = new FastColoredTextBoxNS.FastColoredTextBox();
+			ColoredTextForm.Width = this.EndscriptEditor.Width;
+			ColoredTextForm.Height = this.EndscriptEditor.Height;
+			ColoredTextForm.BackColor = this.EndscriptEditor.BackColor;
+			ColoredTextForm.CurrentLineColor = Color.FromArgb(70, 70, 100);
+			ColoredTextForm.ForeColor = this.EndscriptEditor.ForeColor;
+			ColoredTextForm.LineNumberColor = Color.FromArgb(220, 220, 220);
+			ColoredTextForm.BookmarkColor = this.EndscriptEditor.BackColor;
+			ColoredTextForm.IndentBackColor = Color.FromArgb(50, 50, 70);
+			ColoredTextForm.ServiceLinesColor = ColoredTextForm.IndentBackColor;
+			ColoredTextForm.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+
+			this.EndscriptEditor.Controls.Add(ColoredTextForm);
 			this.DataSet_Split2.Panel2.Controls.Add(this.EndscriptEditor);
 			this.DataSet_Split2.Panel1.Controls.Add(this.BinaryDataView);
 			this.DataSet_Split1.Panel2.Controls.Add(this.DataSet_Split2);
@@ -50,17 +64,17 @@ namespace Binary.Support
 
 		private class MyColors : ProfessionalColorTable
 		{
-			public override System.Drawing.Color MenuItemSelected
+			public override Color MenuItemSelected
 			{
-				get { return System.Drawing.Color.FromArgb(40, 23, 60); }
+				get { return Color.FromArgb(40, 23, 60); }
 			}
-			public override System.Drawing.Color MenuItemSelectedGradientBegin
+			public override Color MenuItemSelectedGradientBegin
 			{
-				get { return System.Drawing.Color.FromArgb(40, 23, 60); }
+				get { return Color.FromArgb(40, 23, 60); }
 			}
-			public override System.Drawing.Color MenuItemSelectedGradientEnd
+			public override Color MenuItemSelectedGradientEnd
 			{
-				get { return System.Drawing.Color.FromArgb(40, 23, 60); }
+				get { return Color.FromArgb(40, 23, 60); }
 			}
 		}
 
@@ -203,6 +217,8 @@ namespace Binary.Support
 			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.Sponsors.ThisName, this.dbUG2.Sponsors.GetAllNodes()));
 			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.SunInfos.ThisName, this.dbUG2.SunInfos.GetAllNodes()));
 			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.Tracks.ThisName, this.dbUG2.Tracks.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.WorldChallenges.ThisName, this.dbUG2.WorldChallenges.GetAllNodes()));
+			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbUG2.WorldShops.ThisName, this.dbUG2.WorldShops.GetAllNodes()));
 		}
 
 		private void BinaryDataViewColumnInit()
