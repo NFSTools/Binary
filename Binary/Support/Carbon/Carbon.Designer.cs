@@ -78,23 +78,31 @@
 			this.DataSet_Status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.DataSet_Split1 = new System.Windows.Forms.SplitContainer();
 			this.BinaryTree = new System.Windows.Forms.TreeView();
+			this.BinaryTreeRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.BinaryTreeAddNode = new System.Windows.Forms.ToolStripMenuItem();
+			this.BinaryTreeDeleteNode = new System.Windows.Forms.ToolStripMenuItem();
+			this.BinaryTreeCopyNode = new System.Windows.Forms.ToolStripMenuItem();
+			this.BinaryTreeExportNode = new System.Windows.Forms.ToolStripMenuItem();
 			this.DataSet_Split2 = new System.Windows.Forms.SplitContainer();
 			this.BinaryDataView = new System.Windows.Forms.DataGridView();
-			this.EndscriptEditor = new System.Windows.Forms.TextBox();
+			this.ColoredTextForm = new FastColoredTextBoxNS.FastColoredTextBox();
 			this.BinaryTreeImageList = new System.Windows.Forms.ImageList(this.components);
 			this.BrowseGameDirDialog = new System.Windows.Forms.FolderBrowserDialog();
 			this.OpenEndscriptDialog = new System.Windows.Forms.OpenFileDialog();
+			this.ExportCollectionDialog = new System.Windows.Forms.SaveFileDialog();
 			this.DataSet_MenuStrip.SuspendLayout();
 			this.DataSet_StatusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split1)).BeginInit();
 			this.DataSet_Split1.Panel1.SuspendLayout();
 			this.DataSet_Split1.Panel2.SuspendLayout();
 			this.DataSet_Split1.SuspendLayout();
+			this.BinaryTreeRightClick.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split2)).BeginInit();
 			this.DataSet_Split2.Panel1.SuspendLayout();
 			this.DataSet_Split2.Panel2.SuspendLayout();
 			this.DataSet_Split2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.BinaryDataView)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ColoredTextForm)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// DataSet_MenuStrip
@@ -309,6 +317,7 @@
 			this.DataSet_CreateBackups.Name = "DataSet_CreateBackups";
 			this.DataSet_CreateBackups.Size = new System.Drawing.Size(207, 22);
 			this.DataSet_CreateBackups.Text = "Create Backups";
+			this.DataSet_CreateBackups.Click += new System.EventHandler(this.DataSet_CreateBackups_Click);
 			// 
 			// DataSet_RestoreBackups
 			// 
@@ -318,6 +327,7 @@
 			this.DataSet_RestoreBackups.Name = "DataSet_RestoreBackups";
 			this.DataSet_RestoreBackups.Size = new System.Drawing.Size(207, 22);
 			this.DataSet_RestoreBackups.Text = "Restore Backups";
+			this.DataSet_RestoreBackups.Click += new System.EventHandler(this.DataSet_RestoreBackups_Click);
 			// 
 			// DataSet_UnlockFiles
 			// 
@@ -327,6 +337,7 @@
 			this.DataSet_UnlockFiles.Name = "DataSet_UnlockFiles";
 			this.DataSet_UnlockFiles.Size = new System.Drawing.Size(207, 22);
 			this.DataSet_UnlockFiles.Text = "Unlock Files for Modding";
+			this.DataSet_UnlockFiles.Click += new System.EventHandler(this.DataSet_UnlockFiles_Click);
 			// 
 			// DataSet_ExportAllTextures
 			// 
@@ -446,6 +457,7 @@
             | System.Windows.Forms.Keys.G)));
 			this.DataSet_RunGame.Size = new System.Drawing.Size(214, 22);
 			this.DataSet_RunGame.Text = "Run the Game";
+			this.DataSet_RunGame.Click += new System.EventHandler(this.DataSet_RunGame_Click);
 			// 
 			// DataSet_DBInfo
 			// 
@@ -455,6 +467,7 @@
 			this.DataSet_DBInfo.Name = "DataSet_DBInfo";
 			this.DataSet_DBInfo.Size = new System.Drawing.Size(214, 22);
 			this.DataSet_DBInfo.Text = "Database Info";
+			this.DataSet_DBInfo.Click += new System.EventHandler(this.DataSet_DBInfo_Click);
 			// 
 			// DataSet_BoundsList
 			// 
@@ -539,6 +552,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.BinaryTree.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
 			this.BinaryTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.BinaryTree.ContextMenuStrip = this.BinaryTreeRightClick;
 			this.BinaryTree.ForeColor = System.Drawing.SystemColors.Info;
 			this.BinaryTree.Location = new System.Drawing.Point(3, 3);
 			this.BinaryTree.Name = "BinaryTree";
@@ -546,6 +560,53 @@
 			this.BinaryTree.Size = new System.Drawing.Size(261, 398);
 			this.BinaryTree.TabIndex = 0;
 			this.BinaryTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BinaryTree_AfterSelect);
+			// 
+			// BinaryTreeRightClick
+			// 
+			this.BinaryTreeRightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.BinaryTreeAddNode,
+            this.BinaryTreeDeleteNode,
+            this.BinaryTreeCopyNode,
+            this.BinaryTreeExportNode});
+			this.BinaryTreeRightClick.Name = "BinaryTreeRightClick";
+			this.BinaryTreeRightClick.Size = new System.Drawing.Size(141, 92);
+			this.BinaryTreeRightClick.Text = "ContextMenuStrip";
+			// 
+			// BinaryTreeAddNode
+			// 
+			this.BinaryTreeAddNode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.BinaryTreeAddNode.ForeColor = System.Drawing.Color.White;
+			this.BinaryTreeAddNode.Name = "BinaryTreeAddNode";
+			this.BinaryTreeAddNode.Size = new System.Drawing.Size(140, 22);
+			this.BinaryTreeAddNode.Text = "Add Node";
+			this.BinaryTreeAddNode.Click += new System.EventHandler(this.BinaryTreeAddNode_Click);
+			// 
+			// BinaryTreeDeleteNode
+			// 
+			this.BinaryTreeDeleteNode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.BinaryTreeDeleteNode.ForeColor = System.Drawing.Color.White;
+			this.BinaryTreeDeleteNode.Name = "BinaryTreeDeleteNode";
+			this.BinaryTreeDeleteNode.Size = new System.Drawing.Size(140, 22);
+			this.BinaryTreeDeleteNode.Text = "Delete Node";
+			this.BinaryTreeDeleteNode.Click += new System.EventHandler(this.BinaryTreeDeleteNode_Click);
+			// 
+			// BinaryTreeCopyNode
+			// 
+			this.BinaryTreeCopyNode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.BinaryTreeCopyNode.ForeColor = System.Drawing.Color.White;
+			this.BinaryTreeCopyNode.Name = "BinaryTreeCopyNode";
+			this.BinaryTreeCopyNode.Size = new System.Drawing.Size(140, 22);
+			this.BinaryTreeCopyNode.Text = "Copy Node";
+			this.BinaryTreeCopyNode.Click += new System.EventHandler(this.BinaryTreeCopyNode_Click);
+			// 
+			// BinaryTreeExportNode
+			// 
+			this.BinaryTreeExportNode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.BinaryTreeExportNode.ForeColor = System.Drawing.Color.White;
+			this.BinaryTreeExportNode.Name = "BinaryTreeExportNode";
+			this.BinaryTreeExportNode.Size = new System.Drawing.Size(140, 22);
+			this.BinaryTreeExportNode.Text = "Export Node";
+			this.BinaryTreeExportNode.Click += new System.EventHandler(this.BinaryTreeExportNode_Click);
 			// 
 			// DataSet_Split2
 			// 
@@ -560,7 +621,7 @@
 			// 
 			// DataSet_Split2.Panel2
 			// 
-			this.DataSet_Split2.Panel2.Controls.Add(this.EndscriptEditor);
+			this.DataSet_Split2.Panel2.Controls.Add(this.ColoredTextForm);
 			this.DataSet_Split2.Size = new System.Drawing.Size(530, 404);
 			this.DataSet_Split2.SplitterDistance = 285;
 			this.DataSet_Split2.TabIndex = 0;
@@ -618,19 +679,42 @@
 			this.BinaryDataView.Size = new System.Drawing.Size(527, 279);
 			this.BinaryDataView.TabIndex = 0;
 			// 
-			// EndscriptEditor
+			// ColoredTextForm
 			// 
-			this.EndscriptEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.ColoredTextForm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.EndscriptEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-			this.EndscriptEditor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.EndscriptEditor.ForeColor = System.Drawing.SystemColors.Info;
-			this.EndscriptEditor.Location = new System.Drawing.Point(3, 3);
-			this.EndscriptEditor.Multiline = true;
-			this.EndscriptEditor.Name = "EndscriptEditor";
-			this.EndscriptEditor.Size = new System.Drawing.Size(524, 108);
-			this.EndscriptEditor.TabIndex = 0;
+			this.ColoredTextForm.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+			this.ColoredTextForm.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+			this.ColoredTextForm.BackBrush = null;
+			this.ColoredTextForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+			this.ColoredTextForm.CharHeight = 14;
+			this.ColoredTextForm.CharWidth = 8;
+			this.ColoredTextForm.CurrentLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(100)))));
+			this.ColoredTextForm.Cursor = System.Windows.Forms.Cursors.IBeam;
+			this.ColoredTextForm.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+			this.ColoredTextForm.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.ColoredTextForm.IsReplaceMode = false;
+			this.ColoredTextForm.LineNumberColor = System.Drawing.Color.Gainsboro;
+			this.ColoredTextForm.Location = new System.Drawing.Point(0, 3);
+			this.ColoredTextForm.Name = "ColoredTextForm";
+			this.ColoredTextForm.Paddings = new System.Windows.Forms.Padding(0);
+			this.ColoredTextForm.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+			this.ColoredTextForm.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("ColoredTextForm.ServiceColors")));
+			this.ColoredTextForm.ServiceLinesColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.ColoredTextForm.Size = new System.Drawing.Size(527, 109);
+			this.ColoredTextForm.TabIndex = 0;
+			this.ColoredTextForm.Zoom = 100;
 			// 
 			// BinaryTreeImageList
 			// 
@@ -646,6 +730,10 @@
 			// OpenEndscriptDialog
 			// 
 			this.OpenEndscriptDialog.Filter = "Binary Endscript files|*.end";
+			// 
+			// ExportCollectionDialog
+			// 
+			this.ExportCollectionDialog.Filter = "Binary files|*.BIN|Binary files|*.bin";
 			// 
 			// Carbon
 			// 
@@ -670,12 +758,13 @@
 			this.DataSet_Split1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split1)).EndInit();
 			this.DataSet_Split1.ResumeLayout(false);
+			this.BinaryTreeRightClick.ResumeLayout(false);
 			this.DataSet_Split2.Panel1.ResumeLayout(false);
 			this.DataSet_Split2.Panel2.ResumeLayout(false);
-			this.DataSet_Split2.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split2)).EndInit();
 			this.DataSet_Split2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.BinaryDataView)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ColoredTextForm)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -728,9 +817,15 @@
 		private System.Windows.Forms.TreeView BinaryTree;
 		private System.Windows.Forms.SplitContainer DataSet_Split2;
 		private System.Windows.Forms.DataGridView BinaryDataView;
-		private System.Windows.Forms.TextBox EndscriptEditor;
 		private System.Windows.Forms.ImageList BinaryTreeImageList;
 		private System.Windows.Forms.FolderBrowserDialog BrowseGameDirDialog;
 		private System.Windows.Forms.OpenFileDialog OpenEndscriptDialog;
+		private System.Windows.Forms.ContextMenuStrip BinaryTreeRightClick;
+		private System.Windows.Forms.ToolStripMenuItem BinaryTreeAddNode;
+		private System.Windows.Forms.ToolStripMenuItem BinaryTreeDeleteNode;
+		private System.Windows.Forms.ToolStripMenuItem BinaryTreeCopyNode;
+		private System.Windows.Forms.ToolStripMenuItem BinaryTreeExportNode;
+		private System.Windows.Forms.SaveFileDialog ExportCollectionDialog;
+		private FastColoredTextBoxNS.FastColoredTextBox ColoredTextForm;
 	}
 }

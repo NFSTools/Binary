@@ -22,8 +22,8 @@ namespace Binary.Main
             // Set properties from memory
             ConfigAutoSave.Checked = Properties.Settings.Default.EnableAutobackup;
             ConfigCompressFiles.Checked = Properties.Settings.Default.EnableCompression;
-            ConfigCommand.Checked = Properties.Settings.Default.EnableModscriptLog;
-            ConfigEndscript.Checked = Properties.Settings.Default.EnableNewModscripts;
+            ConfigCommand.Checked = Properties.Settings.Default.EnableEndscriptLog;
+            ConfigEndscript.Checked = Properties.Settings.Default.EnableNewEndscripts;
 
             var NFSCToolTip = new ToolTip();
             var NFSMWToolTip = new ToolTip();
@@ -70,8 +70,8 @@ namespace Binary.Main
             GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.Carbon;
             Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
             Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
-            Properties.Settings.Default.EnableModscriptLog = ConfigCommand.Checked;
-            Properties.Settings.Default.EnableNewModscripts = ConfigEndscript.Checked;
+            Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
+            Properties.Settings.Default.EnableNewEndscripts = ConfigEndscript.Checked;
 
             bool ForceLoad = false;
             if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryC))
@@ -92,8 +92,8 @@ namespace Binary.Main
             GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.MostWanted;
             Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
             Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
-            Properties.Settings.Default.EnableModscriptLog = ConfigCommand.Checked;
-            Properties.Settings.Default.EnableNewModscripts = ConfigEndscript.Checked;
+            Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
+            Properties.Settings.Default.EnableNewEndscripts = ConfigEndscript.Checked;
 
             bool ForceLoad = false;
             if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryMW))
@@ -114,8 +114,8 @@ namespace Binary.Main
             GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.Underground2;
             Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
             Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
-            Properties.Settings.Default.EnableModscriptLog = ConfigCommand.Checked;
-            Properties.Settings.Default.EnableNewModscripts = ConfigEndscript.Checked;
+            Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
+            Properties.Settings.Default.EnableNewEndscripts = ConfigEndscript.Checked;
 
             bool ForceLoad = false;
             if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryUG2))

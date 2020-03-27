@@ -98,24 +98,24 @@ namespace Binary.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool EnableModscriptLog {
+        public bool EnableEndscriptLog {
             get {
-                return ((bool)(this["EnableModscriptLog"]));
+                return ((bool)(this["EnableEndscriptLog"]));
             }
             set {
-                this["EnableModscriptLog"] = value;
+                this["EnableEndscriptLog"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool EnableNewModscripts {
+        public bool EnableNewEndscripts {
             get {
-                return ((bool)(this["EnableNewModscripts"]));
+                return ((bool)(this["EnableNewEndscripts"]));
             }
             set {
-                this["EnableNewModscripts"] = value;
+                this["EnableNewEndscripts"] = value;
             }
         }
     }

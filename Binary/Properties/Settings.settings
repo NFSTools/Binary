@@ -20,10 +20,10 @@
     <Setting Name="EnableCompression" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="EnableModscriptLog" Type="System.Boolean" Scope="User">
+    <Setting Name="EnableEndscriptLog" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="EnableNewModscripts" Type="System.Boolean" Scope="User">
+    <Setting Name="EnableNewEndscripts" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

@@ -39,10 +39,6 @@
     <Reference Include="FastColoredTextBox, Version=2.16.24.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
       <HintPath>..\packages\FCTB.2.16.24\lib\FastColoredTextBox.dll</HintPath>
     </Reference>
-    <Reference Include="GlobalLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\GlobalLib\GlobalLib\bin\Release\GlobalLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,11 +52,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Endscript\Commands.cs" />
+    <Compile Include="Endscript\Core.cs" />
+    <Compile Include="Endscript\Error.cs" />
+    <Compile Include="Endscript\Generate.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interact\Input.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interact\Input.Designer.cs">
+      <DependentUpon>Input.cs</DependentUpon>
     </Compile>
     <Compile Include="Support\Carbon\Carbon.cs">
       <SubType>Form</SubType>
@@ -121,6 +127,9 @@
       <DependentUpon>SwatchPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\Path.cs" />
+    <EmbeddedResource Include="Interact\Input.resx">
+      <DependentUpon>Input.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Support\Carbon\Carbon.resx">
       <DependentUpon>Carbon.cs</DependentUpon>
     </EmbeddedResource>
@@ -172,9 +181,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Endscript\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\binary.png" />
   </ItemGroup>

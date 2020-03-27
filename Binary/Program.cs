@@ -36,7 +36,7 @@ namespace Binary
             // If password check was not done yet
             if (!Properties.Settings.Default.PasswordPassed)
             {
-                Application.Run(new Support.Interact.Welcome());
+                Application.Run(new Interact.Welcome());
             }
 
             // Run if was done/entered

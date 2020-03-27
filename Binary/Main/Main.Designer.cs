@@ -446,7 +446,9 @@
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.PanelDescription);
 			this.Controls.Add(this.PanelConfiguration);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
 			this.Name = "Main";
 			this.Text = "Binary by MaxHwoy";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
