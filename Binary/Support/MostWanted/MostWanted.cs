@@ -69,17 +69,17 @@ namespace Binary.Support
 		{
 			DataSet_ReloadFile.Enabled = true;
 			DataSet_SaveFile.Enabled = true;
-			DataSet_ImportFile.Enabled = true;
-			DataSet_ProcessCommand.Enabled = true;
+			//DataSet_ImportFile.Enabled = true;
+			//DataSet_ProcessCommand.Enabled = true;
 			DataSet_GenerateCommand.Enabled = true;
 			DataSet_RestoreBackups.Enabled = true;
 			DataSet_CreateBackups.Enabled = true;
 			DataSet_UnlockFiles.Enabled = true;
 			DataSet_RunGame.Enabled = true;
-			DataSet_ExportAllTextures.Enabled = true;
+			//DataSet_ExportAllTextures.Enabled = true;
 			DataSet_DBInfo.Enabled = true;
-			DataSet_BoundsList.Enabled = true;
-			EndscriptToolStripMenuItemI.Enabled = true;
+			//DataSet_BoundsList.Enabled = true;
+			//EndscriptToolStripMenuItemI.Enabled = true;
 		}
 
 		private void DisableButtons()
@@ -211,13 +211,14 @@ namespace Binary.Support
 			return treenode;
 		}
 
-		private void LoadBinaryTree(bool load_last_select)
+		private void LoadBinaryTree(bool load_last_select, string newpath = null)
 		{
 			string path = null;
 			int index = 0;
 			if (load_last_select)
 			{
-				path = this.BinaryTree.SelectedNode.FullPath;
+				if (newpath == null) path = this.BinaryTree.SelectedNode.FullPath;
+				else path = newpath;
 				index = this.GetLastShownRowIndex();
 			}
 			this.BinaryTree.Nodes.Clear();
@@ -225,6 +226,7 @@ namespace Binary.Support
 			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbMW.CarTypeInfos.ThisName, this.dbMW.CarTypeInfos.GetAllNodes()));
 			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbMW.Materials.ThisName, this.dbMW.Materials.GetAllNodes()));
 			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbMW.PresetRides.ThisName, this.dbMW.PresetRides.GetAllNodes()));
+			foreach (TreeNode node in this.BinaryTree.Nodes) node.ImageIndex = 1;
 			if (load_last_select)
 			{
 				this.SelectNodeByFullPath(path, this.BinaryTree.Nodes);
@@ -463,7 +465,7 @@ namespace Binary.Support
 			{
 				string CName = QuickMenu.CollectionName;
 				string root = BinaryTree.SelectedNode.Text;
-				if (this.dbMW.TryAddClass(CName, root, out string error))
+				if (this.dbMW.TryAddCollection(CName, root, out string error))
 				{
 					Generate.WriteCommand(Commands.add, this.ColoredTextForm, root, CName);
 					this.LoadBinaryTree(true);
@@ -496,7 +498,7 @@ namespace Binary.Support
 			string CName = BinaryTree.SelectedNode.Text;
 			string root = BinaryTree.SelectedNode.Parent.Text;
 
-			if (this.dbMW.TryRemoveClass(CName, root, out string error))
+			if (this.dbMW.TryRemoveCollection(CName, root, out string error))
 			{
 				Generate.WriteCommand(Commands.delete, this.ColoredTextForm, root, CName);
 				this.LoadBinaryTree(false);
@@ -530,7 +532,7 @@ namespace Binary.Support
 				string newname = QuickMenu.CollectionName;
 				string copyname = BinaryTree.SelectedNode.Text;
 				string root = BinaryTree.SelectedNode.Parent.Text;
-				if (this.dbMW.TryCloneClass(newname, copyname, root, out string error))
+				if (this.dbMW.TryCloneCollection(newname, copyname, root, out string error))
 				{
 					Generate.WriteCommand(Commands.copy, this.ColoredTextForm, root, copyname, newname);
 					this.LoadBinaryTree(true);
@@ -560,7 +562,7 @@ namespace Binary.Support
 				string path = ExportCollectionDialog.FileName;
 				string CName = BinaryTree.SelectedNode.Text;
 				string root = BinaryTree.SelectedNode.Parent.Text;
-				if (this.dbMW.TryExportClass(CName, root, path, out string error))
+				if (this.dbMW.TryExportCollection(CName, root, path, out string error))
 				{
 					MessageBox.Show($"Successfully exported collection {CName} to {path}.", "Success",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -571,6 +573,84 @@ namespace Binary.Support
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
+		}
+
+		private void BinaryDataView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+		{
+			// If current cell is readonly -> simply return
+			if (BinaryDataView.CurrentCell.ReadOnly)
+				return;
+			// Else if value is unchanged -> return as well
+			else if (BinaryDataView.CurrentCell.Value.ToString() == e.FormattedValue.ToString())
+				return;
+
+			var field = BinaryDataView.Rows[e.RowIndex].Cells[0].Value.ToString();
+			var value = e.FormattedValue.ToString();
+			var tokens = Utils.Path.SplitPath(BinaryTree.SelectedNode.FullPath);
+			var cla = this.dbMW.GetPrimitive(tokens);
+			if (cla == null) return;
+
+			string error = null;
+			if (!cla.SetValue(field, value, ref error))
+			{
+				MessageBox.Show($"Error occured: {error}", "Error",
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
+				e.Cancel = true;
+				return;
+			}
+
+			var args = new string[tokens.Length + 2];
+			for (int a1 = 0; a1 < tokens.Length; ++a1)
+				args[a1] = tokens[a1];
+			args[args.Length - 2] = field;
+			args[args.Length - 1] = value;
+			Generate.WriteCommand(Commands.update, this.ColoredTextForm, args);
+		}
+
+		private void BinaryDataView_CellValidated(object sender, DataGridViewCellEventArgs e)
+		{
+			if (BinaryDataView.Rows[e.RowIndex].Cells[0].Value.ToString() == "CollectionName")
+			{
+				var CName = BinaryDataView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+				var node = BinaryTree.SelectedNode.FullPath;
+				var path = node.Substring(0, node.LastIndexOf(BinaryTree.PathSeparator));
+				this.LoadBinaryTree(true, $"{path}{BinaryTree.PathSeparator}{CName}");
+			}
+		}
+
+		private void DataSet_ClearEditor_Click(object sender, EventArgs e)
+		{
+			this.ColoredTextForm.Text = string.Empty;
+		}
+
+		private void DataSet_GenerateCommand_Click(object sender, EventArgs e)
+		{
+			if (BinaryDataView.Columns != null && BinaryDataView.Columns.Count == 2)
+			{
+				var tokens = Utils.Path.SplitPath(BinaryTree.SelectedNode.FullPath);
+				var field = BinaryDataView.Rows[BinaryDataView.CurrentCell.RowIndex].Cells[0].Value.ToString();
+				var value = BinaryDataView.Rows[BinaryDataView.CurrentCell.RowIndex].Cells[1].Value.ToString();
+				var args = new string[tokens.Length + 2];
+				for (int a1 = 0; a1 < tokens.Length; ++a1)
+					args[a1] = tokens[a1];
+				args[args.Length - 2] = field;
+				args[args.Length - 1] = value;
+				Generate.WriteCommand(Commands.update, this.ColoredTextForm, args);
+			}
+		}
+
+		private void OpenReadmeToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (File.Exists("Readme.txt"))
+				System.Diagnostics.Process.Start("explorer", "Readme.txt");
+			else
+				MessageBox.Show("Could not find Readme.txt file.", "Failure");
+		}
+
+		private void DataSet_AboutBox_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show($"Binary by MaxHwoy v0.8.4 Beta.{Environment.NewLine}Do not distribute.", "About",
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 	}
 }

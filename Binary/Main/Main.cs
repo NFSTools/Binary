@@ -17,7 +17,14 @@ namespace Binary.Main
 			InitializeComponent();
 		}
 
-		private void Main_Load(object sender, EventArgs e)
+        private void InitializeLogFile()
+        {
+            GlobalLib.Utils.Log.EnableLog = false;
+            GlobalLib.Utils.Log.EnableTimeWrite = false;
+            Endscript.Core.CreateEndscriptFile("Binary.end");
+        }
+
+        private void Main_Load(object sender, EventArgs e)
 		{
             // Set properties from memory
             ConfigAutoSave.Checked = Properties.Settings.Default.EnableAutobackup;
@@ -72,6 +79,7 @@ namespace Binary.Main
             Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
             Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
             Properties.Settings.Default.EnableNewEndscripts = ConfigEndscript.Checked;
+            this.InitializeLogFile();
 
             bool ForceLoad = false;
             if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryC))
@@ -94,6 +102,7 @@ namespace Binary.Main
             Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
             Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
             Properties.Settings.Default.EnableNewEndscripts = ConfigEndscript.Checked;
+            this.InitializeLogFile();
 
             bool ForceLoad = false;
             if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryMW))
@@ -116,6 +125,7 @@ namespace Binary.Main
             Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
             Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
             Properties.Settings.Default.EnableNewEndscripts = ConfigEndscript.Checked;
+            this.InitializeLogFile();
 
             bool ForceLoad = false;
             if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryUG2))

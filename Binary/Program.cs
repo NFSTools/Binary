@@ -24,7 +24,8 @@ namespace Binary
                 var principal = new WindowsPrincipal(identity);
                 if (!principal.IsInRole(WindowsBuiltInRole.Administrator))
                 {
-                    MessageBox.Show("Run Binary in Administrator mode!", "Fatal");
+                    MessageBox.Show("Run Binary in Administrator mode!", "Warning",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }

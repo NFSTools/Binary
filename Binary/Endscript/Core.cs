@@ -11,7 +11,6 @@ namespace Binary.Endscript
     {
         private static string EndFileDir { get; set; }
         private static List<Error> ErrorsOccured = new List<Error>();
-        private static string scriptdir;
 
         private static void AddErrorType(string error, string line, int index)
         {
@@ -31,7 +30,6 @@ namespace Binary.Endscript
             var words = line.Split(delim, StringSplitOptions.RemoveEmptyEntries);
             Enum.TryParse(words[0], out Commands command);
             var parent = words[1];
-
             switch (command)
             {
                 case Commands.update:

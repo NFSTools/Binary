@@ -73,7 +73,7 @@ namespace Binary.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool EnableAutobackup {
             get {
                 return ((bool)(this["EnableAutobackup"]));
@@ -97,7 +97,7 @@ namespace Binary.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool EnableEndscriptLog {
             get {
                 return ((bool)(this["EnableEndscriptLog"]));

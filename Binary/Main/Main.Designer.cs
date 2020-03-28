@@ -392,6 +392,8 @@
 			// ConfigCommand
 			// 
 			this.ConfigCommand.AutoSize = true;
+			this.ConfigCommand.Checked = true;
+			this.ConfigCommand.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.ConfigCommand.ForeColor = System.Drawing.SystemColors.Window;
 			this.ConfigCommand.Location = new System.Drawing.Point(13, 78);
 			this.ConfigCommand.Name = "ConfigCommand";
@@ -414,6 +416,8 @@
 			// ConfigAutoSave
 			// 
 			this.ConfigAutoSave.AutoSize = true;
+			this.ConfigAutoSave.Checked = true;
+			this.ConfigAutoSave.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.ConfigAutoSave.ForeColor = System.Drawing.SystemColors.Window;
 			this.ConfigAutoSave.Location = new System.Drawing.Point(13, 32);
 			this.ConfigAutoSave.Name = "ConfigAutoSave";

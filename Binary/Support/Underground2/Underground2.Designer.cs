@@ -425,6 +425,7 @@
 			this.DataSet_GenerateCommand.ShortcutKeys = System.Windows.Forms.Keys.F6;
 			this.DataSet_GenerateCommand.Size = new System.Drawing.Size(200, 22);
 			this.DataSet_GenerateCommand.Text = "Generate Command";
+			this.DataSet_GenerateCommand.Click += new System.EventHandler(this.DataSet_GenerateCommand_Click);
 			// 
 			// DataSet_ClearEditor
 			// 
@@ -434,6 +435,7 @@
 			this.DataSet_ClearEditor.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
 			this.DataSet_ClearEditor.Size = new System.Drawing.Size(200, 22);
 			this.DataSet_ClearEditor.Text = "Clear Editor";
+			this.DataSet_ClearEditor.Click += new System.EventHandler(this.DataSet_ClearEditor_Click);
 			// 
 			// windowsToolStripMenuItem
 			// 
@@ -496,6 +498,7 @@
 			this.DataSet_AboutBox.ShortcutKeys = System.Windows.Forms.Keys.F1;
 			this.DataSet_AboutBox.Size = new System.Drawing.Size(222, 22);
 			this.DataSet_AboutBox.Text = "About";
+			this.DataSet_AboutBox.Click += new System.EventHandler(this.DataSet_AboutBox_Click);
 			// 
 			// OpenReadmeToolStripMenuItem
 			// 
@@ -506,6 +509,7 @@
             | System.Windows.Forms.Keys.R)));
 			this.OpenReadmeToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
 			this.OpenReadmeToolStripMenuItem.Text = "Open Readme";
+			this.OpenReadmeToolStripMenuItem.Click += new System.EventHandler(this.OpenReadmeToolStripMenuItem_Click);
 			// 
 			// DataSet_StatusStrip
 			// 
@@ -554,9 +558,12 @@
 			this.BinaryTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.BinaryTree.ContextMenuStrip = this.BinaryTreeRightClick;
 			this.BinaryTree.ForeColor = System.Drawing.SystemColors.Info;
+			this.BinaryTree.ImageIndex = 0;
+			this.BinaryTree.ImageList = this.BinaryTreeImageList;
 			this.BinaryTree.Location = new System.Drawing.Point(3, 3);
 			this.BinaryTree.Name = "BinaryTree";
 			this.BinaryTree.PathSeparator = "/";
+			this.BinaryTree.SelectedImageIndex = 2;
 			this.BinaryTree.Size = new System.Drawing.Size(261, 398);
 			this.BinaryTree.TabIndex = 0;
 			this.BinaryTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BinaryTree_AfterSelect);
@@ -679,6 +686,8 @@
 			this.BinaryDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
 			this.BinaryDataView.Size = new System.Drawing.Size(527, 279);
 			this.BinaryDataView.TabIndex = 0;
+			this.BinaryDataView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.BinaryDataView_CellValidating);
+			this.BinaryDataView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.BinaryDataView_CellValueChanged);
 			// 
 			// ColoredTextForm
 			// 
@@ -704,6 +713,7 @@
 			this.ColoredTextForm.CurrentLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(100)))));
 			this.ColoredTextForm.Cursor = System.Windows.Forms.Cursors.IBeam;
 			this.ColoredTextForm.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+			this.ColoredTextForm.Font = new System.Drawing.Font("Courier New", 9.75F);
 			this.ColoredTextForm.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.ColoredTextForm.IsReplaceMode = false;
 			this.ColoredTextForm.LineNumberColor = System.Drawing.Color.Gainsboro;
@@ -719,9 +729,11 @@
 			// 
 			// BinaryTreeImageList
 			// 
-			this.BinaryTreeImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-			this.BinaryTreeImageList.ImageSize = new System.Drawing.Size(16, 16);
+			this.BinaryTreeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("BinaryTreeImageList.ImageStream")));
 			this.BinaryTreeImageList.TransparentColor = System.Drawing.Color.Transparent;
+			this.BinaryTreeImageList.Images.SetKeyName(0, "Collection.png");
+			this.BinaryTreeImageList.Images.SetKeyName(1, "Root.png");
+			this.BinaryTreeImageList.Images.SetKeyName(2, "SelectedNode.png");
 			// 
 			// BrowseGameDirDialog
 			// 
