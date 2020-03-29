@@ -616,6 +616,10 @@ namespace Binary.Support
 				var path = node.Substring(0, node.LastIndexOf(BinaryTree.PathSeparator));
 				this.LoadBinaryTree(true, $"{path}{BinaryTree.PathSeparator}{CName}");
 			}
+			else
+			{
+				this.UpdateBinaryTreeView();
+			}
 		}
 
 		private void DataSet_ClearEditor_Click(object sender, EventArgs e)

@@ -69,7 +69,7 @@ namespace Binary.Support
 		{
 			DataSet_ReloadFile.Enabled = true;
 			DataSet_SaveFile.Enabled = true;
-			//DataSet_ImportFile.Enabled = true;
+			DataSet_ImportFile.Enabled = true;
 			//DataSet_ProcessCommand.Enabled = true;
 			DataSet_GenerateCommand.Enabled = true;
 			DataSet_RestoreBackups.Enabled = true;
@@ -79,7 +79,7 @@ namespace Binary.Support
 			//DataSet_ExportAllTextures.Enabled = true;
 			DataSet_DBInfo.Enabled = true;
 			//DataSet_BoundsList.Enabled = true;
-			//EndscriptToolStripMenuItemI.Enabled = true;
+			EndscriptToolStripMenuItemI.Enabled = true;
 		}
 
 		private void DisableButtons()
@@ -633,6 +633,10 @@ namespace Binary.Support
 				var path = node.Substring(0, node.LastIndexOf(BinaryTree.PathSeparator));
 				this.LoadBinaryTree(true, $"{path}{BinaryTree.PathSeparator}{CName}");
 			}
+			else
+			{
+				this.UpdateBinaryTreeView();
+			}
 		}
 
 		private void DataSet_ClearEditor_Click(object sender, EventArgs e)
@@ -668,6 +672,15 @@ namespace Binary.Support
 		{
 			MessageBox.Show($"Binary by MaxHwoy v0.8.4 Beta.{Environment.NewLine}Do not distribute.", "About",
 				MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private void EndscriptToolStripMenuItemI_Click(object sender, EventArgs e)
+		{
+			if (OpenEndscriptDialog.ShowDialog() == DialogResult.OK)
+			{
+				if (Core.ProcessEndscript(OpenEndscriptDialog.FileName, dbUG2, out string label))
+					this.DataSet_Status.Text = label;
+			}
 		}
 	}
 }

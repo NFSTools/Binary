@@ -23,7 +23,7 @@
     <Setting Name="EnableEndscriptLog" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="EnableNewEndscripts" Type="System.Boolean" Scope="User">
+    <Setting Name="EnableStaticEnd" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

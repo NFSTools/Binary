@@ -12,7 +12,8 @@ namespace Binary
 		/// The main entry point for the application.
 		/// </summary>
 		[STAThread]
-		static void Main()
+        [Obsolete]
+        static void Main()
 		{
             // Skip administator check if in the debug mode
             if (System.Diagnostics.Debugger.IsAttached)
@@ -31,6 +32,7 @@ namespace Binary
             }
 
         LABEL_DEBUG_SKIP:
+            AppDomain.CurrentDomain.AppendPrivatePath("Libraries");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

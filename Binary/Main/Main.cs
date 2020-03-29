@@ -30,7 +30,7 @@ namespace Binary.Main
             ConfigAutoSave.Checked = Properties.Settings.Default.EnableAutobackup;
             ConfigCompressFiles.Checked = Properties.Settings.Default.EnableCompression;
             ConfigCommand.Checked = Properties.Settings.Default.EnableEndscriptLog;
-            ConfigEndscript.Checked = Properties.Settings.Default.EnableNewEndscripts;
+            ConfigEndscript.Checked = Properties.Settings.Default.EnableStaticEnd;
 
             var NFSCToolTip = new ToolTip();
             var NFSMWToolTip = new ToolTip();
@@ -78,7 +78,7 @@ namespace Binary.Main
             Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
             Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
             Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
-            Properties.Settings.Default.EnableNewEndscripts = ConfigEndscript.Checked;
+            Properties.Settings.Default.EnableStaticEnd = ConfigEndscript.Checked;
             this.InitializeLogFile();
 
             bool ForceLoad = false;
@@ -101,7 +101,7 @@ namespace Binary.Main
             Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
             Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
             Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
-            Properties.Settings.Default.EnableNewEndscripts = ConfigEndscript.Checked;
+            Properties.Settings.Default.EnableStaticEnd = ConfigEndscript.Checked;
             this.InitializeLogFile();
 
             bool ForceLoad = false;
@@ -124,7 +124,7 @@ namespace Binary.Main
             Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
             Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
             Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
-            Properties.Settings.Default.EnableNewEndscripts = ConfigEndscript.Checked;
+            Properties.Settings.Default.EnableStaticEnd = ConfigEndscript.Checked;
             this.InitializeLogFile();
 
             bool ForceLoad = false;

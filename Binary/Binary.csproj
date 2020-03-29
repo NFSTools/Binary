@@ -57,8 +57,20 @@
   <ItemGroup>
     <Compile Include="Endscript\Commands.cs" />
     <Compile Include="Endscript\Core.cs" />
-    <Compile Include="Endscript\Error.cs" />
+    <Compile Include="Endscript\EndLine.cs" />
     <Compile Include="Endscript\Generate.cs" />
+    <Compile Include="Interact\EndMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interact\EndMenu.Designer.cs">
+      <DependentUpon>EndMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interact\ErrorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interact\ErrorView.Designer.cs">
+      <DependentUpon>ErrorView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interact\Input.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +136,12 @@
       <DependentUpon>SwatchPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\Path.cs" />
+    <EmbeddedResource Include="Interact\EndMenu.resx">
+      <DependentUpon>EndMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interact\ErrorView.resx">
+      <DependentUpon>ErrorView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interact\Input.resx">
       <DependentUpon>Input.cs</DependentUpon>
     </EmbeddedResource>

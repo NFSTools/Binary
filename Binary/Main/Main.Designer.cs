@@ -384,9 +384,9 @@
 			this.ConfigEndscript.ForeColor = System.Drawing.SystemColors.Window;
 			this.ConfigEndscript.Location = new System.Drawing.Point(13, 101);
 			this.ConfigEndscript.Name = "ConfigEndscript";
-			this.ConfigEndscript.Size = new System.Drawing.Size(144, 17);
+			this.ConfigEndscript.Size = new System.Drawing.Size(166, 17);
 			this.ConfigEndscript.TabIndex = 6;
-			this.ConfigEndscript.Text = "Make New Endscript File";
+			this.ConfigEndscript.Text = "Enable Static End Commands";
 			this.ConfigEndscript.UseVisualStyleBackColor = true;
 			// 
 			// ConfigCommand
@@ -397,9 +397,9 @@
 			this.ConfigCommand.ForeColor = System.Drawing.SystemColors.Window;
 			this.ConfigCommand.Location = new System.Drawing.Point(13, 78);
 			this.ConfigCommand.Name = "ConfigCommand";
-			this.ConfigCommand.Size = new System.Drawing.Size(130, 17);
+			this.ConfigCommand.Size = new System.Drawing.Size(128, 17);
 			this.ConfigCommand.TabIndex = 4;
-			this.ConfigCommand.Text = "Save Mod Commands";
+			this.ConfigCommand.Text = "Save End Commands";
 			this.ConfigCommand.UseVisualStyleBackColor = true;
 			// 
 			// ConfigCompressFiles

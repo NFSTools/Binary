@@ -94,9 +94,9 @@
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(381, 48);
 			this.label1.TabIndex = 5;
-			this.label1.Text = "Welcome to NFS-Binary! Before we continue, please enter the\r\npassword that you fo" +
-    "und in Readme.txt file. This is a one-time\r\nlog-in, once you enter the password " +
-    "you won\'t need to reenter it.\r\n";
+			this.label1.Text = "Welcome to Binary! Before we continue, please enter the\r\npassword that you found " +
+    "in Readme.txt file. This is a one-time\r\nlog-in, once you enter the password you " +
+    "won\'t need to reenter it.\r\n";
 			// 
 			// Welcome
 			// 

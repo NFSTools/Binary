@@ -110,12 +110,12 @@ namespace Binary.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool EnableNewEndscripts {
+        public bool EnableStaticEnd {
             get {
-                return ((bool)(this["EnableNewEndscripts"]));
+                return ((bool)(this["EnableStaticEnd"]));
             }
             set {
-                this["EnableNewEndscripts"] = value;
+                this["EnableStaticEnd"] = value;
             }
         }
     }
