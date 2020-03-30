@@ -12,7 +12,7 @@ namespace Binary.Endscript
 {
 	public static class Linear
 	{
-		public static string LaunchProcess(string filename)
+		public static string LaunchProcess(string filename, string origdir)
 		{
 			try
 			{
@@ -29,7 +29,7 @@ namespace Binary.Endscript
 				{
 					if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//"))
 						continue;
-					else if (line == endregion)
+					else if (in_launch_format && line == endregion)
 					{
 						in_launch_format = false;
 						continue;
@@ -38,7 +38,7 @@ namespace Binary.Endscript
 					{
 						last_index = launches.Count;
 						in_launch_format = true;
-						launches.Add(new Launch());
+						launches.Add(new Launch(origdir));
 						continue;
 					}
 					else if (in_launch_format)
@@ -48,7 +48,8 @@ namespace Binary.Endscript
 						var tokens = Utils.CleanUp.SplitScriptString(line);
 						if (!Enum.TryParse(tokens.Item1, out ScriptArgs arg))
 							throw new Exception($"Unrecognized keyword {tokens.Item1} in script {filename}.");
-						ScriptDict.KeywordFunctions[arg].Invoke(tokens.Item2, launches[last_index]);
+						if (!ScriptDict.KeywordFunctions[arg].Invoke(tokens.Item2, launches[last_index]))
+							throw new Exception($"Unable to process keyword {arg} in script {filename}.");
 					}
 					else
 					{
@@ -56,14 +57,23 @@ namespace Binary.Endscript
 					}
 				}
 
+				if (in_launch_format)
+					throw new Exception($"Keyword {endregion} was not found in script {filename}.");
+
+
+				string prev_launch = string.Empty;
 				foreach (var launch in launches)
 				{
 					switch (launch.ChooseDir)
 					{
+						case eChooseDirMethod.None:
+							throw new Exception($"Unable to find file named {launch.ProcessName}.");
+
 						case eChooseDirMethod.OpenFileDialog:
 							var ofd = new OpenFileDialog()
 							{
-								Filter = Path.GetExtension(launch.ProcessName),
+								Filter = $"{Path.GetFileNameWithoutExtension(launch.ProcessName)} | " +
+										 $"*{Path.GetExtension(launch.ProcessName)}",
 								CheckFileExists = true,
 								CheckPathExists = true,
 								Multiselect = false,
@@ -72,7 +82,11 @@ namespace Binary.Endscript
 							ofd.FileOk += new CancelEventHandler((object sender, CancelEventArgs e) =>
 							{
 								if (Path.GetFileName(ofd.FileName) != launch.ProcessName)
+								{
+									MessageBox.Show($"File chosen is not {launch.ProcessName}.", "Error",
+										MessageBoxButtons.OK, MessageBoxIcon.Error);
 									e.Cancel = true;
+								}
 							});
 
 							if (ofd.ShowDialog() == DialogResult.OK)
@@ -149,7 +163,14 @@ namespace Binary.Endscript
 							}
 							throw new Exception($"User interrupted execution of process {launch.ProcessName}.");
 
+						case eChooseDirMethod.FromPreviousLaunch:
+							if (string.IsNullOrEmpty(prev_launch))
+								throw new Exception($"Unable to use file path from previous launch in script {filename}.");
+							launch.ProcessName = prev_launch;
+							goto default;
+
 						default:
+							prev_launch = launch.ProcessName;
 							var args = string.Empty;
 							foreach (var arg in launch.StrCommandArgs)
 								args += arg + " ";

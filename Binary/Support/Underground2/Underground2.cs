@@ -676,8 +676,12 @@ namespace Binary.Support
 		{
 			if (OpenEndscriptDialog.ShowDialog() == DialogResult.OK)
 			{
-				if (Core.ProcessEndscript(OpenEndscriptDialog.FileName, dbUG2, out string label))
+				if (Core.ProcessEndscript(OpenEndscriptDialog.FileName, dbUG2, out var label, out var text))
+				{
 					this.DataSet_Status.Text = label;
+					this.ColoredTextForm.Text += text;
+					this.LoadBinaryTree(true);
+				}
 			}
 		}
 	}

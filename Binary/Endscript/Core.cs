@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
+using System.Text;
 using GlobalLib.Core;
 using GlobalLib.Reflection.Abstract;
 using GlobalLib.Utils;
@@ -13,6 +14,16 @@ namespace Binary.Endscript
 {
     public static partial class Core
     {
+        #region Constants
+
+        private const string absolute = "absolute";
+        private const string relative = "relative";
+        private const string file = "file";
+        private const string folder = "folder";
+        private static System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+
+		#endregion
+
 		#region End File Management
 
 		private static string EndFileDir { get; set; }
@@ -139,9 +150,10 @@ namespace Binary.Endscript
             }
         }
 
-        public static bool ProcessEndscript(string filepath, BasicBase db, out string label)
+        public static bool ProcessEndscript(string filepath, BasicBase db, out string label, out string text)
         {
             label = null;
+            text = string.Empty;
             if (!ProceedSafeLoading(filepath, out var EndLines)) return false;
 
             var MenuEndLines = new List<string>();
@@ -170,17 +182,28 @@ namespace Binary.Endscript
             {
                 string filedir = Path.GetDirectoryName(filepath);
                 var watch = new System.Diagnostics.Stopwatch();
-                watch.Start();
 
+                watch.Reset();
+                watch.Start();
                 foreach (var endline in EndLines)
                 {
-                    endline.Error = ExecuteEndscriptLine(endline.Text, filedir, db);
+                    endline.Error = ExecuteEndscriptLine(endline.Text, db, filedir);
                     if (endline.Error != null) ErrorEndLines.Add(endline);
                 }
-
-
-
                 watch.Stop();
+
+                if (ErrorEndLines.Count > 0)
+                {
+                    var errorwindow = new Interact.ErrorView(ErrorEndLines);
+                    errorwindow.ShowDialog();
+
+                }
+
+                var build = new StringBuilder(EndLines.Count * 100);
+                foreach (var endline in EndLines)
+                    build.Append(endline.Text + Environment.NewLine);
+
+                text = build.ToString();
                 label = $"Processed {total_line_count} lines of script in {watch.ElapsedMilliseconds}ms";
                 return true;
             }
@@ -191,7 +214,7 @@ namespace Binary.Endscript
 
 		#region Processing
 
-		public static string ExecuteEndscriptLine(string line, string filedir, BasicBase db)
+		public static string ExecuteEndscriptLine(string line, BasicBase db, string filedir = null)
         {
             string error = "Incorrect amount of passed script parameters.";
             var words = DisperseLine(line, new char[] { ' ', '\t', '\n'});
@@ -228,19 +251,26 @@ namespace Binary.Endscript
                     else goto default;
 
                 case Commands.move:
-                    if (len == 3) return ExecuteMoveCommand(filedir, words[1], words[2]);
+                    if (len == 5) return ExecuteMoveCommand(words[1], words[2], filedir,
+                        words[3], words[4]);
                     else goto default;
 
                 case Commands.erase:
-                    if (len == 3) return ExecuteEraseCommand(words[1], filedir, words[2]);
+                    if (len == 4) return ExecuteEraseCommand(words[1], words[2], filedir, words[3]);
                     else goto default;
 
                 case Commands.create:
-                    if (len == 3) return ExecuteCreateCommand(words[1], words[2]);
+                    if (len == 4) return ExecuteCreateCommand(words[1], words[2], filedir, words[3]);
                     else goto default;
 
                 case Commands.execute:
-                    if (len == 2) return Linear.LaunchProcess(Path.Combine(filedir, words[1]));
+                    if (len == 2)
+                    {
+                        watch.Stop();
+                        error = Linear.LaunchProcess(Path.Combine(filedir, words[1]), filedir);
+                        watch.Start();
+                        return error;
+                    }
                     else goto default;
 
                 default:
@@ -361,14 +391,30 @@ namespace Binary.Endscript
 
 		#region Move Command
 
-        private static string ExecuteMoveCommand(string dir, string thispath, string destpath)
+        private static string ExecuteMoveCommand(string method, string type,
+            string dir, string thispath, string destpath)
         {
             try
             {
-                string thisfile = Path.Combine(dir, thispath);
-                string destfile = Path.Combine(Process.GlobalDir, destpath);
-                File.Copy(thisfile, destfile, true);
-                return null;
+                if (method == absolute)
+                {
+                    string thisfile = Path.Combine(Process.GlobalDir, thispath);
+                    string destfile = Path.Combine(Process.GlobalDir, destpath);
+                    if (type == folder) Directory.Move(thisfile, destfile);
+                    else if (type == file) File.Copy(thisfile, destfile, true);
+                    else return $"Invalid attribute specifier named {type}.";
+                    return null;
+                }
+                else if (method == relative)
+                {
+                    string thisfile = Path.Combine(dir, thispath);
+                    string destfile = Path.Combine(Process.GlobalDir, destpath);
+                    if (type == folder) Directory.Move(thisfile, destfile);
+                    else if (type == file) File.Copy(thisfile, destfile, true);
+                    else return $"Invalid attribute specifier named {type}.";
+                    return null;
+                }
+                else return $"Unrecognized command named {method}.";
             }
             catch (Exception e)
             {
@@ -381,23 +427,27 @@ namespace Binary.Endscript
 
 		#region Erase Command
 
-        private static string ExecuteEraseCommand(string type, string dir, string destpath)
+        private static string ExecuteEraseCommand(string method, string type, string dir, string destpath)
         {
             try
             {
-                if (type == "absolute")
+                if (method == absolute)
                 {
                     string destfile = Path.Combine(Process.GlobalDir, destpath);
-                    if (File.Exists(destfile)) File.Delete(destfile);
+                    if (type == folder && Directory.Exists(destfile)) Directory.Delete(destfile, true);
+                    else if (type == file && File.Exists(destfile)) File.Delete(destfile);
+                    else return $"Invalid attribute specifier named {type}.";
                     return null;
                 }
-                else if (type == "relative")
+                else if (method == relative)
                 {
                     string destfile = Path.Combine(dir, destpath);
-                    if (File.Exists(destfile)) File.Delete(destfile);
+                    if (type == folder && Directory.Exists(destfile)) Directory.Delete(destfile, true);
+                    else if (type == file && File.Exists(destfile)) File.Delete(destfile);
+                    else return $"Invalid attribute specifier named {type}.";
                     return null;
                 }
-                else return $"Invalid path type specifier named {type}.";
+                else return $"Invalid path type specifier named {method}.";
             }
             catch (Exception e)
             {
@@ -410,25 +460,43 @@ namespace Binary.Endscript
 
         #region Create Command
 
-        private static string ExecuteCreateCommand(string info, string destpath)
+        private static string ExecuteCreateCommand(string method, string type, string dir, string destpath)
         {
-            string destfile = Path.Combine(Process.GlobalDir, destpath);
-            try
+            if (method == "absolute")
             {
-                if (info == "folder")
-                    Directory.CreateDirectory(destfile);
-                else if (info == "file")
-                    File.Create(destfile);
-                else return $"Incorrect argument passed named {info}.";
-                return null;
+                string destfile = Path.Combine(Process.GlobalDir, destpath);
+                try
+                {
+                    if (type == folder) Directory.CreateDirectory(destfile);
+                    else if (type == file) File.Create(destfile);
+                    else return $"Invalid attribute specifier named {type}.";
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    while (e.InnerException != null) e = e.InnerException;
+                    return e.Message;
+                }
             }
-            catch (Exception e)
+            else if (method == "relative")
             {
-                while (e.InnerException != null) e = e.InnerException;
-                return e.Message;
+                string destfile = Path.Combine(dir, destpath);
+                try
+                {
+                    if (type == folder) Directory.CreateDirectory(destfile);
+                    else if (type == file) File.Create(destfile);
+                    else return $"Invalid attribute specifier named {type}.";
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    while (e.InnerException != null) e = e.InnerException;
+                    return e.Message;
+                }
             }
+            else return $"Invalid path type specifier named {method}.";
         }
 
-		#endregion
-	}
+        #endregion
+    }
 }

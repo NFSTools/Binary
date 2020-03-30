@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 
 
@@ -14,7 +15,7 @@ namespace Binary.Endscript
 				ScriptArgs.Process,
 				(string str, Launch lan) =>
 				{
-					if (!string.IsNullOrEmpty(lan.ProcessName))
+					if (string.IsNullOrEmpty(lan.ProcessName))
 					{
 						lan.ProcessName = str;
 						return true;
@@ -24,9 +25,10 @@ namespace Binary.Endscript
 			},
 
 			{
-				ScriptArgs.ChooseDirMethod,
+				ScriptArgs.ChooseMethod,
 				(string str, Launch lan) =>
 				{
+					if (lan.ChooseDir != eChooseDirMethod.None) return false;
 					if (Enum.TryParse(str, out eChooseDirMethod method))
 					{
 						lan.ChooseDir = method;
@@ -54,6 +56,7 @@ namespace Binary.Endscript
 				ScriptArgs.NumCommandArgs,
 				(string str, Launch lan) =>
 				{
+					if (lan.NumCommandArgs > -1) return false;
 					if (!int.TryParse(str, out var num) || num < 0)
 						return false;
 					lan.NumCommandArgs = num;
@@ -66,13 +69,27 @@ namespace Binary.Endscript
 				(string str, Launch lan) =>
 				{
 					if (lan.StrCommandArgs.Count >= lan.NumCommandArgs) return false;
+					else if (str.Contains(ScriptArgs.ScriptFilename.ToString()))
+						lan.StrCommandArgs.Add(str.Replace(ScriptArgs.ScriptFilename.ToString(),
+							lan.ScriptFilename));
 					else
-					{
 						lan.StrCommandArgs.Add(str);
-						return true;
-					}
+					return true;
 				}
 			},
+
+			{
+				ScriptArgs.ScriptFilename,
+				(string str, Launch lan) =>
+				{
+					if (string.IsNullOrEmpty(lan.ScriptFilename))
+					{
+						lan.ScriptFilename = Path.Combine(lan.ThisEndDirectory, str);
+						return true;
+					}
+					else return false;
+				}
+			}
 		};
 	}
 }
