@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
+using GlobalLib.Core;
 using GlobalLib.Reflection.Abstract;
 using GlobalLib.Utils;
 
@@ -167,12 +168,13 @@ namespace Binary.Endscript
             var window = new Interact.EndMenu(MenuEndLines.ToArray(), Path.GetDirectoryName(filepath));
             if (window.ShowDialog() == DialogResult.OK)
             {
+                string filedir = Path.GetDirectoryName(filepath);
                 var watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
 
                 foreach (var endline in EndLines)
                 {
-                    endline.Error = ExecuteEndscriptLine(endline.Text, db);
+                    endline.Error = ExecuteEndscriptLine(endline.Text, filedir, db);
                     if (endline.Error != null) ErrorEndLines.Add(endline);
                 }
 
@@ -189,7 +191,7 @@ namespace Binary.Endscript
 
 		#region Processing
 
-		public static string ExecuteEndscriptLine(string line, BasicBase db)
+		public static string ExecuteEndscriptLine(string line, string filedir, BasicBase db)
         {
             string error = "Incorrect amount of passed script parameters.";
             var words = DisperseLine(line, new char[] { ' ', '\t', '\n'});
@@ -225,6 +227,22 @@ namespace Binary.Endscript
                     if (len == 4) return ExecuteStaticCollection(db, words[1], words[2], words[3]);
                     else goto default;
 
+                case Commands.move:
+                    if (len == 3) return ExecuteMoveCommand(filedir, words[1], words[2]);
+                    else goto default;
+
+                case Commands.erase:
+                    if (len == 3) return ExecuteEraseCommand(words[1], filedir, words[2]);
+                    else goto default;
+
+                case Commands.create:
+                    if (len == 3) return ExecuteCreateCommand(words[1], words[2]);
+                    else goto default;
+
+                case Commands.execute:
+                    if (len == 2) return Linear.LaunchProcess(Path.Combine(filedir, words[1]));
+                    else goto default;
+
                 default:
                     return error;
             }
@@ -249,7 +267,7 @@ namespace Binary.Endscript
             }
         }
 
-        private static string[] DisperseLine(string line, params char[] delim)
+        public static string[] DisperseLine(string line, params char[] delim)
         {
             var result = new List<string>();
             string str = null;
@@ -337,6 +355,78 @@ namespace Binary.Endscript
         {
             if (db.TrySetStaticValue(root, field, value, out var error)) return null;
             else return error;
+        }
+
+		#endregion
+
+		#region Move Command
+
+        private static string ExecuteMoveCommand(string dir, string thispath, string destpath)
+        {
+            try
+            {
+                string thisfile = Path.Combine(dir, thispath);
+                string destfile = Path.Combine(Process.GlobalDir, destpath);
+                File.Copy(thisfile, destfile, true);
+                return null;
+            }
+            catch (Exception e)
+            {
+                while (e.InnerException != null) e = e.InnerException;
+                return e.Message;
+            }
+        }
+
+		#endregion
+
+		#region Erase Command
+
+        private static string ExecuteEraseCommand(string type, string dir, string destpath)
+        {
+            try
+            {
+                if (type == "absolute")
+                {
+                    string destfile = Path.Combine(Process.GlobalDir, destpath);
+                    if (File.Exists(destfile)) File.Delete(destfile);
+                    return null;
+                }
+                else if (type == "relative")
+                {
+                    string destfile = Path.Combine(dir, destpath);
+                    if (File.Exists(destfile)) File.Delete(destfile);
+                    return null;
+                }
+                else return $"Invalid path type specifier named {type}.";
+            }
+            catch (Exception e)
+            {
+                while (e.InnerException != null) e = e.InnerException;
+                return e.Message;
+            }
+        }
+
+        #endregion
+
+        #region Create Command
+
+        private static string ExecuteCreateCommand(string info, string destpath)
+        {
+            string destfile = Path.Combine(Process.GlobalDir, destpath);
+            try
+            {
+                if (info == "folder")
+                    Directory.CreateDirectory(destfile);
+                else if (info == "file")
+                    File.Create(destfile);
+                else return $"Incorrect argument passed named {info}.";
+                return null;
+            }
+            catch (Exception e)
+            {
+                while (e.InnerException != null) e = e.InnerException;
+                return e.Message;
+            }
         }
 
 		#endregion

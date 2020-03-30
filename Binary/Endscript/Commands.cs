@@ -14,5 +14,8 @@
         attach = 9,
         execute = 10,
         @static = 11,
+        move = 12,
+        erase = 13,
+        create = 14,
     }
 }

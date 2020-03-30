@@ -57,8 +57,13 @@
   <ItemGroup>
     <Compile Include="Endscript\Commands.cs" />
     <Compile Include="Endscript\Core.cs" />
+    <Compile Include="Endscript\eChooseDirMethod.cs" />
     <Compile Include="Endscript\EndLine.cs" />
     <Compile Include="Endscript\Generate.cs" />
+    <Compile Include="Endscript\Launch.cs" />
+    <Compile Include="Endscript\Process.cs" />
+    <Compile Include="Endscript\ScriptArgs.cs" />
+    <Compile Include="Endscript\ScriptDict.cs" />
     <Compile Include="Interact\EndMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +140,7 @@
     <Compile Include="Tools\SwatchPicker.Designer.cs">
       <DependentUpon>SwatchPicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\CleanUp.cs" />
     <Compile Include="Utils\Path.cs" />
     <EmbeddedResource Include="Interact\EndMenu.resx">
       <DependentUpon>EndMenu.cs</DependentUpon>

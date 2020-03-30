@@ -397,9 +397,7 @@ namespace Binary.Support
 		private void Underground2_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			this.dbUG2 = null;
-			GC.Collect(0, GCCollectionMode.Forced);
-			GC.Collect(1, GCCollectionMode.Forced);
-			GC.Collect(2, GCCollectionMode.Forced);
+			Utils.CleanUp.GCCollect();
 		}
 
 		private void DataSet_CreateBackups_Click(object sender, EventArgs e)

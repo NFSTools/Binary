@@ -380,9 +380,7 @@ namespace Binary.Support
 		private void MostWanted_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			this.dbMW = null;
-			GC.Collect(0, GCCollectionMode.Forced);
-			GC.Collect(1, GCCollectionMode.Forced);
-			GC.Collect(2, GCCollectionMode.Forced);
+			Utils.CleanUp.GCCollect();
 		}
 
 		private void DataSet_CreateBackups_Click(object sender, EventArgs e)

@@ -21,6 +21,7 @@ namespace Binary.Main
         {
             GlobalLib.Utils.Log.EnableLog = false;
             GlobalLib.Utils.Log.EnableTimeWrite = false;
+            GlobalLib.Utils.Log.FileName = "Binary.log";
             Endscript.Core.CreateEndscriptFile("Binary.end");
         }
 
