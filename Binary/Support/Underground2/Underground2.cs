@@ -614,6 +614,7 @@ namespace Binary.Support
 				return;
 			}
 
+			if (value.Contains(" ")) value = $"\"{value}\"";
 			var args = new string[tokens.Length + 2];
 			for (int a1 = 0; a1 < tokens.Length; ++a1)
 				args[a1] = tokens[a1];
@@ -649,6 +650,7 @@ namespace Binary.Support
 				var tokens = Utils.Path.SplitPath(BinaryTree.SelectedNode.FullPath);
 				var field = BinaryDataView.Rows[BinaryDataView.CurrentCell.RowIndex].Cells[0].Value.ToString();
 				var value = BinaryDataView.Rows[BinaryDataView.CurrentCell.RowIndex].Cells[1].Value.ToString();
+				if (value.Contains(" ")) value = $"\"{value}\"";
 				var args = new string[tokens.Length + 2];
 				for (int a1 = 0; a1 < tokens.Length; ++a1)
 					args[a1] = tokens[a1];

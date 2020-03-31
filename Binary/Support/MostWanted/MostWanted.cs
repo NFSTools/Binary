@@ -597,6 +597,7 @@ namespace Binary.Support
 				return;
 			}
 
+			if (value.Contains(" ")) value = $"\"{value}\"";
 			var args = new string[tokens.Length + 2];
 			for (int a1 = 0; a1 < tokens.Length; ++a1)
 				args[a1] = tokens[a1];
@@ -635,6 +636,7 @@ namespace Binary.Support
 				var args = new string[tokens.Length + 2];
 				for (int a1 = 0; a1 < tokens.Length; ++a1)
 					args[a1] = tokens[a1];
+				if (value.Contains(" ")) value = $"\"{value}\"";
 				args[args.Length - 2] = field;
 				args[args.Length - 1] = value;
 				Generate.WriteCommand(Commands.update, this.ColoredTextForm, args);
