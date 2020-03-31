@@ -281,13 +281,13 @@ namespace Binary.Endscript
         public static bool RefreshFullTree(string line)
         {
             if (string.IsNullOrWhiteSpace(line)) return false;
-            char[] delim = new char[] { ' ', '\t', '\0' };
-            var words = line.Split(delim, StringSplitOptions.RemoveEmptyEntries);
+            var words = DisperseLine(line, ' ', '\t', '\n', '\r', '\0');
             Enum.TryParse(words[0], out Commands command);
             var parent = words[1];
             switch (command)
             {
                 case Commands.update:
+                case Commands.@static:
                     if (line.Contains("CollectionName"))
                         return true;
                     return false;

@@ -70,7 +70,7 @@ namespace Binary.Support
 			DataSet_ReloadFile.Enabled = true;
 			DataSet_SaveFile.Enabled = true;
 			DataSet_ImportFile.Enabled = true;
-			//DataSet_ProcessCommand.Enabled = true;
+			DataSet_ProcessCommand.Enabled = true;
 			DataSet_GenerateCommand.Enabled = true;
 			DataSet_RestoreBackups.Enabled = true;
 			DataSet_CreateBackups.Enabled = true;
@@ -153,7 +153,7 @@ namespace Binary.Support
 
 		private void ScrollDownToRowIndex(int index)
 		{
-			if (BinaryDataView.Rows != null && BinaryDataView.Rows.Count > index)
+			if (BinaryDataView.Rows != null && BinaryDataView.Rows.Count > index && index >= 0)
 				BinaryDataView.FirstDisplayedScrollingRowIndex = index;
 		}
 
@@ -234,7 +234,7 @@ namespace Binary.Support
 			}
 		}
 
-		private void UpdateBinaryTreeView()
+		private void UpdateBinaryDataView()
 		{
 			int index = this.GetLastShownRowIndex();
 			this.BinaryTree_AfterSelect(this.BinaryTree, null);
@@ -616,7 +616,7 @@ namespace Binary.Support
 			}
 			else
 			{
-				this.UpdateBinaryTreeView();
+				this.UpdateBinaryDataView();
 			}
 		}
 
@@ -666,6 +666,23 @@ namespace Binary.Support
 					this.LoadBinaryTree(true);
 				}
 			}
+		}
+
+		private void DataSet_ProcessCommand_Click(object sender, EventArgs e)
+		{
+			if (string.IsNullOrWhiteSpace(ColoredTextForm.Text)) return;
+			var line = ColoredTextForm.GetLine(ColoredTextForm.Selection.FromLine).Text;
+			var error = Core.ExecuteEndscriptLine(line, this.dbMW);
+			if (error != null)
+			{
+				MessageBox.Show($"Error occured: {error}", "Error");
+				return;
+			}
+			Core.WriteEndscriptLine(line);
+			if (Core.RefreshFullTree(line))
+				this.LoadBinaryTree(true);
+			else
+				this.UpdateBinaryDataView();
 		}
 	}
 }
