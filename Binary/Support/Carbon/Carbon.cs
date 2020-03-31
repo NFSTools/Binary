@@ -79,7 +79,6 @@ namespace Binary.Support
 			DataSet_RunGame.Enabled = true;
 			//DataSet_ExportAllTextures.Enabled = true;
 			DataSet_DBInfo.Enabled = true;
-			//DataSet_BoundsList.Enabled = true;
 			EndscriptToolStripMenuItemI.Enabled = true;
 		}
 
@@ -96,7 +95,6 @@ namespace Binary.Support
 			DataSet_RunGame.Enabled = false;
 			DataSet_ExportAllTextures.Enabled = false;
 			DataSet_DBInfo.Enabled = false;
-			DataSet_BoundsList.Enabled = false;
 			EndscriptToolStripMenuItemI.Enabled = false;
 		}
 
@@ -608,7 +606,7 @@ namespace Binary.Support
 			Generate.WriteCommand(Commands.update, this.ColoredTextForm, args);
 		}
 
-		private void BinaryDataView_CellValidated(object sender, DataGridViewCellEventArgs e)
+		private void BinaryDataView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
 		{
 			if (BinaryDataView.Rows[e.RowIndex].Cells[0].Value.ToString() == "CollectionName")
 			{
@@ -654,7 +652,7 @@ namespace Binary.Support
 
 		private void DataSet_AboutBox_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show($"Binary by MaxHwoy v0.8.4 Beta.{Environment.NewLine}Do not distribute.", "About",
+			MessageBox.Show($"Binary by MaxHwoy v0.8.5 Beta.{Environment.NewLine}Do not distribute.", "About",
 				MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
@@ -686,6 +684,77 @@ namespace Binary.Support
 				this.LoadBinaryTree(true);
 			else
 				this.UpdateBinaryDataView();
+		}
+
+		private void MaterialToolStripMenuItemI_Click(object sender, EventArgs e)
+		{
+			if (OpenBinFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				foreach (var file in OpenBinFileDialog.FileNames)
+				{
+					if (!dbC.TryImportCollection(dbC.Materials.ThisName, file, out var error))
+						MessageBox.Show($"Unable to import file {file}; reason: {error}.", "Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				this.LoadBinaryTree(true);
+			}
+		}
+
+		private void CarTypeInfoToolStripMenuItemI_Click(object sender, EventArgs e)
+		{
+			if (OpenBinFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				foreach (var file in OpenBinFileDialog.FileNames)
+				{
+					if (!dbC.TryImportCollection(dbC.CarTypeInfos.ThisName, file, out var error))
+						MessageBox.Show($"Unable to import file {file}; reason: {error}.", "Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				this.LoadBinaryTree(true);
+			}
+		}
+
+		private void PresetRideToolStripMenuItemI_Click(object sender, EventArgs e)
+		{
+			if (OpenBinFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				foreach (var file in OpenBinFileDialog.FileNames)
+				{
+					if (!dbC.TryImportCollection(dbC.PresetRides.ThisName, file, out var error))
+						MessageBox.Show($"Unable to import file {file}; reason: {error}.", "Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				this.LoadBinaryTree(true);
+			}
+		}
+
+		private void PresetSkinToolStripMenuItemI_Click(object sender, EventArgs e)
+		{
+			if (OpenBinFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				foreach (var file in OpenBinFileDialog.FileNames)
+				{
+					if (!dbC.TryImportCollection(dbC.PresetSkins.ThisName, file, out var error))
+						MessageBox.Show($"Unable to import file {file}; reason: {error}.", "Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				this.LoadBinaryTree(true);
+			}
+		}
+
+		private void CollisionToolStripMenuItemI_Click(object sender, EventArgs e)
+		{
+			if (OpenBinFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				var file = Path.GetFileNameWithoutExtension(OpenBinFileDialog.FileName);
+				if (!this.dbC.AddCollision(file, OpenBinFileDialog.FileName, out var error))
+					MessageBox.Show($"Error occured: {error}", "Error", MessageBoxButtons.OK,
+						MessageBoxIcon.Error);
+				else
+					MessageBox.Show($"Collision named {file} has been successfully imported.", "Success",
+						MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+			}
 		}
 	}
 }

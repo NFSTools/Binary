@@ -25,13 +25,24 @@ namespace Binary.Main
             Endscript.Core.CreateEndscriptFile("Binary.end");
         }
 
+        private void ParseConfigurations()
+        {
+            Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
+            Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
+            Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
+            Properties.Settings.Default.EnableStaticEnd = ConfigStatic.Checked;
+            Properties.Settings.Default.EnableMaximized = ConfigMaximized.Checked;
+            Properties.Settings.Default.Save();
+        }
+
         private void Main_Load(object sender, EventArgs e)
 		{
             // Set properties from memory
             ConfigAutoSave.Checked = Properties.Settings.Default.EnableAutobackup;
             ConfigCompressFiles.Checked = Properties.Settings.Default.EnableCompression;
             ConfigCommand.Checked = Properties.Settings.Default.EnableEndscriptLog;
-            ConfigEndscript.Checked = Properties.Settings.Default.EnableStaticEnd;
+            ConfigStatic.Checked = Properties.Settings.Default.EnableStaticEnd;
+            ConfigMaximized.Checked = Properties.Settings.Default.EnableMaximized;
 
             var NFSCToolTip = new ToolTip();
             var NFSMWToolTip = new ToolTip();
@@ -76,10 +87,7 @@ namespace Binary.Main
         {
             this.Hide();
             GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.Carbon;
-            Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
-            Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
-            Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
-            Properties.Settings.Default.EnableStaticEnd = ConfigEndscript.Checked;
+            this.ParseConfigurations();
             this.InitializeLogFile();
 
             bool ForceLoad = false;
@@ -89,9 +97,12 @@ namespace Binary.Main
                 GlobalLib.Core.Process.GlobalDir = Properties.Settings.Default.DirectoryC;
             }
             var CarbonForm = new Support.Carbon(ForceLoad);
+            if (Properties.Settings.Default.EnableMaximized)
+                CarbonForm.WindowState = FormWindowState.Maximized;
             CarbonForm.ShowDialog();
             CarbonForm = null;
             Properties.Settings.Default.DirectoryC = GlobalLib.Core.Process.GlobalDir;
+            Utils.CleanUp.GCCollect();
             this.Show();
         }
 
@@ -99,10 +110,7 @@ namespace Binary.Main
         {
             this.Hide();
             GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.MostWanted;
-            Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
-            Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
-            Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
-            Properties.Settings.Default.EnableStaticEnd = ConfigEndscript.Checked;
+            this.ParseConfigurations();
             this.InitializeLogFile();
 
             bool ForceLoad = false;
@@ -112,20 +120,21 @@ namespace Binary.Main
                 GlobalLib.Core.Process.GlobalDir = Properties.Settings.Default.DirectoryMW;
             }
             var MostWantedForm = new Support.MostWanted(ForceLoad);
+            if (Properties.Settings.Default.EnableMaximized)
+                MostWantedForm.WindowState = FormWindowState.Maximized;
             MostWantedForm.ShowDialog();
             MostWantedForm = null;
             Properties.Settings.Default.DirectoryMW = GlobalLib.Core.Process.GlobalDir;
+            Utils.CleanUp.GCCollect();
             this.Show();
         }
 
         private void ChooseNFSUG2_Click(object sender, EventArgs e)
         {
             this.Hide();
+            string str = Properties.Settings.Default.YAMLDirectory;
             GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.Underground2;
-            Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
-            Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
-            Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
-            Properties.Settings.Default.EnableStaticEnd = ConfigEndscript.Checked;
+            this.ParseConfigurations();
             this.InitializeLogFile();
 
             bool ForceLoad = false;
@@ -135,15 +144,18 @@ namespace Binary.Main
                 GlobalLib.Core.Process.GlobalDir = Properties.Settings.Default.DirectoryUG2;
             }
             var Underground2Form = new Support.Underground2(ForceLoad);
+            if (Properties.Settings.Default.EnableMaximized)
+                Underground2Form.WindowState = FormWindowState.Maximized;
             Underground2Form.ShowDialog();
             Underground2Form = null;
             Properties.Settings.Default.DirectoryUG2 = GlobalLib.Core.Process.GlobalDir;
+            Utils.CleanUp.GCCollect();
             this.Show();
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Properties.Settings.Default.Save();
+            this.ParseConfigurations();
         }
 
         private void LaunchHasher_Click(object sender, EventArgs e)
@@ -219,6 +231,31 @@ namespace Binary.Main
                     GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\InGameMemoryFile.bin");
                     GlobalLib.Utils.MemoryUnlock.LongUnlock(GlobalB_dir + @"\GLOBAL\GlobalMemoryFile.bin");
                 }
+            }
+        }
+
+        private void ButtonDiscord_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://discord.gg/27CNmR5");
+        }
+
+        private void ButtonYAML_Click(object sender, EventArgs e)
+        {
+            if (OpenYAMLDialog.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.YAMLDirectory = OpenYAMLDialog.FileName;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void OpenYAMLDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            var name = System.IO.Path.GetFileName(OpenYAMLDialog.FileName);
+            if (name != "YAMLDatabase.exe")
+            {
+                MessageBox.Show("File selected is not YAMLDatabase.exe.", "Warning",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true;
             }
         }
     }

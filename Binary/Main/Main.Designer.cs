@@ -29,10 +29,6 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.ViewEndCommandsButton = new System.Windows.Forms.Button();
-			this.ViewEndSampleButton = new System.Windows.Forms.Button();
-			this.ViewEndTagsButton = new System.Windows.Forms.Button();
 			this.PanelOther = new System.Windows.Forms.Panel();
 			this.label4 = new System.Windows.Forms.Label();
 			this.PanelLaunch = new System.Windows.Forms.Panel();
@@ -54,12 +50,16 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.PanelConfiguration = new System.Windows.Forms.Panel();
-			this.ConfigEndscript = new System.Windows.Forms.CheckBox();
+			this.ButtonDiscord = new System.Windows.Forms.Button();
+			this.ButtonYAML = new System.Windows.Forms.Button();
+			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.ConfigMaximized = new System.Windows.Forms.CheckBox();
+			this.ConfigStatic = new System.Windows.Forms.CheckBox();
 			this.ConfigCommand = new System.Windows.Forms.CheckBox();
 			this.ConfigCompressFiles = new System.Windows.Forms.CheckBox();
 			this.ConfigAutoSave = new System.Windows.Forms.CheckBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.panel1.SuspendLayout();
+			this.OpenYAMLDialog = new System.Windows.Forms.OpenFileDialog();
 			this.PanelOther.SuspendLayout();
 			this.PanelLaunch.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.LaunchSwatcher)).BeginInit();
@@ -78,53 +78,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.PanelConfiguration.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// panel1
-			// 
-			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel1.Controls.Add(this.ViewEndCommandsButton);
-			this.panel1.Controls.Add(this.ViewEndSampleButton);
-			this.panel1.Controls.Add(this.ViewEndTagsButton);
-			this.panel1.Location = new System.Drawing.Point(10, 219);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(221, 104);
-			this.panel1.TabIndex = 18;
-			// 
-			// ViewEndCommandsButton
-			// 
-			this.ViewEndCommandsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(53)))));
-			this.ViewEndCommandsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.ViewEndCommandsButton.ForeColor = System.Drawing.SystemColors.Info;
-			this.ViewEndCommandsButton.Location = new System.Drawing.Point(6, 71);
-			this.ViewEndCommandsButton.Name = "ViewEndCommandsButton";
-			this.ViewEndCommandsButton.Size = new System.Drawing.Size(206, 26);
-			this.ViewEndCommandsButton.TabIndex = 2;
-			this.ViewEndCommandsButton.Text = "View Endscript Commands";
-			this.ViewEndCommandsButton.UseVisualStyleBackColor = false;
-			// 
-			// ViewEndSampleButton
-			// 
-			this.ViewEndSampleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(53)))));
-			this.ViewEndSampleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.ViewEndSampleButton.ForeColor = System.Drawing.SystemColors.Info;
-			this.ViewEndSampleButton.Location = new System.Drawing.Point(6, 39);
-			this.ViewEndSampleButton.Name = "ViewEndSampleButton";
-			this.ViewEndSampleButton.Size = new System.Drawing.Size(206, 26);
-			this.ViewEndSampleButton.TabIndex = 1;
-			this.ViewEndSampleButton.Text = "View Endscript Sample";
-			this.ViewEndSampleButton.UseVisualStyleBackColor = false;
-			// 
-			// ViewEndTagsButton
-			// 
-			this.ViewEndTagsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(53)))));
-			this.ViewEndTagsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.ViewEndTagsButton.ForeColor = System.Drawing.SystemColors.Info;
-			this.ViewEndTagsButton.Location = new System.Drawing.Point(6, 7);
-			this.ViewEndTagsButton.Name = "ViewEndTagsButton";
-			this.ViewEndTagsButton.Size = new System.Drawing.Size(206, 26);
-			this.ViewEndTagsButton.TabIndex = 0;
-			this.ViewEndTagsButton.Text = "View Endscript Tags";
-			this.ViewEndTagsButton.UseVisualStyleBackColor = false;
 			// 
 			// PanelOther
 			// 
@@ -313,9 +266,9 @@
 			// 
 			this.GlobalStatusStrip.ForeColor = System.Drawing.SystemColors.Window;
 			this.GlobalStatusStrip.Name = "GlobalStatusStrip";
-			this.GlobalStatusStrip.Size = new System.Drawing.Size(785, 17);
+			this.GlobalStatusStrip.Size = new System.Drawing.Size(754, 17);
 			this.GlobalStatusStrip.Spring = true;
-			this.GlobalStatusStrip.Text = "Binary by MaxHwoy Beta v0.8.4 | Powered by GlobalLib";
+			this.GlobalStatusStrip.Text = "Binary by MaxHwoy Beta v0.8.5 | Powered by GlobalLib";
 			this.GlobalStatusStrip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// PanelDescription
@@ -368,26 +321,80 @@
 			this.PanelConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.PanelConfiguration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PanelConfiguration.Controls.Add(this.ConfigEndscript);
+			this.PanelConfiguration.Controls.Add(this.ButtonDiscord);
+			this.PanelConfiguration.Controls.Add(this.ButtonYAML);
+			this.PanelConfiguration.Controls.Add(this.checkBox2);
+			this.PanelConfiguration.Controls.Add(this.ConfigMaximized);
+			this.PanelConfiguration.Controls.Add(this.ConfigStatic);
 			this.PanelConfiguration.Controls.Add(this.ConfigCommand);
 			this.PanelConfiguration.Controls.Add(this.ConfigCompressFiles);
 			this.PanelConfiguration.Controls.Add(this.ConfigAutoSave);
 			this.PanelConfiguration.Controls.Add(this.label1);
 			this.PanelConfiguration.Location = new System.Drawing.Point(10, 86);
 			this.PanelConfiguration.Name = "PanelConfiguration";
-			this.PanelConfiguration.Size = new System.Drawing.Size(221, 127);
+			this.PanelConfiguration.Size = new System.Drawing.Size(221, 237);
 			this.PanelConfiguration.TabIndex = 12;
 			// 
-			// ConfigEndscript
+			// ButtonDiscord
 			// 
-			this.ConfigEndscript.AutoSize = true;
-			this.ConfigEndscript.ForeColor = System.Drawing.SystemColors.Window;
-			this.ConfigEndscript.Location = new System.Drawing.Point(13, 101);
-			this.ConfigEndscript.Name = "ConfigEndscript";
-			this.ConfigEndscript.Size = new System.Drawing.Size(166, 17);
-			this.ConfigEndscript.TabIndex = 6;
-			this.ConfigEndscript.Text = "Enable Static End Commands";
-			this.ConfigEndscript.UseVisualStyleBackColor = true;
+			this.ButtonDiscord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.ButtonDiscord.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.ButtonDiscord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ButtonDiscord.ForeColor = System.Drawing.SystemColors.Info;
+			this.ButtonDiscord.Location = new System.Drawing.Point(13, 203);
+			this.ButtonDiscord.Name = "ButtonDiscord";
+			this.ButtonDiscord.Size = new System.Drawing.Size(197, 25);
+			this.ButtonDiscord.TabIndex = 10;
+			this.ButtonDiscord.Text = "Discord Server Link";
+			this.ButtonDiscord.UseVisualStyleBackColor = false;
+			this.ButtonDiscord.Click += new System.EventHandler(this.ButtonDiscord_Click);
+			// 
+			// ButtonYAML
+			// 
+			this.ButtonYAML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.ButtonYAML.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.ButtonYAML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ButtonYAML.ForeColor = System.Drawing.SystemColors.Info;
+			this.ButtonYAML.Location = new System.Drawing.Point(13, 172);
+			this.ButtonYAML.Name = "ButtonYAML";
+			this.ButtonYAML.Size = new System.Drawing.Size(197, 25);
+			this.ButtonYAML.TabIndex = 9;
+			this.ButtonYAML.Text = "Link YAMLDatabase";
+			this.ButtonYAML.UseVisualStyleBackColor = false;
+			this.ButtonYAML.Click += new System.EventHandler(this.ButtonYAML_Click);
+			// 
+			// checkBox2
+			// 
+			this.checkBox2.AutoSize = true;
+			this.checkBox2.ForeColor = System.Drawing.SystemColors.Window;
+			this.checkBox2.Location = new System.Drawing.Point(13, 147);
+			this.checkBox2.Name = "checkBox2";
+			this.checkBox2.Size = new System.Drawing.Size(91, 17);
+			this.checkBox2.TabIndex = 8;
+			this.checkBox2.Text = "Placeholder 1";
+			this.checkBox2.UseVisualStyleBackColor = true;
+			// 
+			// ConfigMaximized
+			// 
+			this.ConfigMaximized.AutoSize = true;
+			this.ConfigMaximized.ForeColor = System.Drawing.SystemColors.Window;
+			this.ConfigMaximized.Location = new System.Drawing.Point(13, 124);
+			this.ConfigMaximized.Name = "ConfigMaximized";
+			this.ConfigMaximized.Size = new System.Drawing.Size(142, 17);
+			this.ConfigMaximized.TabIndex = 7;
+			this.ConfigMaximized.Text = "Start In Maximized Mode";
+			this.ConfigMaximized.UseVisualStyleBackColor = true;
+			// 
+			// ConfigStatic
+			// 
+			this.ConfigStatic.AutoSize = true;
+			this.ConfigStatic.ForeColor = System.Drawing.SystemColors.Window;
+			this.ConfigStatic.Location = new System.Drawing.Point(13, 101);
+			this.ConfigStatic.Name = "ConfigStatic";
+			this.ConfigStatic.Size = new System.Drawing.Size(144, 17);
+			this.ConfigStatic.TabIndex = 6;
+			this.ConfigStatic.Text = "Enable Static Commands";
+			this.ConfigStatic.UseVisualStyleBackColor = true;
 			// 
 			// ConfigCommand
 			// 
@@ -437,13 +444,18 @@
 			this.label1.TabIndex = 1;
 			this.label1.Text = "Controls";
 			// 
+			// OpenYAMLDialog
+			// 
+			this.OpenYAMLDialog.Filter = "YAMLDatabase | *.exe";
+			this.OpenYAMLDialog.Title = "Select YAMLDatabase to link to Binary";
+			this.OpenYAMLDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenYAMLDialog_FileOk);
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ClientSize = new System.Drawing.Size(800, 481);
-			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.PanelOther);
 			this.Controls.Add(this.PanelLaunch);
 			this.Controls.Add(this.PanelGames);
@@ -457,7 +469,6 @@
 			this.Text = "Binary by MaxHwoy";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
 			this.Load += new System.EventHandler(this.Main_Load);
-			this.panel1.ResumeLayout(false);
 			this.PanelOther.ResumeLayout(false);
 			this.PanelOther.PerformLayout();
 			this.PanelLaunch.ResumeLayout(false);
@@ -485,11 +496,6 @@
 		}
 
 		#endregion
-
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Button ViewEndCommandsButton;
-		private System.Windows.Forms.Button ViewEndSampleButton;
-		private System.Windows.Forms.Button ViewEndTagsButton;
 		private System.Windows.Forms.Panel PanelOther;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Panel PanelLaunch;
@@ -511,10 +517,15 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Panel PanelConfiguration;
-		private System.Windows.Forms.CheckBox ConfigEndscript;
+		private System.Windows.Forms.CheckBox ConfigStatic;
 		private System.Windows.Forms.CheckBox ConfigCommand;
 		private System.Windows.Forms.CheckBox ConfigCompressFiles;
 		private System.Windows.Forms.CheckBox ConfigAutoSave;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.CheckBox checkBox2;
+		private System.Windows.Forms.CheckBox ConfigMaximized;
+		private System.Windows.Forms.Button ButtonDiscord;
+		private System.Windows.Forms.Button ButtonYAML;
+		private System.Windows.Forms.OpenFileDialog OpenYAMLDialog;
 	}
 }

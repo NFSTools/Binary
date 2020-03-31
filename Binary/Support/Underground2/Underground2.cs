@@ -668,7 +668,7 @@ namespace Binary.Support
 
 		private void DataSet_AboutBox_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show($"Binary by MaxHwoy v0.8.4 Beta.{Environment.NewLine}Do not distribute.", "About",
+			MessageBox.Show($"Binary by MaxHwoy v0.8.5 Beta.{Environment.NewLine}Do not distribute.", "About",
 				MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
@@ -700,6 +700,48 @@ namespace Binary.Support
 				this.LoadBinaryTree(true);
 			else
 				this.UpdateBinaryDataView();
+		}
+
+		private void MaterialToolStripMenuItemI_Click(object sender, EventArgs e)
+		{
+			if (OpenBinFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				foreach (var file in OpenBinFileDialog.FileNames)
+				{
+					if (!dbUG2.TryImportCollection(dbUG2.Materials.ThisName, file, out var error))
+						MessageBox.Show($"Unable to import file {file}; reason: {error}.", "Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				this.LoadBinaryTree(true);
+			}
+		}
+
+		private void CarTypeInfoToolStripMenuItemI_Click(object sender, EventArgs e)
+		{
+			if (OpenBinFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				foreach (var file in OpenBinFileDialog.FileNames)
+				{
+					if (!dbUG2.TryImportCollection(dbUG2.CarTypeInfos.ThisName, file, out var error))
+						MessageBox.Show($"Unable to import file {file}; reason: {error}.", "Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				this.LoadBinaryTree(true);
+			}
+		}
+
+		private void PresetRideToolStripMenuItemI_Click(object sender, EventArgs e)
+		{
+			if (OpenBinFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				foreach (var file in OpenBinFileDialog.FileNames)
+				{
+					if (!dbUG2.TryImportCollection(dbUG2.PresetRides.ThisName, file, out var error))
+						MessageBox.Show($"Unable to import file {file}; reason: {error}.", "Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				this.LoadBinaryTree(true);
+			}
 		}
 	}
 }

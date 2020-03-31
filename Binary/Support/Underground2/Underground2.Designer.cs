@@ -90,6 +90,7 @@
 			this.BrowseGameDirDialog = new System.Windows.Forms.FolderBrowserDialog();
 			this.OpenEndscriptDialog = new System.Windows.Forms.OpenFileDialog();
 			this.ExportCollectionDialog = new System.Windows.Forms.SaveFileDialog();
+			this.OpenBinFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.DataSet_MenuStrip.SuspendLayout();
 			this.DataSet_StatusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split1)).BeginInit();
@@ -141,7 +142,7 @@
 			this.DataSet_OpenFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_OpenFile.Name = "DataSet_OpenFile";
 			this.DataSet_OpenFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.DataSet_OpenFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_OpenFile.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_OpenFile.Text = "Open";
 			this.DataSet_OpenFile.Click += new System.EventHandler(this.DataSet_OpenFile_Click);
 			// 
@@ -152,7 +153,7 @@
 			this.DataSet_ReloadFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ReloadFile.Name = "DataSet_ReloadFile";
 			this.DataSet_ReloadFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-			this.DataSet_ReloadFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_ReloadFile.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_ReloadFile.Text = "Reload";
 			this.DataSet_ReloadFile.Click += new System.EventHandler(this.DataSet_ReloadFile_Click);
 			// 
@@ -163,7 +164,7 @@
 			this.DataSet_SaveFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_SaveFile.Name = "DataSet_SaveFile";
 			this.DataSet_SaveFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.DataSet_SaveFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_SaveFile.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_SaveFile.Text = "Save";
 			this.DataSet_SaveFile.Click += new System.EventHandler(this.DataSet_SaveFile_Click);
 			// 
@@ -180,7 +181,7 @@
 			this.DataSet_ImportFile.Enabled = false;
 			this.DataSet_ImportFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ImportFile.Name = "DataSet_ImportFile";
-			this.DataSet_ImportFile.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_ImportFile.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_ImportFile.Text = "Import";
 			// 
 			// EndscriptToolStripMenuItemI
@@ -190,7 +191,7 @@
 			this.EndscriptToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.EndscriptToolStripMenuItemI.Name = "EndscriptToolStripMenuItemI";
 			this.EndscriptToolStripMenuItemI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-			this.EndscriptToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.EndscriptToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
 			this.EndscriptToolStripMenuItemI.Text = "Endscript";
 			this.EndscriptToolStripMenuItemI.Click += new System.EventHandler(this.EndscriptToolStripMenuItemI_Click);
 			// 
@@ -199,39 +200,44 @@
 			this.MaterialToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.MaterialToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.MaterialToolStripMenuItemI.Name = "MaterialToolStripMenuItemI";
-			this.MaterialToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.MaterialToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
 			this.MaterialToolStripMenuItemI.Text = "Material";
+			this.MaterialToolStripMenuItemI.Click += new System.EventHandler(this.MaterialToolStripMenuItemI_Click);
 			// 
 			// CarTypeInfoToolStripMenuItemI
 			// 
 			this.CarTypeInfoToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.CarTypeInfoToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.CarTypeInfoToolStripMenuItemI.Name = "CarTypeInfoToolStripMenuItemI";
-			this.CarTypeInfoToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.CarTypeInfoToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
 			this.CarTypeInfoToolStripMenuItemI.Text = "CarTypeInfo";
+			this.CarTypeInfoToolStripMenuItemI.Click += new System.EventHandler(this.CarTypeInfoToolStripMenuItemI_Click);
 			// 
 			// PresetRideToolStripMenuItemI
 			// 
 			this.PresetRideToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.PresetRideToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.PresetRideToolStripMenuItemI.Name = "PresetRideToolStripMenuItemI";
-			this.PresetRideToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.PresetRideToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
 			this.PresetRideToolStripMenuItemI.Text = "Preset Ride";
+			this.PresetRideToolStripMenuItemI.Click += new System.EventHandler(this.PresetRideToolStripMenuItemI_Click);
 			// 
 			// PresetSkinToolStripMenuItemI
 			// 
 			this.PresetSkinToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.PresetSkinToolStripMenuItemI.Enabled = false;
 			this.PresetSkinToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.PresetSkinToolStripMenuItemI.Name = "PresetSkinToolStripMenuItemI";
-			this.PresetSkinToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.PresetSkinToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
 			this.PresetSkinToolStripMenuItemI.Text = "Preset Skin";
 			// 
 			// CollisionToolStripMenuItemI
 			// 
 			this.CollisionToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.CollisionToolStripMenuItemI.Enabled = false;
 			this.CollisionToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.CollisionToolStripMenuItemI.Name = "CollisionToolStripMenuItemI";
-			this.CollisionToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
+			this.CollisionToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
 			this.CollisionToolStripMenuItemI.Text = "Collision";
 			// 
 			// DataSet_Exit
@@ -240,7 +246,7 @@
 			this.DataSet_Exit.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_Exit.Name = "DataSet_Exit";
 			this.DataSet_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-			this.DataSet_Exit.Size = new System.Drawing.Size(151, 22);
+			this.DataSet_Exit.Size = new System.Drawing.Size(180, 22);
 			this.DataSet_Exit.Text = "Exit";
 			this.DataSet_Exit.Click += new System.EventHandler(this.DataSet_Exit_Click);
 			// 
@@ -750,6 +756,11 @@
 			// 
 			this.ExportCollectionDialog.Filter = "Binary files|*.BIN|Binary files|*.bin";
 			// 
+			// OpenBinFileDialog
+			// 
+			this.OpenBinFileDialog.Filter = "All Files | *.*";
+			this.OpenBinFileDialog.Multiselect = true;
+			// 
 			// Underground2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -842,5 +853,6 @@
 		private System.Windows.Forms.ToolStripMenuItem BinaryTreeCopyNode;
 		private System.Windows.Forms.ToolStripMenuItem BinaryTreeExportNode;
 		private System.Windows.Forms.SaveFileDialog ExportCollectionDialog;
+		private System.Windows.Forms.OpenFileDialog OpenBinFileDialog;
 	}
 }

@@ -22,6 +22,7 @@ namespace Binary.Endscript
 
 				const string startregion = "#region launch";
 				const string endregion = "#endregion";
+				const string YAMLDatabase = "YAMLDatabase.exe";
 				bool in_launch_format = false;
 				int last_index = -1;
 
@@ -61,6 +62,7 @@ namespace Binary.Endscript
 					throw new Exception($"Keyword {endregion} was not found in script {filename}.");
 
 
+				bool is_yaml_linked = File.Exists(Properties.Settings.Default.YAMLDirectory);
 				string prev_launch = string.Empty;
 				foreach (var launch in launches)
 				{
@@ -70,6 +72,11 @@ namespace Binary.Endscript
 							throw new Exception($"Unable to find file named {launch.ProcessName}.");
 
 						case eChooseDirMethod.OpenFileDialog:
+							if (launch.ProcessName == YAMLDatabase && is_yaml_linked)
+							{
+								launch.ProcessName = Properties.Settings.Default.YAMLDirectory;
+								goto default;
+							}
 							var ofd = new OpenFileDialog()
 							{
 								Filter = $"{Path.GetFileNameWithoutExtension(launch.ProcessName)} | " +
@@ -97,6 +104,11 @@ namespace Binary.Endscript
 							throw new Exception($"User interrupted execution of process {launch.ProcessName}.");
 
 						case eChooseDirMethod.OpenFolderDialog:
+							if (launch.ProcessName == YAMLDatabase && is_yaml_linked)
+							{
+								launch.ProcessName = Properties.Settings.Default.YAMLDirectory;
+								goto default;
+							}
 							var fbd = new FolderBrowserDialog()
 							{
 								RootFolder = Environment.SpecialFolder.MyComputer,
@@ -121,6 +133,11 @@ namespace Binary.Endscript
 							throw new Exception($"User interrupted execution of process {launch.ProcessName}.");
 
 						case eChooseDirMethod.UserEnterFilePath:
+							if (launch.ProcessName == YAMLDatabase && is_yaml_linked)
+							{
+								launch.ProcessName = Properties.Settings.Default.YAMLDirectory;
+								goto default;
+							}
 							var fileform = new Interact.Input(launch.Description);
 							if (fileform.ShowDialog() == DialogResult.OK)
 							{
@@ -145,6 +162,11 @@ namespace Binary.Endscript
 							throw new Exception($"User interrupted execution of process {launch.ProcessName}.");
 
 						case eChooseDirMethod.UserEnterFolderPath:
+							if (launch.ProcessName == YAMLDatabase && is_yaml_linked)
+							{
+								launch.ProcessName = Properties.Settings.Default.YAMLDirectory;
+								goto default;
+							}
 							var folderform = new Interact.Input(launch.Description);
 							if (folderform.ShowDialog() == DialogResult.OK)
 							{

@@ -118,5 +118,41 @@ namespace Binary.Properties {
                 this["EnableStaticEnd"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableMaximized {
+            get {
+                return ((bool)(this["EnableMaximized"]));
+            }
+            set {
+                this["EnableMaximized"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Placeholder {
+            get {
+                return ((bool)(this["Placeholder"]));
+            }
+            set {
+                this["Placeholder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("NULL")]
+        public string YAMLDirectory {
+            get {
+                return ((string)(this["YAMLDirectory"]));
+            }
+            set {
+                this["YAMLDirectory"] = value;
+            }
+        }
     }
 }
