@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+
 
 namespace Binary.Main
 {
-	public partial class Main : Form
-	{
-		public Main()
-		{
-			InitializeComponent();
-		}
+    public partial class Main : Form
+    {
+        public Main()
+        {
+            InitializeComponent();
+        }
 
         private void InitializeLogFile()
         {
@@ -32,23 +28,26 @@ namespace Binary.Main
             Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
             Properties.Settings.Default.EnableStaticEnd = ConfigStatic.Checked;
             Properties.Settings.Default.EnableMaximized = ConfigMaximized.Checked;
+            Properties.Settings.Default.EnableWatermarks = ConfigWatermark.Checked;
             Properties.Settings.Default.Save();
         }
 
         private void Main_Load(object sender, EventArgs e)
-		{
+        {
             // Set properties from memory
             ConfigAutoSave.Checked = Properties.Settings.Default.EnableAutobackup;
             ConfigCompressFiles.Checked = Properties.Settings.Default.EnableCompression;
             ConfigCommand.Checked = Properties.Settings.Default.EnableEndscriptLog;
             ConfigStatic.Checked = Properties.Settings.Default.EnableStaticEnd;
             ConfigMaximized.Checked = Properties.Settings.Default.EnableMaximized;
+            ConfigWatermark.Checked = Properties.Settings.Default.EnableWatermarks;
 
             var NFSCToolTip = new ToolTip();
             var NFSMWToolTip = new ToolTip();
             var NFSUG2ToolTip = new ToolTip();
             var SoonToolTip = new ToolTip();
             var WindowToolTip = new ToolTip();
+            var ButtonToolTip = new ToolTip();
 
             NFSCToolTip.AutoPopDelay = 5000;
             NFSCToolTip.InitialDelay = 1000;
@@ -70,6 +69,10 @@ namespace Binary.Main
             WindowToolTip.InitialDelay = 1000;
             WindowToolTip.ReshowDelay = 500;
 
+            ButtonToolTip.AutoPopDelay = 3000;
+            ButtonToolTip.InitialDelay = 800;
+            ButtonToolTip.ReshowDelay = 500;
+
             NFSCToolTip.SetToolTip(this.ChooseNFSC, "Launch Binary for Need for Speed: Carbon");
             NFSMWToolTip.SetToolTip(this.ChooseNFSMW, "Launch Binary for Need for Speed: Most Wanted");
             NFSUG2ToolTip.SetToolTip(this.ChooseNFSUG2, "Launch Binary for Need for Speed: Underground 2");
@@ -81,12 +84,20 @@ namespace Binary.Main
             WindowToolTip.SetToolTip(this.LaunchSwatcher, "Launch SwatchPicker");
             WindowToolTip.SetToolTip(this.LaunchUnlock, "Unlock Game Files for Modding");
             WindowToolTip.SetToolTip(this.LaunchReadme, "Open Readme.txt");
+
+            ButtonToolTip.SetToolTip(this.SetModderName, "Set Username that will be used when saving files.");
+            ButtonToolTip.SetToolTip(this.ButtonDiscord, "Join official modding and support discord community server.");
+            ButtonToolTip.SetToolTip(this.ButtonYAML, "Link YAMLDatabase to process modscripts.");
         }
 
         private void ChooseNFSC_Click(object sender, EventArgs e)
         {
             this.Hide();
             GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.Carbon;
+            if (Properties.Settings.Default.EnableWatermarks)
+                GlobalLib.Core.Process.Watermark = $"Binary by MaxHwoy | Edited by {Properties.Settings.Default.BinaryUsername}";
+            else
+                GlobalLib.Core.Process.Watermark = string.Empty;
             this.ParseConfigurations();
             this.InitializeLogFile();
 
@@ -236,7 +247,7 @@ namespace Binary.Main
 
         private void ButtonDiscord_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://discord.gg/27CNmR5");
+            System.Diagnostics.Process.Start("https://discord.gg/jzksXXn");
         }
 
         private void ButtonYAML_Click(object sender, EventArgs e)
@@ -256,6 +267,24 @@ namespace Binary.Main
                 MessageBox.Show("File selected is not YAMLDatabase.exe.", "Warning",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 e.Cancel = true;
+            }
+        }
+
+        private void SetModderName_Click(object sender, EventArgs e)
+        {
+            var input = new Interact.Input("Enter your username that will be used on runtime:");
+            if (input.ShowDialog() == DialogResult.OK)
+            {
+                if (input.CollectionName.Length > 0x20)
+                {
+                    MessageBox.Show("Your name should not exceed 32 characters.", "Warning");
+                    this.SetModderName_Click(sender, e);
+                }
+                else
+                {
+                    Properties.Settings.Default.BinaryUsername = input.CollectionName;
+                    Properties.Settings.Default.Save();
+                }
             }
         }
     }

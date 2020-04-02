@@ -29,11 +29,14 @@
     <Setting Name="EnableMaximized" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Placeholder" Type="System.Boolean" Scope="User">
+    <Setting Name="EnableWatermarks" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="YAMLDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">NULL</Value>
+    </Setting>
+    <Setting Name="BinaryUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

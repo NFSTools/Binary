@@ -134,12 +134,12 @@ namespace Binary.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Placeholder {
+        public bool EnableWatermarks {
             get {
-                return ((bool)(this["Placeholder"]));
+                return ((bool)(this["EnableWatermarks"]));
             }
             set {
-                this["Placeholder"] = value;
+                this["EnableWatermarks"] = value;
             }
         }
         
@@ -152,6 +152,18 @@ namespace Binary.Properties {
             }
             set {
                 this["YAMLDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BinaryUsername {
+            get {
+                return ((string)(this["BinaryUsername"]));
+            }
+            set {
+                this["BinaryUsername"] = value;
             }
         }
     }

@@ -50,9 +50,11 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.PanelConfiguration = new System.Windows.Forms.Panel();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.SetModderName = new System.Windows.Forms.Button();
 			this.ButtonDiscord = new System.Windows.Forms.Button();
 			this.ButtonYAML = new System.Windows.Forms.Button();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.ConfigWatermark = new System.Windows.Forms.CheckBox();
 			this.ConfigMaximized = new System.Windows.Forms.CheckBox();
 			this.ConfigStatic = new System.Windows.Forms.CheckBox();
 			this.ConfigCommand = new System.Windows.Forms.CheckBox();
@@ -83,20 +85,21 @@
 			// 
 			this.PanelOther.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.PanelOther.Controls.Add(this.label4);
-			this.PanelOther.Location = new System.Drawing.Point(10, 329);
+			this.PanelOther.Location = new System.Drawing.Point(10, 380);
 			this.PanelOther.Name = "PanelOther";
-			this.PanelOther.Size = new System.Drawing.Size(221, 115);
+			this.PanelOther.Size = new System.Drawing.Size(221, 64);
 			this.PanelOther.TabIndex = 17;
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
 			this.label4.ForeColor = System.Drawing.SystemColors.Info;
-			this.label4.Location = new System.Drawing.Point(10, 11);
+			this.label4.Location = new System.Drawing.Point(16, 12);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(186, 91);
+			this.label4.Size = new System.Drawing.Size(185, 39);
 			this.label4.TabIndex = 0;
-			this.label4.Text = resources.GetString("label4.Text");
+			this.label4.Text = "All rights reserved. Do not release/\r\ndistribute/modify this package without\r\npri" +
+    "or permission.";
 			// 
 			// PanelLaunch
 			// 
@@ -266,7 +269,7 @@
 			// 
 			this.GlobalStatusStrip.ForeColor = System.Drawing.SystemColors.Window;
 			this.GlobalStatusStrip.Name = "GlobalStatusStrip";
-			this.GlobalStatusStrip.Size = new System.Drawing.Size(754, 17);
+			this.GlobalStatusStrip.Size = new System.Drawing.Size(785, 17);
 			this.GlobalStatusStrip.Spring = true;
 			this.GlobalStatusStrip.Text = "Binary by MaxHwoy Beta v0.8.5 | Powered by GlobalLib";
 			this.GlobalStatusStrip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -310,7 +313,7 @@
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Fugaz One", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label2.ForeColor = System.Drawing.SystemColors.Control;
-			this.label2.Location = new System.Drawing.Point(25, 10);
+			this.label2.Location = new System.Drawing.Point(34, 10);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(79, 28);
 			this.label2.TabIndex = 0;
@@ -321,9 +324,11 @@
 			this.PanelConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.PanelConfiguration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.PanelConfiguration.Controls.Add(this.checkBox1);
+			this.PanelConfiguration.Controls.Add(this.SetModderName);
 			this.PanelConfiguration.Controls.Add(this.ButtonDiscord);
 			this.PanelConfiguration.Controls.Add(this.ButtonYAML);
-			this.PanelConfiguration.Controls.Add(this.checkBox2);
+			this.PanelConfiguration.Controls.Add(this.ConfigWatermark);
 			this.PanelConfiguration.Controls.Add(this.ConfigMaximized);
 			this.PanelConfiguration.Controls.Add(this.ConfigStatic);
 			this.PanelConfiguration.Controls.Add(this.ConfigCommand);
@@ -332,8 +337,33 @@
 			this.PanelConfiguration.Controls.Add(this.label1);
 			this.PanelConfiguration.Location = new System.Drawing.Point(10, 86);
 			this.PanelConfiguration.Name = "PanelConfiguration";
-			this.PanelConfiguration.Size = new System.Drawing.Size(221, 237);
+			this.PanelConfiguration.Size = new System.Drawing.Size(221, 288);
 			this.PanelConfiguration.TabIndex = 12;
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.ForeColor = System.Drawing.SystemColors.Window;
+			this.checkBox1.Location = new System.Drawing.Point(13, 170);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(82, 17);
+			this.checkBox1.TabIndex = 12;
+			this.checkBox1.Text = "Placeholder";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			// 
+			// SetModderName
+			// 
+			this.SetModderName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.SetModderName.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.SetModderName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.SetModderName.ForeColor = System.Drawing.SystemColors.Info;
+			this.SetModderName.Location = new System.Drawing.Point(13, 194);
+			this.SetModderName.Name = "SetModderName";
+			this.SetModderName.Size = new System.Drawing.Size(197, 23);
+			this.SetModderName.TabIndex = 11;
+			this.SetModderName.Text = "Set Username";
+			this.SetModderName.UseVisualStyleBackColor = false;
+			this.SetModderName.Click += new System.EventHandler(this.SetModderName_Click);
 			// 
 			// ButtonDiscord
 			// 
@@ -341,9 +371,9 @@
 			this.ButtonDiscord.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.ButtonDiscord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.ButtonDiscord.ForeColor = System.Drawing.SystemColors.Info;
-			this.ButtonDiscord.Location = new System.Drawing.Point(13, 203);
+			this.ButtonDiscord.Location = new System.Drawing.Point(13, 250);
 			this.ButtonDiscord.Name = "ButtonDiscord";
-			this.ButtonDiscord.Size = new System.Drawing.Size(197, 25);
+			this.ButtonDiscord.Size = new System.Drawing.Size(197, 23);
 			this.ButtonDiscord.TabIndex = 10;
 			this.ButtonDiscord.Text = "Discord Server Link";
 			this.ButtonDiscord.UseVisualStyleBackColor = false;
@@ -355,24 +385,24 @@
 			this.ButtonYAML.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.ButtonYAML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.ButtonYAML.ForeColor = System.Drawing.SystemColors.Info;
-			this.ButtonYAML.Location = new System.Drawing.Point(13, 172);
+			this.ButtonYAML.Location = new System.Drawing.Point(13, 223);
 			this.ButtonYAML.Name = "ButtonYAML";
-			this.ButtonYAML.Size = new System.Drawing.Size(197, 25);
+			this.ButtonYAML.Size = new System.Drawing.Size(197, 23);
 			this.ButtonYAML.TabIndex = 9;
 			this.ButtonYAML.Text = "Link YAMLDatabase";
 			this.ButtonYAML.UseVisualStyleBackColor = false;
 			this.ButtonYAML.Click += new System.EventHandler(this.ButtonYAML_Click);
 			// 
-			// checkBox2
+			// ConfigWatermark
 			// 
-			this.checkBox2.AutoSize = true;
-			this.checkBox2.ForeColor = System.Drawing.SystemColors.Window;
-			this.checkBox2.Location = new System.Drawing.Point(13, 147);
-			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(91, 17);
-			this.checkBox2.TabIndex = 8;
-			this.checkBox2.Text = "Placeholder 1";
-			this.checkBox2.UseVisualStyleBackColor = true;
+			this.ConfigWatermark.AutoSize = true;
+			this.ConfigWatermark.ForeColor = System.Drawing.SystemColors.Window;
+			this.ConfigWatermark.Location = new System.Drawing.Point(13, 147);
+			this.ConfigWatermark.Name = "ConfigWatermark";
+			this.ConfigWatermark.Size = new System.Drawing.Size(158, 17);
+			this.ConfigWatermark.TabIndex = 8;
+			this.ConfigWatermark.Text = "Enable Modder Watermarks";
+			this.ConfigWatermark.UseVisualStyleBackColor = true;
 			// 
 			// ConfigMaximized
 			// 
@@ -522,10 +552,12 @@
 		private System.Windows.Forms.CheckBox ConfigCompressFiles;
 		private System.Windows.Forms.CheckBox ConfigAutoSave;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.CheckBox checkBox2;
+		private System.Windows.Forms.CheckBox ConfigWatermark;
 		private System.Windows.Forms.CheckBox ConfigMaximized;
 		private System.Windows.Forms.Button ButtonDiscord;
 		private System.Windows.Forms.Button ButtonYAML;
 		private System.Windows.Forms.OpenFileDialog OpenYAMLDialog;
+		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.Button SetModderName;
 	}
 }
