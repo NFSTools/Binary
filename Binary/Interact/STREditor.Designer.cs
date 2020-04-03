@@ -1,4 +1,4 @@
-﻿namespace Binary.Forms.Interact
+﻿namespace Binary.Interact
 {
 	partial class STREditor
 	{
@@ -45,6 +45,7 @@
 			// StringTextBox
 			// 
 			this.StringTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+			this.StringTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.StringTextBox.ForeColor = System.Drawing.SystemColors.Info;
 			this.StringTextBox.Location = new System.Drawing.Point(12, 101);
 			this.StringTextBox.Multiline = true;
@@ -56,7 +57,8 @@
 			// AddString
 			// 
 			this.AddString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-			this.AddString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.AddString.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.AddString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.AddString.ForeColor = System.Drawing.SystemColors.Info;
 			this.AddString.Location = new System.Drawing.Point(12, 71);
 			this.AddString.Name = "AddString";
@@ -69,7 +71,8 @@
 			// FindString
 			// 
 			this.FindString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-			this.FindString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.FindString.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.FindString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.FindString.ForeColor = System.Drawing.SystemColors.Info;
 			this.FindString.Location = new System.Drawing.Point(332, 71);
 			this.FindString.Name = "FindString";
@@ -82,7 +85,8 @@
 			// DeleteString
 			// 
 			this.DeleteString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-			this.DeleteString.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.DeleteString.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.DeleteString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.DeleteString.ForeColor = System.Drawing.SystemColors.Info;
 			this.DeleteString.Location = new System.Drawing.Point(172, 71);
 			this.DeleteString.Name = "DeleteString";
@@ -95,7 +99,8 @@
 			// ApplyChanges
 			// 
 			this.ApplyChanges.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-			this.ApplyChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ApplyChanges.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.ApplyChanges.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.ApplyChanges.ForeColor = System.Drawing.SystemColors.Info;
 			this.ApplyChanges.Location = new System.Drawing.Point(492, 71);
 			this.ApplyChanges.Name = "ApplyChanges";
@@ -108,17 +113,19 @@
 			// StringKeyBox
 			// 
 			this.StringKeyBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(65)))), ((int)(((byte)(72)))));
+			this.StringKeyBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.StringKeyBox.ForeColor = System.Drawing.SystemColors.Info;
 			this.StringKeyBox.Location = new System.Drawing.Point(55, 12);
 			this.StringKeyBox.Name = "StringKeyBox";
 			this.StringKeyBox.ReadOnly = true;
 			this.StringKeyBox.Size = new System.Drawing.Size(287, 20);
 			this.StringKeyBox.TabIndex = 5;
-			this.StringKeyBox.TextChanged += new System.EventHandler(this.StringKeyBox_TextChanged);
+			this.StringKeyBox.Validating += new System.ComponentModel.CancelEventHandler(this.StringKeyBox_Validating);
 			// 
 			// StringLabelBox
 			// 
 			this.StringLabelBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(65)))), ((int)(((byte)(72)))));
+			this.StringLabelBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.StringLabelBox.ForeColor = System.Drawing.SystemColors.Info;
 			this.StringLabelBox.Location = new System.Drawing.Point(55, 38);
 			this.StringLabelBox.Name = "StringLabelBox";
@@ -130,11 +137,11 @@
 			// 
 			this.LabelKey.AutoSize = true;
 			this.LabelKey.ForeColor = System.Drawing.SystemColors.Info;
-			this.LabelKey.Location = new System.Drawing.Point(17, 15);
+			this.LabelKey.Location = new System.Drawing.Point(24, 15);
 			this.LabelKey.Name = "LabelKey";
-			this.LabelKey.Size = new System.Drawing.Size(32, 13);
+			this.LabelKey.Size = new System.Drawing.Size(25, 13);
 			this.LabelKey.TabIndex = 7;
-			this.LabelKey.Text = "Hash";
+			this.LabelKey.Text = "Key";
 			// 
 			// label1
 			// 

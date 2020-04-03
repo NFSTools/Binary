@@ -1,59 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Binary.Endscript;
+using GlobalLib.Utils;
+using GlobalLib.Reflection;
+using GlobalLib.Support.Shared.Parts.STRParts;
 
-namespace Binary.Forms.Interact
+
+
+namespace Binary.Interact
 {
 	public partial class STREditor : Form
 	{
 		private bool labelchanged = false;
-		private string path = " STRBlocks GLOBAL ";
+		private const string path = "STRBlocks GLOBAL";
+		private const string key = "Key";
+		private const string label = "Label";
+		private const string text = "Text";
 
-		public bool DeleteThis{ get; set; } = false;
-		public bool AddRecord { get; set; } = false;
 		public bool FindTexts { get; set; } = false;
 		public string TextToFind { get; set; } = string.Empty;
 
-		public uint Key { get; set; }
-		public string Label { get; set; }
-		public string Texts { get; set; }
 		public List<string> CommandsProcessed { get; set; } = new List<string>();
 
-		private GlobalLib.Support.Shared.Parts.STRParts.StringRecord Record { get; set; }
+		private StringRecord _record;
 
-		public STREditor(GlobalLib.Support.Shared.Parts.STRParts.StringRecord str)
+		public STREditor(StringRecord str)
 		{
-			this.Record = str;
-			this.Key = this.Record.Key;
-			this.Label = this.Record.Label;
-			this.Texts = this.Record.Text;
+			this._record = str;
 			InitializeComponent();
 		}
 
-		private void ApplyRecordChanges()
+		private void ApplyRecordChanges(uint newkey)
 		{
-			var prev = this.Record.Key.ToString("X8");
-			this.Record.Key = this.Key;
-			this.Record.Label = this.Label;
-			this.Record.Text = this.Texts;
-			this.CommandsProcessed.Add($"{Endscript.Commands.Switch}{path}{prev} Hash {this.Key.ToString("X8")}");
-			this.CommandsProcessed.Add($"{Endscript.Commands.Switch}{path}{this.Key.ToString("X8")} Label \"{this.Label}\"");
-			this.CommandsProcessed.Add($"{Endscript.Commands.Switch}{path}{this.Key.ToString("X8")} Text \"{this.Texts}\"");
+			var prevs = $"0x{this._record.Key:X8}";
+			var after = $"0x{newkey:X8}";
+			this._record.Key = newkey;
+			this._record.Label = this.labelchanged ? this.StringLabelBox.Text : this._record.Label;
+			this._record.Text = this.StringTextBox.Text;
+			this.CommandsProcessed.Add($"{Commands.update} {path} {prevs} {key} {after}");
+			this.CommandsProcessed.Add($"{Commands.update} {path} {after} {label} \"{this._record.Label}\"");
+			this.CommandsProcessed.Add($"{Commands.update} {path} {after} {text} \"{this._record.Text}\"");
 		}
 
 		private void STREditor_Load(object sender, EventArgs e)
 		{
-			this.StringLabelBox.Text = string.IsNullOrEmpty(this.Label) ? "???" : this.Label;
-			this.StringKeyBox.Text = this.Key.ToString("X8");
-			this.StringTextBox.Text = this.Texts;
+			this.StringLabelBox.Text = string.IsNullOrEmpty(this._record.Label) ? "???" : this._record.Label;
+			this.StringKeyBox.Text = $"0x{this._record.Key}";
+			this.StringTextBox.Text = this._record.Text;
 			this.labelchanged = false;
-			if (this.Key != GlobalLib.Utils.Bin.Hash(this.Label))
+			if (this._record.Key != Bin.Hash(this._record.Label))
 				UseCustomKeyCheckBox.Checked = true;
 		}
 
@@ -61,11 +58,11 @@ namespace Binary.Forms.Interact
 		{
 			if (!this.UseCustomKeyCheckBox.Checked)
 			{
-				var key = GlobalLib.Utils.Bin.Hash(this.StringLabelBox.Text);
+				var key = Bin.Hash(this.StringLabelBox.Text);
 				if (this.UseInvertedKeyCheckBox.Checked)
-					this.StringKeyBox.Text = GlobalLib.Utils.Bin.Reverse(key).ToString("X8");
+					this.StringKeyBox.Text = $"0x{Bin.Reverse(key):X8}";
 				else
-					this.StringKeyBox.Text = key.ToString("X8");
+					this.StringKeyBox.Text = $"0x{key:X8}";
 				this.labelchanged = true;
 			}
 		}
@@ -74,60 +71,54 @@ namespace Binary.Forms.Interact
 		{
 			this.StringKeyBox.ReadOnly = !this.UseCustomKeyCheckBox.Checked;
 			if (this.StringKeyBox.ReadOnly)
-				this.StringKeyBox.Text = GlobalLib.Utils.Bin.Hash(this.StringLabelBox.Text).ToString("X8");
+				this.StringKeyBox.Text = $"0x{Bin.Hash(this.StringLabelBox.Text):X8}";
 		}
 
 		private void UseInvertedKeyCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
-			var key = GlobalLib.Utils.ConvertX.ToUInt32(this.StringKeyBox.Text);
-			key = GlobalLib.Utils.Bin.Reverse(key);
-			this.StringKeyBox.Text = key.ToString("X8");
+			var key = ConvertX.ToUInt32(this.StringKeyBox.Text);
+			key = Bin.Reverse(key);
+			this.StringKeyBox.Text = $"0x{key:X8}";
 		}
 
 		private void ApplyChanges_Click(object sender, EventArgs e)
 		{
-			try
+			if (string.IsNullOrEmpty(this.StringKeyBox.Text) || string.IsNullOrEmpty(this.StringLabelBox.Text))
+				throw new ArgumentNullException("Key value and label value cannot be left empty.");
+			uint key = ConvertX.ToUInt32(this.StringKeyBox.Text);
+			if (UseInvertedKeyCheckBox.Checked) key = Bin.Reverse(key);
+			if (key != this._record.Key) // if this is a different key from the one passed
 			{
-				if (string.IsNullOrEmpty(this.StringKeyBox.Text) || string.IsNullOrEmpty(this.StringLabelBox.Text))
-					throw new ArgumentNullException("Hash value and label value cannot be left empty.");
-				uint tempkey = Convert.ToUInt32(this.StringKeyBox.Text, 16);
-				if (UseInvertedKeyCheckBox.Checked)
-					tempkey = GlobalLib.Utils.Bin.Reverse(tempkey);
-				if (tempkey != this.Key) // if this is a different key from the one passed
+				var exist = this._record.ThisSTRBlock.GetRecord(key);
+				if (exist != null)
 				{
-					foreach (var info in this.Record.ThisList) // check for uniqueness
-					{
-						if (tempkey == info.Key) // if not unique, throw
-							throw new GlobalLib.Reflection.Exception.CollectionExistenceException("String record" +
-								"with the same hash already exists.");
-					}
+					MessageBox.Show($"StringRecord with key {this.StringKeyBox.Text} already exists", "Warning");
+					return;
 				}
-				this.Key = tempkey;
-				this.Label = this.labelchanged ? this.StringLabelBox.Text : this.Label;
-				this.Texts = this.StringTextBox.Text;
-				this.ApplyRecordChanges();
-				this.DialogResult = DialogResult.OK;
 			}
-			catch (Exception ex)
-			{
-				while (ex.InnerException != null) ex = ex.InnerException;
-				MessageBox.Show(ex.Message, "Warning");
-			}
+			this.ApplyRecordChanges(key);
+			this.DialogResult = DialogResult.OK;
 		}
 
 		private void DeleteString_Click(object sender, EventArgs e)
 		{
-			this.CommandsProcessed.Add($"{Endscript.Commands.Delete}{path}{this.Key.ToString("X8")}");
-			this.DeleteThis = true;
+			var key = $"0x{this._record.Key:X8}";
+			this.CommandsProcessed.Add($"{Commands.delete} {path} {key}");
+			this._record.ThisSTRBlock.TryRemoveRecord(this._record.Key);
 			this.DialogResult = DialogResult.OK;
 			this.Close();
 		}
 
 		private void AddString_Click(object sender, EventArgs e)
 		{
-			this.AddRecord = true;
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			string global = "GLOBAL_";
+			int index = 0;
+			while (!this._record.ThisSTRBlock.TryAddRecord(BaseArguments.AUTO,
+				$"{global}{index}", string.Empty)) { ++index; }
+			var newkey = Bin.Hash($"{global}{index}");
+			var newrecord = this._record.ThisSTRBlock.GetRecord(newkey);
+			this._record = newrecord;
+			this.STREditor_Load(this, EventArgs.Empty);
 		}
 
 		private void FindString_Click(object sender, EventArgs e)
@@ -142,8 +133,14 @@ namespace Binary.Forms.Interact
 			}
 		}
 
-		private void StringKeyBox_TextChanged(object sender, EventArgs e)
+		private void StringKeyBox_Validating(object sender, CancelEventArgs e)
 		{
+			if (ConvertX.ToUInt32(this.StringKeyBox.Text) == 0)
+			{
+				MessageBox.Show("Unable to convert key to a hexadecimal hash or it equals 0.", "Error",
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
+				e.Cancel = true;
+			}
 		}
 	}
 }
