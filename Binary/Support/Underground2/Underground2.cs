@@ -311,7 +311,7 @@ namespace Binary.Support
 			if (BinaryTree.SelectedNode == null || BinaryTree.SelectedNode.Parent == null) return;
 			var obj = dbUG2.GetPrimitive(Utils.Path.SplitPath(BinaryTree.SelectedNode.FullPath));
 			if (obj == null) return;
-			var list = obj.GetAccessibles(GlobalLib.Database.Collection.eGetInfoType.PROPERTY_NAMES);
+			var list = obj.GetAccessibles(GlobalLib.Reflection.Enum.eGetInfoType.PROPERTY_NAMES);
 
 			this.BinaryDataViewColumnInit();
 

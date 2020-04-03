@@ -105,11 +105,29 @@
     <Compile Include="Interact\ErrorView.Designer.cs">
       <DependentUpon>ErrorView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interact\FEngEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interact\FEngEditor.Designer.cs">
+      <DependentUpon>FEngEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interact\Input.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interact\Input.Designer.cs">
       <DependentUpon>Input.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interact\STREditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interact\STREditor.Designer.cs">
+      <DependentUpon>STREditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interact\TPKEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interact\TPKEditor.Designer.cs">
+      <DependentUpon>TPKEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Support\Carbon\Carbon.cs">
       <SubType>Form</SubType>
@@ -177,8 +195,17 @@
     <EmbeddedResource Include="Interact\ErrorView.resx">
       <DependentUpon>ErrorView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interact\FEngEditor.resx">
+      <DependentUpon>FEngEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interact\Input.resx">
       <DependentUpon>Input.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interact\STREditor.resx">
+      <DependentUpon>STREditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interact\TPKEditor.resx">
+      <DependentUpon>TPKEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Support\Carbon\Carbon.resx">
       <DependentUpon>Carbon.cs</DependentUpon>
