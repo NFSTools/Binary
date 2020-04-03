@@ -1,4 +1,4 @@
-﻿namespace Binary.Forms.Interact
+﻿namespace Binary.Interact
 {
     partial class FEngEditor
     {

@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using GlobalLib.Support.Shared.Parts.FNGParts;
 
 
 
-namespace Binary.Forms.Interact
+namespace Binary.Interact
 {
     public partial class FEngEditor : Form
     {
-        public int Index { get; set; }
-        public uint Offset { get; set; }
-        public byte Alpha { get; set; }
-        public byte Red { get; set; }
-        public byte Green { get; set; }
-        public byte Blue { get; set; }
+        private int _index;
+        private FEngColor _color;
         public bool KeepAlpha { get; set; } = false;
         public bool ReplaceSame { get; set; } = false;
         public bool ReplaceAll { get; set; } = false;
@@ -23,104 +20,120 @@ namespace Binary.Forms.Interact
             InitializeComponent();
         }
 
+        public FEngEditor(FEngColor color, int index)
+        {
+            this._color = color;
+            this._index = index;
+        }
+
         private void TrackBar_Red_Scroll(object sender, EventArgs e)
         {
-            NewRed.Value = (int)TrackBar_Red.Value;
-            NewColorBox.BackColor = Color.FromArgb(NewColorBox.BackColor.A, (int)NewRed.Value, NewColorBox.BackColor.G, NewColorBox.BackColor.B);
+            this.NewRed.Value = this.TrackBar_Red.Value;
+            this.NewColorBox.BackColor = Color.FromArgb(this.NewColorBox.BackColor.A,
+                (int)NewRed.Value, this.NewColorBox.BackColor.G, this.NewColorBox.BackColor.B);
         }
 
         private void TrackBar_Green_Scroll(object sender, EventArgs e)
         {
-            NewGreen.Value = (int)TrackBar_Green.Value;
-            NewColorBox.BackColor = Color.FromArgb(NewColorBox.BackColor.A, NewColorBox.BackColor.R, (int)NewGreen.Value, NewColorBox.BackColor.B);
+            this.NewGreen.Value = TrackBar_Green.Value;
+            this.NewColorBox.BackColor = Color.FromArgb(this.NewColorBox.BackColor.A,
+                this.NewColorBox.BackColor.R, (int)NewGreen.Value, this.NewColorBox.BackColor.B);
         }
 
         private void TrackBar_Blue_Scroll(object sender, EventArgs e)
         {
-            NewBlue.Value = (int)TrackBar_Blue.Value;
-            NewColorBox.BackColor = Color.FromArgb(NewColorBox.BackColor.A, NewColorBox.BackColor.R, NewColorBox.BackColor.G, (int)NewBlue.Value);
+            this.NewBlue.Value = TrackBar_Blue.Value;
+            this.NewColorBox.BackColor = Color.FromArgb(this.NewColorBox.BackColor.A,
+                this.NewColorBox.BackColor.R, this.NewColorBox.BackColor.G, (int)NewBlue.Value);
         }
 
         private void TrackBar_Alpha_Scroll(object sender, EventArgs e)
         {
-            NewAlpha.Value = (int)TrackBar_Alpha.Value;
-            NewColorBox.BackColor = Color.FromArgb((int)NewAlpha.Value, NewColorBox.BackColor.R, NewColorBox.BackColor.G, NewColorBox.BackColor.B);
+            this.NewAlpha.Value = TrackBar_Alpha.Value;
+            this.NewColorBox.BackColor = Color.FromArgb((int)NewAlpha.Value,
+                this.NewColorBox.BackColor.R, this.NewColorBox.BackColor.G, this.NewColorBox.BackColor.B);
         }
 
         private void NewRed_ValueChanged(object sender, EventArgs e)
         {
-            TrackBar_Red.Value = (int)NewRed.Value;
-            NewColorBox.BackColor = Color.FromArgb(NewColorBox.BackColor.A, (int)NewRed.Value, NewColorBox.BackColor.G, NewColorBox.BackColor.B);
+            this.TrackBar_Red.Value = (int)NewRed.Value;
+            this.NewColorBox.BackColor = Color.FromArgb(this.NewColorBox.BackColor.A,
+                (int)NewRed.Value, this.NewColorBox.BackColor.G, this.NewColorBox.BackColor.B);
         }
 
         private void NewGreen_ValueChanged(object sender, EventArgs e)
         {
-            TrackBar_Green.Value = (int)NewGreen.Value;
-            NewColorBox.BackColor = Color.FromArgb(NewColorBox.BackColor.A, NewColorBox.BackColor.R, (int)NewGreen.Value, NewColorBox.BackColor.B);
+            this.TrackBar_Green.Value = (int)NewGreen.Value;
+            this.NewColorBox.BackColor = Color.FromArgb(NewColorBox.BackColor.A,
+                this.NewColorBox.BackColor.R, (int)NewGreen.Value, this.NewColorBox.BackColor.B);
         }
 
         private void NewBlue_ValueChanged(object sender, EventArgs e)
         {
-            TrackBar_Blue.Value = (int)NewBlue.Value;
-            NewColorBox.BackColor = Color.FromArgb(NewColorBox.BackColor.A, NewColorBox.BackColor.R, NewColorBox.BackColor.G, (int)NewBlue.Value);
+            this.TrackBar_Blue.Value = (int)NewBlue.Value;
+            this.NewColorBox.BackColor = Color.FromArgb(this.NewColorBox.BackColor.A,
+                this.NewColorBox.BackColor.R, this.NewColorBox.BackColor.G, (int)NewBlue.Value);
         }
 
         private void NewAlpha_ValueChanged(object sender, EventArgs e)
         {
-            TrackBar_Alpha.Value = (int)NewAlpha.Value;
-            NewColorBox.BackColor = Color.FromArgb((int)NewAlpha.Value, NewColorBox.BackColor.R, NewColorBox.BackColor.G, NewColorBox.BackColor.B);
+            this.TrackBar_Alpha.Value = (int)NewAlpha.Value;
+            this.NewColorBox.BackColor = Color.FromArgb((int)NewAlpha.Value,
+                this.NewColorBox.BackColor.R, this.NewColorBox.BackColor.G, this.NewColorBox.BackColor.B);
         }
 
         private void OpenWindowsColorForm_Click(object sender, EventArgs e)
         {
             if (SwatchDialog.ShowDialog() == DialogResult.OK)
             {
-                TrackBar_Blue.Value = SwatchDialog.Color.B;
-                TrackBar_Green.Value = SwatchDialog.Color.G;
-                TrackBar_Red.Value = SwatchDialog.Color.R;
-                NewBlue.Value = SwatchDialog.Color.B;
-                NewGreen.Value = SwatchDialog.Color.G;
-                NewRed.Value = SwatchDialog.Color.R;
-                NewColorBox.BackColor = Color.FromArgb((int)NewAlpha.Value, (int)NewRed.Value, (int)NewGreen.Value, (int)NewBlue.Value);
+                this.TrackBar_Blue.Value = this.SwatchDialog.Color.B;
+                this.TrackBar_Green.Value = this.SwatchDialog.Color.G;
+                this.TrackBar_Red.Value = this.SwatchDialog.Color.R;
+                this.NewBlue.Value = this.SwatchDialog.Color.B;
+                this.NewGreen.Value = this.SwatchDialog.Color.G;
+                this.NewRed.Value = this.SwatchDialog.Color.R;
+                this.NewColorBox.BackColor = Color.FromArgb((int)this.NewAlpha.Value,
+                    (int)this.NewRed.Value, (int)this.NewGreen.Value, (int)this.NewBlue.Value);
             }
         }
 
         private void FEngEditor_Load(object sender, EventArgs e)
         {
-            CurrentBackground.Controls.Add(CurrentColorBox);
-            NewBackground.Controls.Add(NewColorBox);
-            CurrentColorBox.Location = new Point(0, 0);
-            NewColorBox.Location = new Point(0, 0);
-            CurrentIndex.Text = this.Index.ToString();
-            CurrentOffset.Text = "0x" + this.Offset.ToString("X");
-            CurrentAlpha.Text = this.Alpha.ToString();
-            CurrentRed.Text = this.Red.ToString();
-            CurrentGreen.Text = this.Green.ToString();
-            CurrentBlue.Text = this.Blue.ToString();
+            this.CurrentBackground.Controls.Add(this.CurrentColorBox);
+            this.NewBackground.Controls.Add(this.NewColorBox);
+            this.CurrentColorBox.Location = new Point(0, 0);
+            this.NewColorBox.Location = new Point(0, 0);
+            this.CurrentIndex.Text = this._index.ToString();
+            this.CurrentOffset.Text = "0x" + this._color.Offset.ToString("X");
+            this.CurrentAlpha.Text = this._color.Alpha.ToString();
+            this.CurrentRed.Text = this._color.Red.ToString();
+            this.CurrentGreen.Text = this._color.Green.ToString();
+            this.CurrentBlue.Text = this._color.Blue.ToString();
 
-            CurrentColorBox.BackColor = Color.FromArgb(Alpha, Red, Green, Blue);
-            NewColorBox.BackColor = CurrentColorBox.BackColor;
+            this.CurrentColorBox.BackColor = Color.FromArgb(this._color.Alpha, this._color.Red,
+                this._color.Green, this._color.Blue);
+            this.NewColorBox.BackColor = this.CurrentColorBox.BackColor;
 
-            TrackBar_Alpha.Value = CurrentColorBox.BackColor.A;
-            TrackBar_Red.Value = CurrentColorBox.BackColor.R;
-            TrackBar_Green.Value = CurrentColorBox.BackColor.G;
-            TrackBar_Blue.Value = CurrentColorBox.BackColor.B;
+            this.TrackBar_Alpha.Value = this.CurrentColorBox.BackColor.A;
+            this.TrackBar_Red.Value = this.CurrentColorBox.BackColor.R;
+            this.TrackBar_Green.Value = this.CurrentColorBox.BackColor.G;
+            this.TrackBar_Blue.Value = this.CurrentColorBox.BackColor.B;
 
-            NewAlpha.Value = CurrentColorBox.BackColor.A;
-            NewRed.Value = CurrentColorBox.BackColor.R;
-            NewGreen.Value = CurrentColorBox.BackColor.G;
-            NewBlue.Value = CurrentColorBox.BackColor.B;
+            this.NewAlpha.Value = this.CurrentColorBox.BackColor.A;
+            this.NewRed.Value = this.CurrentColorBox.BackColor.R;
+            this.NewGreen.Value = this.CurrentColorBox.BackColor.G;
+            this.NewBlue.Value = this.CurrentColorBox.BackColor.B;
         }
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            this.Alpha = NewColorBox.BackColor.A;
-            this.Red = NewColorBox.BackColor.R;
-            this.Green = NewColorBox.BackColor.G;
-            this.Blue = NewColorBox.BackColor.B;
-            this.KeepAlpha = CheckKeepAlpha.Checked;
-            this.ReplaceSame = CheckReplaceSame.Checked;
-            this.ReplaceAll = CheckReplaceAll.Checked;
+            this._color.Alpha = this.NewColorBox.BackColor.A;
+            this._color.Red = this.NewColorBox.BackColor.R;
+            this._color.Green = this.NewColorBox.BackColor.G;
+            this._color.Blue = this.NewColorBox.BackColor.B;
+            this.KeepAlpha = this.CheckKeepAlpha.Checked;
+            this.ReplaceSame = this.CheckReplaceSame.Checked;
+            this.ReplaceAll = this.CheckReplaceAll.Checked;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -128,21 +141,21 @@ namespace Binary.Forms.Interact
 
         private void CheckReplaceAll_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckReplaceAll.Checked) CheckKeepAlpha.Enabled = true;
-            else if (!CheckReplaceSame.Checked)
+            if (this.CheckReplaceAll.Checked) this.CheckKeepAlpha.Enabled = true;
+            else if (!this.CheckReplaceSame.Checked)
             {
-                CheckKeepAlpha.Enabled = false;
-                CheckKeepAlpha.Checked = false;
+                this.CheckKeepAlpha.Enabled = false;
+                this.CheckKeepAlpha.Checked = false;
             }
         }
 
         private void CheckReplaceSame_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckReplaceSame.Checked) CheckKeepAlpha.Enabled = true;
-            else if (!CheckReplaceAll.Checked)
+            if (this.CheckReplaceSame.Checked) this.CheckKeepAlpha.Enabled = true;
+            else if (!this.CheckReplaceAll.Checked)
             {
-                CheckKeepAlpha.Enabled = false;
-                CheckKeepAlpha.Checked = false;
+                this.CheckKeepAlpha.Enabled = false;
+                this.CheckKeepAlpha.Checked = false;
             }
         }
     }
