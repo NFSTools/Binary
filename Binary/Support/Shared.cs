@@ -1,16 +1,16 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using Binary.Endscript;
 using GlobalLib.Core;
+using GlobalLib.Utils;
+using GlobalLib.Reflection.Enum;
 using GlobalLib.Reflection.Abstract;
+using GlobalLib.Database.Collection;
 
 
 
@@ -46,7 +46,7 @@ namespace Binary.Support
 
 			this._game = game;
 			this._dir = dir;
-			if (forceload) this.LoadDatabase(this._dir, false);
+			if (forceload) this.LoadDatabase(this._dir);
 		}
 
 		private class MyRenderer : ToolStripProfessionalRenderer
@@ -69,6 +69,8 @@ namespace Binary.Support
 				get { return Color.FromArgb(40, 23, 60); }
 			}
 		}
+
+		public string GetDirectory() => this._dir;
 
 		private void EnableButtons()
 		{
@@ -106,35 +108,67 @@ namespace Binary.Support
 		{
 			try
 			{
-				string a1 = this._dir + @"\GLOBAL\GlobalA.bun";
-				string a2 = this._dir + @"\GLOBAL\GlobalA.bun.bacc";
-				string b1 = this._dir + @"\GLOBAL\GlobalB.lzc";
-				string b2 = this._dir + @"\GLOBAL\GlobalB.lzc.bacc";
-				string c1 = this._dir + @"\LANGUAGES\English_Global.bin";
-				string c2 = this._dir + @"\LANGUAGES\English_Global.bin.bacc";
-				string d1 = this._dir + @"\LANGUAGES\Labels_Global.bin";
-				string d2 = this._dir + @"\LANGUAGES\Labels_Global.bin.bacc";
-				if (!force)
+				switch (this._game)
 				{
-					if (!File.Exists(a2)) File.Copy(a1, a2);
-					if (!File.Exists(b2)) File.Copy(b1, b2);
-					if (!File.Exists(c2)) File.Copy(c1, c2);
-					if (!File.Exists(d2)) File.Copy(d1, d2);
-				}
-				else
-				{
-					if (File.Exists(a2)) File.Delete(a2);
-					if (File.Exists(b2)) File.Delete(b2);
-					if (File.Exists(c2)) File.Delete(c2);
-					if (File.Exists(d2)) File.Delete(d2);
-					File.Copy(a1, a2); File.Copy(b1, b2);
-					File.Copy(c1, c2); File.Copy(d1, d2);
+					case GameINT.Carbon:
+						foreach (var pair in Utils.Filenames.Carbon)
+						{
+							var original = this._dir + pair.Item1;
+							var recovery = this._dir + pair.Item2;
+							if (!force)
+							{
+								if (!File.Exists(recovery)) File.Copy(original, recovery);
+							}
+							else
+							{
+								if (File.Exists(recovery)) File.Delete(recovery);
+								File.Copy(original, recovery);
+							}
+						}
+						break;
+
+					case GameINT.MostWanted:
+						foreach (var pair in Utils.Filenames.MostWanted)
+						{
+							var original = this._dir + pair.Item1;
+							var recovery = this._dir + pair.Item2;
+							if (!force)
+							{
+								if (!File.Exists(recovery)) File.Copy(original, recovery);
+							}
+							else
+							{
+								if (File.Exists(recovery)) File.Delete(recovery);
+								File.Copy(original, recovery);
+							}
+						}
+						break;
+
+					case GameINT.Underground2:
+						foreach (var pair in Utils.Filenames.Underground2)
+						{
+							var original = this._dir + pair.Item1;
+							var recovery = this._dir + pair.Item2;
+							if (!force)
+							{
+								if (!File.Exists(recovery)) File.Copy(original, recovery);
+							}
+							else
+							{
+								if (File.Exists(recovery)) File.Delete(recovery);
+								File.Copy(original, recovery);
+							}
+						}
+						break;
+
+					default:
+						return;
 				}
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				while (e.InnerException != null) e = e.InnerException;
-				MessageBox.Show($"Error occured: {e.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				while (ex.InnerException != null) ex = ex.InnerException;
+				MessageBox.Show($"Error occured: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -174,21 +208,18 @@ namespace Binary.Support
 			}
 		}
 
-		private void LoadDatabase(string foldername, bool showerror)
+		private eRootType CheckRootSelectionType()
 		{
-			var GlobalA = File.Exists(foldername + @"\Global\GlobalA.bun");
-			var GlobalB = File.Exists(foldername + @"\Global\GlobalB.lzc");
-			var LangGen = File.Exists(foldername + @"\Languages\English_Global.bin");
-			var LangLab = File.Exists(foldername + @"\Languages\Labels_Global.bin");
-			var Stream = File.Exists(foldername + @"\Tracks\StreamL5RA.bun");
-			var NFSC = File.Exists(foldername + @"\nfsc.exe");
-			var Load = GlobalA && GlobalB && LangGen && LangLab && Stream && NFSC;
-			if (!Load)
-			{
-				if (showerror)
-					MessageBox.Show("Folder is not game's directory." + Environment.NewLine + "Please select the correct folder.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return;
-			}
+			if (this.BinaryTree.SelectedNode == null || this.BinaryTree.SelectedNode.Parent == null)
+				return eRootType.Empty;
+			if (this.BinaryTree.SelectedNode.Parent.Text == "FNGroups") return eRootType.FNGroups;
+			else if (this.BinaryTree.SelectedNode.Parent.Text == "TPKBlocks") return eRootType.TPKBlocks;
+			else if (this.BinaryTree.SelectedNode.Parent.Text == "STRBlocks") return eRootType.STRBlocks;
+			else return eRootType.Regular;
+		}
+
+		private void LoadDatabase(string foldername)
+		{
 			this._dir = foldername;
 			this.db = null;
 
@@ -217,6 +248,7 @@ namespace Binary.Support
 			LoadBinaryTree(false);
 			DataSet_Status.Text = $"Finished loading data in {watch.ElapsedMilliseconds}ms | {DateTime.Now.ToString()}";
 			EnableButtons();
+
 			if (Properties.Settings.Default.EnableAutobackup)
 				this.CreateBackupFiles(false);
 			if (this.BinaryTree.Nodes != null && this.BinaryTree.Nodes.Count > 0)
@@ -243,10 +275,23 @@ namespace Binary.Support
 			}
 			this.BinaryTree.Nodes.Clear();
 			this.BinaryDataView.Columns.Clear();
-			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbC.CarTypeInfos.ThisName, this.dbC.CarTypeInfos.GetAllNodes()));
-			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbC.Materials.ThisName, this.dbC.Materials.GetAllNodes()));
-			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbC.PresetRides.ThisName, this.dbC.PresetRides.GetAllNodes()));
-			this.BinaryTree.Nodes.Add(this.AppendTreeNode(this.dbC.PresetSkins.ThisName, this.dbC.PresetSkins.GetAllNodes()));
+
+			var properties = this.db.GetType().GetProperties().ToList();
+			properties.Sort((p, q) => p.Name.CompareTo(q.Name));
+
+			foreach (var property in properties)
+			{
+				if (!ReflectX.IsGenericDefinition(property.PropertyType, typeof(Root<>)))
+					continue;
+				var name = property.PropertyType.GetProperty("ThisName")
+					.GetValue(property.GetValue(this.db)).ToString();
+				var nodes = property.PropertyType
+					.GetMethod("GetAllNodes", new Type[0] { })
+					.Invoke(property.GetValue(this.db), new object[0] { })
+					as List<VirtualNode>;
+				this.BinaryTree.Nodes.Add(this.AppendTreeNode(name, nodes));
+			}
+
 			foreach (TreeNode node in this.BinaryTree.Nodes) node.ImageIndex = 1;
 			if (load_last_select)
 			{
@@ -262,7 +307,7 @@ namespace Binary.Support
 			this.ScrollDownToRowIndex(index);
 		}
 
-		private void BinaryDataViewColumnInit()
+		private void BinaryDataViewRegColumnInit()
 		{
 			var column_descr = new DataGridViewTextBoxColumn();
 			var column_value = new DataGridViewTextBoxColumn();
@@ -281,20 +326,186 @@ namespace Binary.Support
 
 			column_descr.SortMode = DataGridViewColumnSortMode.NotSortable;
 			column_value.SortMode = DataGridViewColumnSortMode.NotSortable;
+			this.BinaryDataView.MultiSelect = false;
+
+			this.BinaryDataView.Columns.Add(column_descr);
+			this.BinaryDataView.Columns.Add(column_value);
+			this.BinaryDataView.RowHeadersWidth = 30;
+		}
+
+		private void BinaryDataViewFNGColumnInit()
+		{
+			var column_descr = new DataGridViewTextBoxColumn();
+			var column_alpha = new DataGridViewTextBoxColumn();
+			var column_red = new DataGridViewTextBoxColumn();
+			var column_green = new DataGridViewTextBoxColumn();
+			var column_blue = new DataGridViewTextBoxColumn();
+
+			column_descr.Name = "Attribute";
+			column_descr.HeaderText = "Attribute";
+			column_descr.ReadOnly = true;
+			column_descr.Resizable = DataGridViewTriState.False;
+
+			column_alpha.Name = "Alpha";
+			column_alpha.HeaderText = "Alpha";
+			column_alpha.ReadOnly = true;
+			column_alpha.Resizable = DataGridViewTriState.False;
+
+			column_red.Name = "Red";
+			column_red.HeaderText = "Red";
+			column_red.ReadOnly = true;
+			column_red.Resizable = DataGridViewTriState.False;
+
+			column_green.Name = "Green";
+			column_green.HeaderText = "Green";
+			column_green.ReadOnly = true;
+			column_green.Resizable = DataGridViewTriState.False;
+
+			column_blue.Name = "Blue";
+			column_blue.HeaderText = "Blue";
+			column_blue.ReadOnly = true;
+			column_blue.Resizable = DataGridViewTriState.False;
+
+			column_descr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_alpha.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_red.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_green.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_blue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+			column_descr.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_alpha.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_red.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_green.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_blue.SortMode = DataGridViewColumnSortMode.NotSortable;
+			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			BinaryDataView.MultiSelect = false;
 
 			BinaryDataView.Columns.Add(column_descr);
-			BinaryDataView.Columns.Add(column_value);
+			BinaryDataView.Columns.Add(column_alpha);
+			BinaryDataView.Columns.Add(column_red);
+			BinaryDataView.Columns.Add(column_green);
+			BinaryDataView.Columns.Add(column_blue);
+			BinaryDataView.RowHeadersWidth = 30;
+		}
+
+		private void BinaryDataViewTPKColumnInit()
+		{
+			var column_index = new DataGridViewTextBoxColumn();
+			var column_cname = new DataGridViewTextBoxColumn();
+			var column_compr = new DataGridViewTextBoxColumn();
+			var column_width = new DataGridViewTextBoxColumn();
+			var column_heigt = new DataGridViewTextBoxColumn();
+			var column_nmmip = new DataGridViewTextBoxColumn();
+
+			column_index.Name = "Index";
+			column_index.HeaderText = "Index";
+			column_index.ReadOnly = true;
+			column_index.Resizable = DataGridViewTriState.False;
+
+			column_cname.Name = "CollectionName";
+			column_cname.HeaderText = "CollectionName";
+			column_cname.ReadOnly = true;
+			column_cname.Resizable = DataGridViewTriState.False;
+
+			column_compr.Name = "Compression";
+			column_compr.HeaderText = "Compression";
+			column_compr.ReadOnly = true;
+			column_compr.Resizable = DataGridViewTriState.False;
+
+			column_width.Name = "Width";
+			column_width.HeaderText = "Width";
+			column_width.ReadOnly = true;
+			column_width.Resizable = DataGridViewTriState.False;
+
+			column_heigt.Name = "Height";
+			column_heigt.HeaderText = "Height";
+			column_heigt.ReadOnly = true;
+			column_heigt.Resizable = DataGridViewTriState.False;
+
+			column_nmmip.Name = "Mipmaps";
+			column_nmmip.HeaderText = "MipMaps";
+			column_nmmip.ReadOnly = true;
+			column_nmmip.Resizable = DataGridViewTriState.False;
+
+			column_index.Width = 30;
+			column_cname.Width = 250;
+
+			column_compr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_width.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_heigt.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_nmmip.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+			column_index.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_cname.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_compr.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_width.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_heigt.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_nmmip.SortMode = DataGridViewColumnSortMode.NotSortable;
+			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			BinaryDataView.MultiSelect = false;
+
+			BinaryDataView.Columns.Add(column_index);
+			BinaryDataView.Columns.Add(column_cname);
+			BinaryDataView.Columns.Add(column_compr);
+			BinaryDataView.Columns.Add(column_width);
+			BinaryDataView.Columns.Add(column_heigt);
+			BinaryDataView.Columns.Add(column_nmmip);
+			BinaryDataView.RowHeadersWidth = 30;
+		}
+
+		private void BinaryDataViewSTRColumnInit()
+		{
+			var column_index = new DataGridViewTextBoxColumn();
+			var column_bhash = new DataGridViewTextBoxColumn();
+			var column_label = new DataGridViewTextBoxColumn();
+			var column_descr = new DataGridViewTextBoxColumn();
+
+			column_index.Name = "Index";
+			column_index.HeaderText = "Index";
+			column_index.ReadOnly = true;
+			column_index.Resizable = DataGridViewTriState.False;
+
+			column_bhash.Name = "Key";
+			column_bhash.HeaderText = "Key";
+			column_bhash.ReadOnly = true;
+			column_bhash.Resizable = DataGridViewTriState.False;
+
+			column_label.Name = "Label";
+			column_label.HeaderText = "Label";
+			column_label.ReadOnly = true;
+			column_label.Resizable = DataGridViewTriState.False;
+
+			column_descr.Name = "Text";
+			column_descr.HeaderText = "Text";
+			column_descr.ReadOnly = true;
+			column_descr.Resizable = DataGridViewTriState.False;
+
+			column_index.Width = 50;
+			column_bhash.Width = 70;
+			column_label.Width = 250;
+			column_descr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+			column_index.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_bhash.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_label.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_descr.SortMode = DataGridViewColumnSortMode.NotSortable;
+			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			BinaryDataView.MultiSelect = false;
+
+			BinaryDataView.Columns.Add(column_index);
+			BinaryDataView.Columns.Add(column_bhash);
+			BinaryDataView.Columns.Add(column_label);
+			BinaryDataView.Columns.Add(column_descr);
 			BinaryDataView.RowHeadersWidth = 30;
 		}
 
 		private void DataSet_OpenFile_Click(object sender, EventArgs e)
 		{
-			this.BrowseGameDirDialog.Description = "Select the NFS: Carbon directory that you want to work on.";
+			this.BrowseGameDirDialog.Description = $"Select the NFS: {this._game} directory that you want to work on.";
 
-			if (BrowseGameDirDialog.ShowDialog() == DialogResult.OK)
+			if (this.BrowseGameDirDialog.ShowDialog() == DialogResult.OK)
 			{
-				this.LoadDatabase(BrowseGameDirDialog.SelectedPath, true);
+				this.LoadDatabase(this.BrowseGameDirDialog.SelectedPath);
 			}
 		}
 
@@ -302,21 +513,35 @@ namespace Binary.Support
 		{
 			var watch = new System.Diagnostics.Stopwatch();
 			watch.Start();
-			Process.SaveData(dbC, Properties.Settings.Default.EnableCompression);
+			Process.SaveData(this.db, this._dir, Properties.Settings.Default.EnableCompression);
 			watch.Stop();
 			DataSet_Status.Text = $"Finished saving data in {watch.ElapsedMilliseconds}ms | {DateTime.Now.ToString()}";
 		}
 
 		private void BinaryTree_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-			BinaryDataView.Columns.Clear();
+			this.BinaryDataView.Columns.Clear();
 
-			if (BinaryTree.SelectedNode == null || BinaryTree.SelectedNode.Parent == null) return;
-			var obj = dbC.GetPrimitive(Utils.Path.SplitPath(BinaryTree.SelectedNode.FullPath));
+			var roottype = this.CheckRootSelectionType();
+			switch (roottype)
+			{
+				case eRootType.Empty:
+					return;
+				case eRootType.FNGroups:
+
+				case eRootType.TPKBlocks:
+
+				case eRootType.STRBlocks:
+
+				default:
+					break;
+			}
+
+			var obj = this.db.GetPrimitive(Utils.Path.SplitPath(this.BinaryTree.SelectedNode.FullPath));
 			if (obj == null) return;
-			var list = obj.GetAccessibles(GlobalLib.Reflection.Enum.eGetInfoType.PROPERTY_NAMES);
+			var list = obj.GetAccessibles(eGetInfoType.PROPERTY_NAMES);
 
-			this.BinaryDataViewColumnInit();
+			this.BinaryDataViewRegColumnInit();
 
 			var accessibles = new List<string>(list.Length);
 			for (int a1 = 0; a1 < list.Length; ++a1)
@@ -355,7 +580,7 @@ namespace Binary.Support
 
 		private void DataSet_ReloadFile_Click(object sender, EventArgs e)
 		{
-			this.LoadDatabase(this._dir, true);
+			this.LoadDatabase(this._dir);
 		}
 
 		private void DataSet_Hasher_Click(object sender, EventArgs e)
@@ -400,7 +625,7 @@ namespace Binary.Support
 
 		private void Carbon_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			this.dbC = null;
+			this.db = null;
 			Utils.CleanUp.GCCollect();
 		}
 
@@ -413,27 +638,63 @@ namespace Binary.Support
 		{
 			try
 			{
-				string a1 = this._dir + @"\GLOBAL\GlobalA.bun";
-				string a2 = this._dir + @"\GLOBAL\GlobalA.bun.bacc";
-				string b1 = this._dir + @"\GLOBAL\GlobalB.lzc";
-				string b2 = this._dir + @"\GLOBAL\GlobalB.lzc.bacc";
-				string c1 = this._dir + @"\LANGUAGES\English_Global.bin";
-				string c2 = this._dir + @"\LANGUAGES\English_Global.bin.bacc";
-				string d1 = this._dir + @"\LANGUAGES\Labels_Global.bin";
-				string d2 = this._dir + @"\LANGUAGES\Labels_Global.bin.bacc";
-				if (File.Exists(a2) && File.Exists(b2) && File.Exists(c2) && File.Exists(d2))
+				bool exists = false;
+				switch (this._game)
 				{
-					if (File.Exists(a1)) File.Delete(a1);
-					if (File.Exists(b1)) File.Delete(b1);
-					if (File.Exists(c1)) File.Delete(c1);
-					if (File.Exists(d1)) File.Delete(d1);
-					File.Copy(a2, a1); File.Copy(b2, b1);
-					File.Copy(c2, c1); File.Copy(d2, d1);
-					DataSet_ReloadFile_Click(null, EventArgs.Empty); // reload database
+					case GameINT.Carbon:
+						foreach (var pair in Utils.Filenames.Carbon)
+						{
+							var original = this._dir + pair.Item1;
+							var recovery = this._dir + pair.Item2;
+							if (File.Exists(recovery))
+							{
+								exists = true;
+								File.Delete(original);
+								File.Copy(recovery, original);
+							}
+						}
+						break;
+
+					case GameINT.MostWanted:
+						foreach (var pair in Utils.Filenames.MostWanted)
+						{
+							var original = this._dir + pair.Item1;
+							var recovery = this._dir + pair.Item2;
+							if (File.Exists(recovery))
+							{
+								exists = true;
+								File.Delete(original);
+								File.Copy(recovery, original);
+							}
+						}
+						break;
+
+					case GameINT.Underground2:
+						foreach (var pair in Utils.Filenames.Underground2)
+						{
+							var original = this._dir + pair.Item1;
+							var recovery = this._dir + pair.Item2;
+							if (File.Exists(recovery))
+							{
+								exists = true;
+								File.Delete(original);
+								File.Copy(recovery, original);
+							}
+						}
+						break;
+
+					default:
+						return;
+				}
+
+				if (exists)
+				{
+					this.DataSet_ReloadFile_Click(null, EventArgs.Empty); // reload database
 					MessageBox.Show("All backups was successfully restored.", "Success");
 				}
 				else
-					MessageBox.Show("Unable to restore backups: one or more backup files are missing.", "Failuer");
+					MessageBox.Show("Unable to restore backups: none of backups were found.", "Failure",
+						MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 			catch (Exception ex)
 			{
@@ -445,18 +706,33 @@ namespace Binary.Support
 		private void DataSet_UnlockFiles_Click(object sender, EventArgs e)
 		{
 			// Unlock Memory Files
-			GlobalLib.Utils.MemoryUnlock.FastUnlock(this._dir + @"\GLOBAL\CarHeadersMemoryFile.bin");
-			GlobalLib.Utils.MemoryUnlock.FastUnlock(this._dir + @"\GLOBAL\FrontEndMemoryFile.bin");
-			GlobalLib.Utils.MemoryUnlock.FastUnlock(this._dir + @"\GLOBAL\InGameMemoryFile.bin");
-			GlobalLib.Utils.MemoryUnlock.FastUnlock(this._dir + @"\GLOBAL\PermanentMemoryFile.bin");
-			GlobalLib.Utils.MemoryUnlock.LongUnlock(this._dir + @"\GLOBAL\GlobalMemoryFile.bin");
+			MemoryUnlock.FastUnlock(this._dir + @"\GLOBAL\CarHeadersMemoryFile.bin");
+			MemoryUnlock.FastUnlock(this._dir + @"\GLOBAL\FrontEndMemoryFile.bin");
+			MemoryUnlock.FastUnlock(this._dir + @"\GLOBAL\InGameMemoryFile.bin");
+			MemoryUnlock.FastUnlock(this._dir + @"\GLOBAL\PermanentMemoryFile.bin");
+			MemoryUnlock.LongUnlock(this._dir + @"\GLOBAL\GlobalMemoryFile.bin");
 
 			MessageBox.Show("Memory files were successfully unlocked for modding.", "Success");
 		}
 
 		private void DataSet_RunGame_Click(object sender, EventArgs e)
 		{
-			var launch = new System.Diagnostics.ProcessStartInfo("NFSC.exe")
+			string exe = string.Empty;
+			switch (this._game)
+			{
+				case GameINT.Carbon:
+					exe = "nfsc.exe";
+					break;
+				case GameINT.MostWanted:
+					exe = "speed.exe";
+					break;
+				case GameINT.Underground2:
+					exe = "speed2.exe";
+					break;
+				default:
+					return;
+			}
+			var launch = new System.Diagnostics.ProcessStartInfo(exe)
 			{
 				WorkingDirectory = this._dir,
 			};
@@ -465,15 +741,15 @@ namespace Binary.Support
 
 		private void DataSet_DBInfo_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show(this.dbC.GetDatabaseInfo(), "Database Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			MessageBox.Show(this.db.GetDatabaseInfo(), "Database Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private void BinaryTreeAddNode_Click(object sender, EventArgs e)
 		{
 			// Nodes can be added only to roots
-			if (BinaryTree.SelectedNode == null) return;
+			if (this.BinaryTree.SelectedNode == null) return;
 
-			if (BinaryTree.SelectedNode.Parent != null)
+			if (this.BinaryTree.SelectedNode.Parent != null)
 			{
 				MessageBox.Show("Nodes can be added only to root collections.", "Warning",
 					MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -484,8 +760,8 @@ namespace Binary.Support
 			if (QuickMenu.ShowDialog() == DialogResult.OK)
 			{
 				string CName = QuickMenu.CollectionName;
-				string root = BinaryTree.SelectedNode.Text;
-				if (this.dbC.TryAddCollection(CName, root, out string error))
+				string root = this.BinaryTree.SelectedNode.Text;
+				if (this.db.TryAddCollection(CName, root, out string error))
 				{
 					Generate.WriteCommand(Commands.add, this.ColoredTextForm, root, CName);
 					this.LoadBinaryTree(true);
@@ -501,24 +777,24 @@ namespace Binary.Support
 
 		private void BinaryTreeDeleteNode_Click(object sender, EventArgs e)
 		{
-			if (BinaryTree.SelectedNode == null) return;
-			if (BinaryTree.SelectedNode.Parent == null)
+			if (this.BinaryTree.SelectedNode == null) return;
+			if (this.BinaryTree.SelectedNode.Parent == null)
 			{
 				MessageBox.Show("Root collection cannot be deleted.", "Warning",
 					MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
-			if (BinaryTree.SelectedNode.Parent.Parent != null)
+			if (this.BinaryTree.SelectedNode.Parent.Parent != null)
 			{
 				MessageBox.Show("Only collections can be deleted.", "Warning",
 					MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
 
-			string CName = BinaryTree.SelectedNode.Text;
-			string root = BinaryTree.SelectedNode.Parent.Text;
+			string CName = this.BinaryTree.SelectedNode.Text;
+			string root = this.BinaryTree.SelectedNode.Parent.Text;
 
-			if (this.dbC.TryRemoveCollection(CName, root, out string error))
+			if (this.db.TryRemoveCollection(CName, root, out string error))
 			{
 				Generate.WriteCommand(Commands.delete, this.ColoredTextForm, root, CName);
 				this.LoadBinaryTree(false);
@@ -533,13 +809,13 @@ namespace Binary.Support
 		private void BinaryTreeCopyNode_Click(object sender, EventArgs e)
 		{
 			if (BinaryTree.SelectedNode == null) return;
-			if (BinaryTree.SelectedNode.Parent == null)
+			if (this.BinaryTree.SelectedNode.Parent == null)
 			{
 				MessageBox.Show("Root collection cannot be copied.", "Warning",
 					MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
-			if (BinaryTree.SelectedNode.Parent.Parent != null)
+			if (this.BinaryTree.SelectedNode.Parent.Parent != null)
 			{
 				MessageBox.Show("Only collections can be copied.", "Warning",
 					MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -550,9 +826,9 @@ namespace Binary.Support
 			if (QuickMenu.ShowDialog() == DialogResult.OK)
 			{
 				string newname = QuickMenu.CollectionName;
-				string copyname = BinaryTree.SelectedNode.Text;
-				string root = BinaryTree.SelectedNode.Parent.Text;
-				if (this.dbC.TryCloneCollection(newname, copyname, root, out string error))
+				string copyname = this.BinaryTree.SelectedNode.Text;
+				string root = this.BinaryTree.SelectedNode.Parent.Text;
+				if (this.db.TryCloneCollection(newname, copyname, root, out string error))
 				{
 					Generate.WriteCommand(Commands.copy, this.ColoredTextForm, root, copyname, newname);
 					this.LoadBinaryTree(true);
@@ -568,21 +844,21 @@ namespace Binary.Support
 
 		private void BinaryTreeExportNode_Click(object sender, EventArgs e)
 		{
-			if (BinaryTree.SelectedNode == null) return;
-			if (BinaryTree.SelectedNode.Parent == null) return;
-			if (BinaryTree.SelectedNode.Parent.Parent != null)
+			if (this.BinaryTree.SelectedNode == null) return;
+			if (this.BinaryTree.SelectedNode.Parent == null) return;
+			if (this.BinaryTree.SelectedNode.Parent.Parent != null)
 			{
 				MessageBox.Show("Only collections can be exported.", "Warning",
 					MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
 
-			if (ExportCollectionDialog.ShowDialog() == DialogResult.OK)
+			if (this.ExportCollectionDialog.ShowDialog() == DialogResult.OK)
 			{
-				string path = ExportCollectionDialog.FileName;
-				string CName = BinaryTree.SelectedNode.Text;
-				string root = BinaryTree.SelectedNode.Parent.Text;
-				if (this.dbC.TryExportCollection(CName, root, path, out string error))
+				string path = this.ExportCollectionDialog.FileName;
+				string CName = this.BinaryTree.SelectedNode.Text;
+				string root = this.BinaryTree.SelectedNode.Parent.Text;
+				if (this.db.TryExportCollection(CName, root, path, out string error))
 				{
 					MessageBox.Show($"Successfully exported collection {CName} to {path}.", "Success",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -598,16 +874,16 @@ namespace Binary.Support
 		private void BinaryDataView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
 		{
 			// If current cell is readonly -> simply return
-			if (BinaryDataView.CurrentCell.ReadOnly)
+			if (this.BinaryDataView.CurrentCell.ReadOnly)
 				return;
 			// Else if value is unchanged -> return as well
-			else if (BinaryDataView.CurrentCell.Value.ToString() == e.FormattedValue.ToString())
+			else if (this.BinaryDataView.CurrentCell.Value.ToString() == e.FormattedValue.ToString())
 				return;
 
-			var field = BinaryDataView.Rows[e.RowIndex].Cells[0].Value.ToString();
+			var field = this.BinaryDataView.Rows[e.RowIndex].Cells[0].Value.ToString();
 			var value = e.FormattedValue.ToString();
-			var tokens = Utils.Path.SplitPath(BinaryTree.SelectedNode.FullPath);
-			var cla = this.dbC.GetPrimitive(tokens);
+			var tokens = Utils.Path.SplitPath(this.BinaryTree.SelectedNode.FullPath);
+			var cla = this.db.GetPrimitive(tokens);
 			if (cla == null) return;
 
 			string error = null;
@@ -630,12 +906,12 @@ namespace Binary.Support
 
 		private void BinaryDataView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
 		{
-			if (BinaryDataView.Rows[e.RowIndex].Cells[0].Value.ToString() == "CollectionName")
+			if (this.BinaryDataView.Rows[e.RowIndex].Cells[0].Value.ToString() == "CollectionName")
 			{
-				var CName = BinaryDataView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-				var node = BinaryTree.SelectedNode.FullPath;
-				var path = node.Substring(0, node.LastIndexOf(BinaryTree.PathSeparator));
-				this.LoadBinaryTree(true, $"{path}{BinaryTree.PathSeparator}{CName}");
+				var CName = this.BinaryDataView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+				var node = this.BinaryTree.SelectedNode.FullPath;
+				var path = node.Substring(0, node.LastIndexOf(this.BinaryTree.PathSeparator));
+				this.LoadBinaryTree(true, $"{path}{this.BinaryTree.PathSeparator}{CName}");
 			}
 			else
 			{
@@ -650,11 +926,12 @@ namespace Binary.Support
 
 		private void DataSet_GenerateCommand_Click(object sender, EventArgs e)
 		{
-			if (BinaryDataView.Columns != null && BinaryDataView.Columns.Count == 2)
+			// Quick way to find out whether BinaryDataView shows neither FNGroup, STRBlock or TPKBlock data
+			if (this.BinaryDataView.Columns != null && this.BinaryDataView.Columns.Count == 2)
 			{
-				var tokens = Utils.Path.SplitPath(BinaryTree.SelectedNode.FullPath);
-				var field = BinaryDataView.Rows[BinaryDataView.CurrentCell.RowIndex].Cells[0].Value.ToString();
-				var value = BinaryDataView.Rows[BinaryDataView.CurrentCell.RowIndex].Cells[1].Value.ToString();
+				var tokens = Utils.Path.SplitPath(this.BinaryTree.SelectedNode.FullPath);
+				var field = this.BinaryDataView.Rows[this.BinaryDataView.CurrentCell.RowIndex].Cells[0].Value.ToString();
+				var value = this.BinaryDataView.Rows[this.BinaryDataView.CurrentCell.RowIndex].Cells[1].Value.ToString();
 				var args = new string[tokens.Length + 2];
 				for (int a1 = 0; a1 < tokens.Length; ++a1)
 					args[a1] = tokens[a1];
@@ -675,15 +952,16 @@ namespace Binary.Support
 
 		private void DataSet_AboutBox_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show($"Binary by MaxHwoy v0.8.5 Beta.{Environment.NewLine}Do not distribute.", "About",
+			MessageBox.Show($"Binary by MaxHwoy v0.9.0 Beta.{Environment.NewLine}Do not distribute.", "About",
 				MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private void EndscriptToolStripMenuItemI_Click(object sender, EventArgs e)
 		{
-			if (OpenEndscriptDialog.ShowDialog() == DialogResult.OK)
+			if (this.OpenEndscriptDialog.ShowDialog() == DialogResult.OK)
 			{
-				if (Core.ProcessEndscript(OpenEndscriptDialog.FileName, dbC, out var label, out var text))
+				if (Core.ProcessEndscript(this._dir, this.OpenEndscriptDialog.FileName, db,
+					out var label, out var text))
 				{
 					this.DataSet_Status.Text = label;
 					this.ColoredTextForm.Text += text;
@@ -694,9 +972,9 @@ namespace Binary.Support
 
 		private void DataSet_ProcessCommand_Click(object sender, EventArgs e)
 		{
-			if (string.IsNullOrWhiteSpace(ColoredTextForm.Text)) return;
-			var line = ColoredTextForm.GetLine(ColoredTextForm.Selection.FromLine).Text;
-			var error = Core.ExecuteEndscriptLine(line, this.dbC);
+			if (string.IsNullOrWhiteSpace(this.ColoredTextForm.Text)) return;
+			var line = this.ColoredTextForm.GetLine(this.ColoredTextForm.Selection.FromLine).Text;
+			var error = Core.ExecuteEndscriptLine(line, this.db);
 			if (error != null)
 			{
 				MessageBox.Show($"Error occured: {error}", "Error");
@@ -770,7 +1048,7 @@ namespace Binary.Support
 			if (this.OpenBinFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				var file = Path.GetFileNameWithoutExtension(this.OpenBinFileDialog.FileName);
-				if (!this.db.AddCollision(file, this.OpenBinFileDialog.FileName, out var error))
+				if (!this.db.TryAddCollision(file, this.OpenBinFileDialog.FileName, out var error))
 					MessageBox.Show($"Error occured: {error}", "Error", MessageBoxButtons.OK,
 						MessageBoxIcon.Error);
 				else

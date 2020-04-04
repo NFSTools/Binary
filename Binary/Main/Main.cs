@@ -1,7 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
+using System.IO;
 using System.Windows.Forms;
-
+using System.ComponentModel;
+using Binary.Endscript;
+using Binary.Properties;
+using GlobalLib.Core;
+using GlobalLib.Utils;
 
 
 namespace Binary.Main
@@ -15,32 +19,32 @@ namespace Binary.Main
 
         private void InitializeLogFile()
         {
-            GlobalLib.Utils.Log.EnableLog = false;
-            GlobalLib.Utils.Log.EnableTimeWrite = false;
-            GlobalLib.Utils.Log.FileName = "Binary.log";
-            Endscript.Core.CreateEndscriptFile("Binary.end");
+            Log.EnableLog = false;
+            Log.EnableTimeWrite = false;
+            Log.FileName = "Binary.log";
+            Core.CreateEndscriptFile("Binary.end");
         }
 
         private void ParseConfigurations()
         {
-            Properties.Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
-            Properties.Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
-            Properties.Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
-            Properties.Settings.Default.EnableStaticEnd = ConfigStatic.Checked;
-            Properties.Settings.Default.EnableMaximized = ConfigMaximized.Checked;
-            Properties.Settings.Default.EnableWatermarks = ConfigWatermark.Checked;
-            Properties.Settings.Default.Save();
+            Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
+            Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
+            Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
+            Settings.Default.EnableStaticEnd = ConfigStatic.Checked;
+            Settings.Default.EnableMaximized = ConfigMaximized.Checked;
+            Settings.Default.EnableWatermarks = ConfigWatermark.Checked;
+            Settings.Default.Save();
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
             // Set properties from memory
-            ConfigAutoSave.Checked = Properties.Settings.Default.EnableAutobackup;
-            ConfigCompressFiles.Checked = Properties.Settings.Default.EnableCompression;
-            ConfigCommand.Checked = Properties.Settings.Default.EnableEndscriptLog;
-            ConfigStatic.Checked = Properties.Settings.Default.EnableStaticEnd;
-            ConfigMaximized.Checked = Properties.Settings.Default.EnableMaximized;
-            ConfigWatermark.Checked = Properties.Settings.Default.EnableWatermarks;
+            ConfigAutoSave.Checked = Settings.Default.EnableAutobackup;
+            ConfigCompressFiles.Checked = Settings.Default.EnableCompression;
+            ConfigCommand.Checked = Settings.Default.EnableEndscriptLog;
+            ConfigStatic.Checked = Settings.Default.EnableStaticEnd;
+            ConfigMaximized.Checked = Settings.Default.EnableMaximized;
+            ConfigWatermark.Checked = Settings.Default.EnableWatermarks;
 
             var NFSCToolTip = new ToolTip();
             var NFSMWToolTip = new ToolTip();
@@ -93,26 +97,22 @@ namespace Binary.Main
         private void ChooseNFSC_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.Carbon;
-            if (Properties.Settings.Default.EnableWatermarks)
-                GlobalLib.Core.Process.Watermark = $"Binary by MaxHwoy | Edited by {Properties.Settings.Default.BinaryUsername}";
+            if (Settings.Default.EnableWatermarks)
+                Process.Watermark = $"Binary by MaxHwoy | Edited by {Settings.Default.BinaryUsername}";
             else
-                GlobalLib.Core.Process.Watermark = string.Empty;
+                Process.Watermark = string.Empty;
             this.ParseConfigurations();
             this.InitializeLogFile();
-
-            bool ForceLoad = false;
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryC))
-            {
-                ForceLoad = true;
-                GlobalLib.Core.Process.GlobalDir = Properties.Settings.Default.DirectoryC;
-            }
-            var CarbonForm = new Support.Carbon(ForceLoad);
-            if (Properties.Settings.Default.EnableMaximized)
+            
+            bool forceload = false;
+            string dir = Settings.Default.DirectoryC;
+            if (!string.IsNullOrEmpty(dir)) forceload = true;
+            var CarbonForm = new Support.Shared(GameINT.Carbon, dir, forceload);
+            if (Settings.Default.EnableMaximized)
                 CarbonForm.WindowState = FormWindowState.Maximized;
             CarbonForm.ShowDialog();
+            Settings.Default.DirectoryC = CarbonForm.GetDirectory();
             CarbonForm = null;
-            Properties.Settings.Default.DirectoryC = GlobalLib.Core.Process.GlobalDir;
             Utils.CleanUp.GCCollect();
             this.Show();
         }
@@ -120,22 +120,18 @@ namespace Binary.Main
         private void ChooseNFSMW_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.MostWanted;
             this.ParseConfigurations();
             this.InitializeLogFile();
 
-            bool ForceLoad = false;
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryMW))
-            {
-                ForceLoad = true;
-                GlobalLib.Core.Process.GlobalDir = Properties.Settings.Default.DirectoryMW;
-            }
-            var MostWantedForm = new Support.MostWanted(ForceLoad);
-            if (Properties.Settings.Default.EnableMaximized)
+            bool forceload = false;
+            string dir = Settings.Default.DirectoryMW;
+            if (!string.IsNullOrEmpty(dir)) forceload = true;
+            var MostWantedForm = new Support.Shared(GameINT.MostWanted, dir, forceload);
+            if (Settings.Default.EnableMaximized)
                 MostWantedForm.WindowState = FormWindowState.Maximized;
             MostWantedForm.ShowDialog();
+            Settings.Default.DirectoryMW = MostWantedForm.GetDirectory();
             MostWantedForm = null;
-            Properties.Settings.Default.DirectoryMW = GlobalLib.Core.Process.GlobalDir;
             Utils.CleanUp.GCCollect();
             this.Show();
         }
@@ -143,23 +139,20 @@ namespace Binary.Main
         private void ChooseNFSUG2_Click(object sender, EventArgs e)
         {
             this.Hide();
-            string str = Properties.Settings.Default.YAMLDirectory;
-            GlobalLib.Core.Process.Set = (int)GlobalLib.Core.GameINT.Underground2;
+            string str = Settings.Default.YAMLDirectory;
             this.ParseConfigurations();
             this.InitializeLogFile();
 
-            bool ForceLoad = false;
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.DirectoryUG2))
-            {
-                ForceLoad = true;
-                GlobalLib.Core.Process.GlobalDir = Properties.Settings.Default.DirectoryUG2;
-            }
-            var Underground2Form = new Support.Underground2(ForceLoad);
-            if (Properties.Settings.Default.EnableMaximized)
+            bool forceload = false;
+            string dir = Settings.Default.DirectoryUG2;
+            if (!string.IsNullOrEmpty(dir))
+                forceload = true;
+            var Underground2Form = new Support.Shared(GameINT.Underground2, dir, forceload);
+            if (Settings.Default.EnableMaximized)
                 Underground2Form.WindowState = FormWindowState.Maximized;
             Underground2Form.ShowDialog();
+            Settings.Default.DirectoryUG2 = Underground2Form.GetDirectory();
             Underground2Form = null;
-            Properties.Settings.Default.DirectoryUG2 = GlobalLib.Core.Process.GlobalDir;
             Utils.CleanUp.GCCollect();
             this.Show();
         }
@@ -195,7 +188,7 @@ namespace Binary.Main
 
         private void LaunchReadme_Click(object sender, EventArgs e)
         {
-            if (System.IO.File.Exists("Readme.txt"))
+            if (File.Exists("Readme.txt"))
                 System.Diagnostics.Process.Start("explorer", "Readme.txt");
             else
                 MessageBox.Show("Could not find Readme.txt file.", "Failure");
@@ -205,43 +198,19 @@ namespace Binary.Main
         {
             var OpenFolderDialog = new FolderBrowserDialog();
             OpenFolderDialog.RootFolder = Environment.SpecialFolder.MyComputer;
-            OpenFolderDialog.Description = "Select the NFS: Carbon or NFS: Most Wanted directory that you want to unlock files in.";
+            OpenFolderDialog.Description = "Select Need for Speed directory that you want to unlock files in.";
             if (OpenFolderDialog.ShowDialog() == DialogResult.OK)
             {
                 string GlobalB_dir = OpenFolderDialog.SelectedPath;
 
-                bool NFSC = System.IO.File.Exists(GlobalB_dir + @"\Tracks\StreamL5RA.bun");
-                bool NFSMW = System.IO.File.Exists(GlobalB_dir + @"\Tracks\StreamL2RA.bun");
-                bool NFSUG2 = System.IO.File.Exists(GlobalB_dir + @"\Tracks\StreamL4RA.bun");
+                // Unlock Memory Files
+                MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\CarHeadersMemoryFile.bin");
+                MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\FrontEndMemoryFile.bin");
+                MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\InGameMemoryFile.bin");
+                MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\PermanentMemoryFile.bin");
+                MemoryUnlock.LongUnlock(GlobalB_dir + @"\GLOBAL\GlobalMemoryFile.bin");
 
-                if (NFSC)
-                {
-                    // Unlock Memory Files
-                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\CarHeadersMemoryFile.bin");
-                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\FrontEndMemoryFile.bin");
-                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\InGameMemoryFile.bin");
-                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\PermanentMemoryFile.bin");
-                    GlobalLib.Utils.MemoryUnlock.LongUnlock(GlobalB_dir + @"\GLOBAL\GlobalMemoryFile.bin");
-
-                    MessageBox.Show("Memory files were successfully unlocked for modding.", "Success");
-                }
-                else if (NFSMW)
-                {
-                    // Unlock Memory Files
-                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\FrontEndMemoryFile.bin");
-                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\InGameMemoryFile.bin");
-                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\PermanentMemoryFile.bin");
-                    GlobalLib.Utils.MemoryUnlock.LongUnlock(GlobalB_dir + @"\GLOBAL\GlobalMemoryFile.bin");
-
-                    MessageBox.Show("Memory files were successfully unlocked for modding.", "Success");
-                }
-                else if (NFSUG2)
-                {
-                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\CarHeadersMemoryFile.bin");
-                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\FrontEndMemoryFile.bin");
-                    GlobalLib.Utils.MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\InGameMemoryFile.bin");
-                    GlobalLib.Utils.MemoryUnlock.LongUnlock(GlobalB_dir + @"\GLOBAL\GlobalMemoryFile.bin");
-                }
+                MessageBox.Show("Memory files were successfully unlocked for modding.", "Success");
             }
         }
 
@@ -254,14 +223,14 @@ namespace Binary.Main
         {
             if (OpenYAMLDialog.ShowDialog() == DialogResult.OK)
             {
-                Properties.Settings.Default.YAMLDirectory = OpenYAMLDialog.FileName;
-                Properties.Settings.Default.Save();
+                Settings.Default.YAMLDirectory = OpenYAMLDialog.FileName;
+                Settings.Default.Save();
             }
         }
 
         private void OpenYAMLDialog_FileOk(object sender, CancelEventArgs e)
         {
-            var name = System.IO.Path.GetFileName(OpenYAMLDialog.FileName);
+            var name = Path.GetFileName(OpenYAMLDialog.FileName);
             if (name != "YAMLDatabase.exe")
             {
                 MessageBox.Show("File selected is not YAMLDatabase.exe.", "Warning",
@@ -282,8 +251,8 @@ namespace Binary.Main
                 }
                 else
                 {
-                    Properties.Settings.Default.BinaryUsername = input.CollectionName;
-                    Properties.Settings.Default.Save();
+                    Settings.Default.BinaryUsername = input.CollectionName;
+                    Settings.Default.Save();
                 }
             }
         }

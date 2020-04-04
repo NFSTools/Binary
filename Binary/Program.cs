@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Security.Principal;
+using System.Threading;
+using System.Globalization;
 using System.Windows.Forms;
+using System.Security.Principal;
 
 
 
@@ -35,6 +37,11 @@ namespace Binary
             AppDomain.CurrentDomain.AppendPrivatePath("Libraries");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            var culture = CultureInfo.CreateSpecificCulture("en-US");
+            Thread.CurrentThread.CurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
 
             // If password check was not done yet
             if (!Properties.Settings.Default.PasswordPassed)

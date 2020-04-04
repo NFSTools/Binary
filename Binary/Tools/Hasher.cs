@@ -14,7 +14,7 @@ namespace Binary.Tools
 
         private void StringTextbox_TextChanged(object sender, EventArgs e)
         {
-            var str = Cast.ReinterpretCast<string>(StringTextbox.Text);
+            var str = StringTextbox.Text;
 
             uint result = 0;
             string _0x = "0x";

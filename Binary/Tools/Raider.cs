@@ -32,7 +32,7 @@ namespace Binary.Tools
             if (!BinHashInput.ReadOnly)
             {
                 uint key = 0;
-                var temp = Cast.ReinterpretCast<string>(BinHashInput.Text);
+                var temp = BinHashInput.Text;
                 try
                 {
                     key = Convert.ToUInt32(temp, 16);
@@ -56,7 +56,7 @@ namespace Binary.Tools
             if (!BinFileInput.ReadOnly)
             {
                 uint key = 0;
-                var temp = Cast.ReinterpretCast<string>(BinFileInput.Text);
+                var temp = BinFileInput.Text;
                 try
                 {
                     key = ConvertX.ToUInt32(temp);

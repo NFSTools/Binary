@@ -129,29 +129,12 @@
     <Compile Include="Interact\TPKEditor.Designer.cs">
       <DependentUpon>TPKEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Support\Shared\Shared.cs">
+    <Compile Include="Support\eRootType.cs" />
+    <Compile Include="Support\Shared.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Support\Shared\Shared.Designer.cs">
+    <Compile Include="Support\Shared.Designer.cs">
       <DependentUpon>Shared.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Support\Carbon\Carbon.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Support\Carbon\Carbon.Designer.cs">
-      <DependentUpon>Carbon.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Support\MostWanted\MostWanted.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Support\MostWanted\MostWanted.Designer.cs">
-      <DependentUpon>MostWanted.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Support\Underground2\Underground2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Support\Underground2\Underground2.Designer.cs">
-      <DependentUpon>Underground2.cs</DependentUpon>
     </Compile>
     <Compile Include="Interact\Welcome.cs">
       <SubType>Form</SubType>
@@ -192,6 +175,7 @@
       <DependentUpon>SwatchPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\CleanUp.cs" />
+    <Compile Include="Utils\Filenames.cs" />
     <Compile Include="Utils\Path.cs" />
     <EmbeddedResource Include="Interact\EndMenu.resx">
       <DependentUpon>EndMenu.cs</DependentUpon>
@@ -211,17 +195,8 @@
     <EmbeddedResource Include="Interact\TPKEditor.resx">
       <DependentUpon>TPKEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Support\Shared\Shared.resx">
+    <EmbeddedResource Include="Support\Shared.resx">
       <DependentUpon>Shared.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Support\Carbon\Carbon.resx">
-      <DependentUpon>Carbon.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Support\MostWanted\MostWanted.resx">
-      <DependentUpon>MostWanted.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Support\Underground2\Underground2.resx">
-      <DependentUpon>Underground2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interact\Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>

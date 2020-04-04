@@ -26,6 +26,8 @@ namespace Binary.Endscript
 
 		#region End File Management
 
+        private static string GlobalDir { get; set; }
+
 		private static string EndFileDir { get; set; }
 
         public static void CreateEndscriptFile(string filename)
@@ -99,7 +101,8 @@ namespace Binary.Endscript
 
 		#region Endscript Loading
 
-		private static IEnumerable<EndLine> LoadEndscriptFile(string dir, string filename, string thisfile = null, int index = 0)
+		private static IEnumerable<EndLine> LoadEndscriptFile(string dir, string filename,
+            string thisfile = null, int index = 0)
         {
             string filepath = Path.Combine(dir, filename);
             if (!File.Exists(filepath) || Path.GetExtension(filepath) != ".end")
@@ -150,10 +153,12 @@ namespace Binary.Endscript
             }
         }
 
-        public static bool ProcessEndscript(string filepath, BasicBase db, out string label, out string text)
+        public static bool ProcessEndscript(string dir, string filepath, BasicBase db,
+            out string label, out string text)
         {
             label = null;
             text = string.Empty;
+            GlobalDir = dir;
             if (!ProceedSafeLoading(filepath, out var EndLines)) return false;
 
             var MenuEndLines = new List<string>();
@@ -398,8 +403,8 @@ namespace Binary.Endscript
             {
                 if (method == absolute)
                 {
-                    string thisfile = Path.Combine(Process.GlobalDir, thispath);
-                    string destfile = Path.Combine(Process.GlobalDir, destpath);
+                    string thisfile = Path.Combine(GlobalDir, thispath);
+                    string destfile = Path.Combine(GlobalDir, destpath);
                     if (type == folder) Directory.Move(thisfile, destfile);
                     else if (type == file) File.Copy(thisfile, destfile, true);
                     else return $"Invalid attribute specifier named {type}.";
@@ -408,7 +413,7 @@ namespace Binary.Endscript
                 else if (method == relative)
                 {
                     string thisfile = Path.Combine(dir, thispath);
-                    string destfile = Path.Combine(Process.GlobalDir, destpath);
+                    string destfile = Path.Combine(GlobalDir, destpath);
                     if (type == folder) Directory.Move(thisfile, destfile);
                     else if (type == file) File.Copy(thisfile, destfile, true);
                     else return $"Invalid attribute specifier named {type}.";
@@ -433,7 +438,7 @@ namespace Binary.Endscript
             {
                 if (method == absolute)
                 {
-                    string destfile = Path.Combine(Process.GlobalDir, destpath);
+                    string destfile = Path.Combine(GlobalDir, destpath);
                     if (type == folder && Directory.Exists(destfile)) Directory.Delete(destfile, true);
                     else if (type == file && File.Exists(destfile)) File.Delete(destfile);
                     else return $"Invalid attribute specifier named {type}.";
@@ -464,7 +469,7 @@ namespace Binary.Endscript
         {
             if (method == "absolute")
             {
-                string destfile = Path.Combine(Process.GlobalDir, destpath);
+                string destfile = Path.Combine(GlobalDir, destpath);
                 try
                 {
                     if (type == folder) Directory.CreateDirectory(destfile);
