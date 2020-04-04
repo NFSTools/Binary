@@ -4,34 +4,28 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Binary.Endscript;
+using GlobalLib.Reflection.Enum;
+using GlobalLib.Support.Shared.Class;
 
 
-
-namespace Binary.Forms.Interact
+namespace Binary.Interact
 {
     public partial class TPKEditor : Form
     {
-        private GlobalLib.Support.Carbon.Class.TPKBlock TPKC { get; set; }
-        private GlobalLib.Support.MostWanted.Class.TPKBlock TPKMW { get; set; }
-        private int ImageIndex { get; set; } = -1;
+        private TPKBlock TPK;
+        private Texture _texture;
         public string CollectionName { get; set; }
         public string OriginalName { get; set; }
         public List<string> CommandsProcessed { get; set; } = new List<string>();
+        private const string tpkblock = "TPKBlock";
+        private const string cname = "CollectionName";
+        private const string tileable = "TileableUV";
 
-        public TPKEditor(GlobalLib.Support.Carbon.Class.TPKBlock TPKC, int index)
+        public TPKEditor(TPKBlock TPK, Texture texture)
         {
-            this.TPKC = TPKC;
-            this.ImageIndex = index;
-            InitializeComponent();
-            this.BackImage.Controls.Add(this.PreviewImage);
-            PreviewImage.Location = new Point(0, 0);
-            PreviewImage.BackColor = Color.FromArgb(0, 0, 0, 0);
-        }
-
-        public TPKEditor(GlobalLib.Support.MostWanted.Class.TPKBlock TPKMW, int index)
-        {
-            this.TPKMW = TPKMW;
-            this.ImageIndex = index;
+            this.TPK = TPK;
+            this._texture = texture;
             InitializeComponent();
             this.BackImage.Controls.Add(this.PreviewImage);
             PreviewImage.Location = new Point(0, 0);
@@ -46,78 +40,40 @@ namespace Binary.Forms.Interact
 
         private void ChangeTileable()
         {
-            if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.Carbon)
+            if (this._texture.TileableUV == 0 && this.TileableUVEnabled.Checked)
             {
-                if (TPKC.Textures[this.ImageIndex].TileableUV == 0 && TileableUVEnabled.Checked)
-                {
-                    TPKC.Textures[this.ImageIndex].TileableUV = 3;
-                    CommandsProcessed.Add($"{Endscript.Commands.Switch} TPKBlock {TPKC.CollectionName} " +
-                        $"{this.CollectionName} TileableUV True");
-                }
-                else if (TPKC.Textures[this.ImageIndex].TileableUV > 0 && !TileableUVEnabled.Checked)
-                {
-                    TPKC.Textures[this.ImageIndex].TileableUV = 0;
-                    CommandsProcessed.Add($"{Endscript.Commands.Switch} TPKBlock {TPKC.CollectionName} " +
-                        $"{this.CollectionName} TileableUV False");
-                }
+                this._texture.TileableUV = 3;
+                this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
+                    $"{this._texture.CollectionName} {tileable} {true}");
             }
-            else if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.MostWanted)
+            else if (this._texture.TileableUV > 0 && !TileableUVEnabled.Checked)
             {
-                if (TPKMW.Textures[this.ImageIndex].TileableUV == 0 && TileableUVEnabled.Checked)
-                {
-                    TPKMW.Textures[this.ImageIndex].TileableUV = 3;
-                    CommandsProcessed.Add($"{Endscript.Commands.Switch} TPKBlock {TPKMW.CollectionName} " +
-                        $"{this.CollectionName} Tileable True");
-                }
-                else if (TPKMW.Textures[this.ImageIndex].TileableUV > 0 && !TileableUVEnabled.Checked)
-                {
-                    TPKMW.Textures[this.ImageIndex].TileableUV = 0;
-                    CommandsProcessed.Add($"{Endscript.Commands.Switch} TPKBlock {TPKMW.CollectionName} " +
-                        $"{this.CollectionName} Tileable False");
-                }
+                this._texture.TileableUV = 0;
+                this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
+                    $"{this._texture.CollectionName} {tileable} {false}");
             }
         }
 
         private void TPKEditor_Load(object sender, EventArgs e)
         {
-            if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.Carbon)
-            {
-                PreviewImage.Image = TPKC.Textures[ImageIndex].GetImage();
-                this.CollectionName = TPKC.Textures[ImageIndex].CollectionName;
-                this.OriginalName = this.CollectionName;
-                BoxCollectionName.Text = this.CollectionName;
-                BoxCompression.Text = TPKC.Textures[ImageIndex].Compression;
-                BoxWidth.Text = TPKC.Textures[ImageIndex].Width.ToString();
-                BoxHeight.Text = TPKC.Textures[ImageIndex].Height.ToString();
-                BoxMipmaps.Text = TPKC.Textures[ImageIndex].Mipmaps.ToString();
-                TileableUVEnabled.Checked = (TPKC.Textures[ImageIndex].TileableUV > 0) ? true : false;
-                PreviewImage.Width = TPKC.Textures[ImageIndex].Width;
-                PreviewImage.Height = TPKC.Textures[ImageIndex].Height;
-                //if (PreviewImage.Width > 512 || PreviewImage.Height > 512)
-                    //PreviewImage.SizeMode = PictureBoxSizeMode.Zoom;
-            }
-            else if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.MostWanted)
-            {
-                PreviewImage.Image = TPKMW.Textures[ImageIndex].GetImage();
-                this.CollectionName = TPKMW.Textures[ImageIndex].CollectionName;
-                this.OriginalName = this.CollectionName;
-                BoxCollectionName.Text = this.CollectionName;
-                BoxCompression.Text = TPKMW.Textures[ImageIndex].Compression;
-                BoxWidth.Text = TPKMW.Textures[ImageIndex].Width.ToString();
-                BoxHeight.Text = TPKMW.Textures[ImageIndex].Height.ToString();
-                BoxMipmaps.Text = TPKMW.Textures[ImageIndex].Mipmaps.ToString();
-                PreviewImage.Width = TPKMW.Textures[ImageIndex].Width;
-                PreviewImage.Height = TPKMW.Textures[ImageIndex].Height;
-                //if (PreviewImage.Width > 512 || PreviewImage.Height > 512)
-                    //PreviewImage.SizeMode = PictureBoxSizeMode.Zoom;
-            }
+            PreviewImage.Image = this._texture.GetImage();
+            this.CollectionName = this._texture.CollectionName;
+            this.OriginalName = this.CollectionName;
+            this.BoxCollectionName.Text = this.CollectionName;
+            this.BoxCompression.Text = this._texture.GetValue("Compression");
+            this.BoxWidth.Text = this._texture.Width.ToString();
+            this.BoxHeight.Text = this._texture.Height.ToString();
+            this.BoxMipmaps.Text = this._texture.Mipmaps.ToString();
+            this.TileableUVEnabled.Checked = (this._texture.TileableUV > 0) ? true : false;
+            this.PreviewImage.Width = this._texture.Width;
+            this.PreviewImage.Height = this._texture.Height;
+            if (this.PreviewImage.Width > 512 || this.PreviewImage.Height > 512)
+                this.PreviewImage.SizeMode = PictureBoxSizeMode.Zoom;
         }
-
-        private void TPKEditor_FormClosing(object sender, FormClosingEventArgs e) { }
 
         private void TPKEditor_FormClosed(object sender, FormClosedEventArgs e)
         {
-            var disposer = PreviewImage.Image;
+            var disposer = this.PreviewImage.Image;
             if (disposer != null) disposer.Dispose();
         }
 
@@ -127,29 +83,15 @@ namespace Binary.Forms.Interact
             if (InputWindow.ShowDialog() == DialogResult.OK)
             {
                 string newname = InputWindow.CollectionName;
-                if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.Carbon)
+                if (!this.TPK.TryCloneTexture(newname, this._texture.BinKey, eKeyType.BINKEY, out var error))
                 {
-                    if (!TPKC.TryCloneTexture(newname, this.CollectionName)) // use recursion if fails
-                    {
-                        MessageBox.Show("Texture with the same collection name already exists\n" +
-                                        "or name of the new texture exceed 34 characters.", "Warning");
-                        this.DuplicateTexture_Click(sender, e);
-                    }
-                    else
-                        CommandsProcessed.Add($"{Endscript.Commands.Duplicate} TPKBlock {TPKC.CollectionName} " +
-                            $"{this.CollectionName} {newname}");
+                    MessageBox.Show($"Error occured: {error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.DuplicateTexture_Click(sender, e);
                 }
-                else if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.MostWanted)
+                else
                 {
-                    if (!TPKMW.TryCloneTexture(newname, this.CollectionName)) // use recursion if fails
-                    {
-                        MessageBox.Show("Texture with the same collection name already exists\n" +
-                                        "or name of the new texture exceed 34 characters.", "Warning");
-                        this.DuplicateTexture_Click(sender, e);
-                    }
-                    else
-                        CommandsProcessed.Add($"{Endscript.Commands.Duplicate} TPKBlock {TPKC.CollectionName} " +
-                            $"{this.CollectionName} {newname}");
+                    this.CommandsProcessed.Add($"{Commands.duplicate} {tpkblock} {this.TPK.CollectionName} " +
+                        $"0x{this._texture.BinKey:X8} {newname}");
                 }
             }
         }
@@ -162,27 +104,10 @@ namespace Binary.Forms.Interact
         private void AddTextureDialog_FileOk(object sender, CancelEventArgs e)
         {
             string CName = Path.GetFileNameWithoutExtension(AddTextureDialog.FileName);
-            if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.Carbon)
+            if (!this.TPK.TryAddTexture(CName, AddTextureDialog.FileName, out var error))
             {
-                if (!this.TPKC.TryAddTexture(CName, AddTextureDialog.FileName))
-                {
-                    MessageBox.Show("Unable to add texture: either another texture with the\n" +
-                                    "same collection name already exists, or the file chosen\n" +
-                                    "is not a valid .dds format (supported types: RGBA, DXT1,\n" +
-                                    "DXT3, DXT5), or name of the texture exceeds 34 characters.", "Warning");
-                    e.Cancel = true;
-                }
-            }
-            else if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.MostWanted)
-            {
-                if (!this.TPKMW.TryAddTexture(CName, AddTextureDialog.FileName))
-                {
-                    MessageBox.Show("Unable to add texture: either another texture with the\n" +
-                                    "same collection name already exists, or the file chosen\n" +
-                                    "is not a valid .dds format (supported types: RGBA, DXT1,\n" +
-                                    "DXT3, DXT5), or name of the texture exceeds 23 characters.", "Warning");
-                    e.Cancel = true;
-                }
+                MessageBox.Show($"Error occured: {error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                e.Cancel = true;
             }
         }
 
@@ -193,45 +118,24 @@ namespace Binary.Forms.Interact
 
         private void ReplaceTextureDialog_FileOk(object sender, CancelEventArgs e)
         {
-            if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.Carbon)
+            if (this.TPK.TryReplaceTexture(this._texture.BinKey, eKeyType.BINKEY,
+                ReplaceTextureDialog.FileName, out var error))
             {
-                if (this.TPKC.TryReplaceTexture(this.CollectionName, ReplaceTextureDialog.FileName))
-                {
-                    this.DisposeImage();
-                    this.ImageIndex = TPKC.GetTextureIndex(this.CollectionName);
-                    PreviewImage.Image = TPKC.Textures[ImageIndex].GetImage();
-                    BoxCompression.Text = TPKC.Textures[ImageIndex].Compression;
-                    BoxWidth.Text = TPKC.Textures[ImageIndex].Width.ToString();
-                    BoxHeight.Text = TPKC.Textures[ImageIndex].Height.ToString();
-                    BoxMipmaps.Text = TPKC.Textures[ImageIndex].Mipmaps.ToString();
-                    PreviewImage.Width = TPKC.Textures[ImageIndex].Width;
-                    PreviewImage.Height = TPKC.Textures[ImageIndex].Height;
-                }
-                else
-                {
-                    MessageBox.Show("Unable to replace texture: texture has invalid .dds format.", "Warning");
-                    e.Cancel = true;
-                }
+                this.DisposeImage();
+                this.PreviewImage.Image = this._texture.GetImage();
+                this.BoxCompression.Text = this._texture.GetValue("Compression");
+                this.BoxWidth.Text = this._texture.Width.ToString();
+                this.BoxHeight.Text = this._texture.Height.ToString();
+                this.BoxMipmaps.Text = this._texture.Mipmaps.ToString();
+                this.PreviewImage.Width = this._texture.Width;
+                this.PreviewImage.Height = this._texture.Height;
+                if (this.PreviewImage.Width > 512 || this.PreviewImage.Height > 512)
+                    this.PreviewImage.SizeMode = PictureBoxSizeMode.Zoom;
             }
-            else if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.MostWanted)
+            else
             {
-                if (this.TPKMW.TryReplaceTexture(this.CollectionName, ReplaceTextureDialog.FileName))
-                {
-                    this.DisposeImage();
-                    this.ImageIndex = TPKMW.GetTextureIndex(this.CollectionName);
-                    PreviewImage.Image = TPKMW.Textures[ImageIndex].GetImage();
-                    BoxCompression.Text = TPKMW.Textures[ImageIndex].Compression;
-                    BoxWidth.Text = TPKMW.Textures[ImageIndex].Width.ToString();
-                    BoxHeight.Text = TPKMW.Textures[ImageIndex].Height.ToString();
-                    BoxMipmaps.Text = TPKMW.Textures[ImageIndex].Mipmaps.ToString();
-                    PreviewImage.Width = TPKC.Textures[ImageIndex].Width;
-                    PreviewImage.Height = TPKC.Textures[ImageIndex].Height;
-                }
-                else
-                {
-                    MessageBox.Show("Unable to replace texture: texture has invalid .dds format.", "Warning");
-                    e.Cancel = true;
-                }
+                MessageBox.Show($"Error occured: {error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                e.Cancel = true;
             }
         }
 
@@ -247,47 +151,25 @@ namespace Binary.Forms.Interact
             {
                 string path = ExportTextureDialog.FileName;
                 string ext = Path.GetExtension(path);
-                if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.Carbon)
-                {
-                    if (TPKC.TryExportTexture(this.CollectionName, path, ext))
-                        MessageBox.Show("Texture has been successfully exported.", "Success");
-                    else
-                        MessageBox.Show("Unable to export the texture.", "Failure");
-                }
-                else if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.MostWanted)
-                {
-                    if (TPKMW.TryExportTexture(this.CollectionName, path, ext))
-                        MessageBox.Show("Texture has been successfully exported.", "Success");
-                    else
-                        MessageBox.Show("Unable to export the texture.", "Failure");
-                }
+                if (this.TPK.TryExportTexture(this._texture.BinKey, eKeyType.BINKEY, path, ext, out var error))
+                    MessageBox.Show("Texture has been successfully exported.", "Success",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show($"Error occured: {error}", "Error", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
             }
         }
 
         private void DeleteTexture_Click(object sender, EventArgs e)
         {
-            if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.Carbon)
+            if (this.TPK.TryRemoveTexture(this._texture.BinKey, eKeyType.BINKEY, out var error))
             {
-                if (TPKC.TryRemoveTexture(this.CollectionName))
-                {
-                    CommandsProcessed.Add($"{Endscript.Commands.Delete} TPKBlock {TPKC.CollectionName} " +
-                        $"{this.CollectionName}");
-                    this.Close();
-                }
-                else
-                    MessageBox.Show("Unable to delete the texture.", "Failure");
+                this.CommandsProcessed.Add($"{Commands.delete} {tpkblock} {this.TPK.CollectionName} " +
+                    $"0x{this._texture.BinKey:X8}");
+                this.Close();
             }
-            if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.MostWanted)
-            {
-                if (TPKMW.TryRemoveTexture(this.CollectionName))
-                {
-                    CommandsProcessed.Add($"{Endscript.Commands.Delete} TPKBlock {TPKMW.CollectionName} " +
-                        $"{this.CollectionName}");
-                    this.Close();
-                }
-                else
-                    MessageBox.Show("Unable to delete the texture.", "Failure");
-            }
+            else
+                MessageBox.Show($"Error occured: {error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
@@ -302,49 +184,22 @@ namespace Binary.Forms.Interact
                 MessageBox.Show("Collection Name cannot be empty or whitespace.", "Warning");
                 return;
             }
-            this.CollectionName = BoxCollectionName.Text;
-            if (this.CollectionName != this.OriginalName)
+            var CName = BoxCollectionName.Text;
+            if (CName != this.OriginalName)
             {
-                if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.Carbon)
+                var exist = this.TPK.FindTexture(GlobalLib.Utils.Bin.Hash(CName), eKeyType.BINKEY);
+                if (exist != null)
                 {
-                    if (TPKC.GetTextureIndex(this.CollectionName) != -1)
-                    {
-                        MessageBox.Show("Texture with the same collection name already exists.", "Warning");
-                        return;
-                    }
-                    if (this.CollectionName.Length > 0x22)
-                    {
-                        MessageBox.Show("Collection Name of the texture cannot exceed 34 characters.", "Warning");
-                        return;
-                    }
-                    TPKC.Textures[this.ImageIndex].CollectionName = this.CollectionName;
-                    CommandsProcessed.Add($"{Endscript.Commands.Switch} TPKBlock {TPKC.CollectionName} " +
-                        $"{this.OriginalName} CollectionName {this.CollectionName}");
+                    MessageBox.Show($"Texture with CollectionName {CName} already exists.", "Warning",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-                else if (GlobalLib.Core.Process.Set == (int)GlobalLib.Core.GameINT.MostWanted)
-                {
-                    if (TPKMW.GetTextureIndex(this.CollectionName) != -1)
-                    {
-                        MessageBox.Show("Texture with the same collection name already exists.", "Warning");
-                        return;
-                    }
-                    if (this.CollectionName.Length > 0x17)
-                    {
-                        MessageBox.Show("Collection Name of the texture cannot exceed 23 characters.", "Warning");
-                        return;
-                    }
-                    TPKMW.Textures[this.ImageIndex].CollectionName = this.CollectionName;
-                    CommandsProcessed.Add($"{Endscript.Commands.Switch} TPKBlock {TPKMW.CollectionName} " +
-                        $"{this.OriginalName} CollectionName {this.CollectionName}");
-                }
+                this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
+                    $"0x{this._texture.BinKey:X8} {CName}");
+                this._texture.CollectionName = CName;
             }
             this.ChangeTileable();
             this.DialogResult = DialogResult.OK;
-        }
-
-        private void TileableUVEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

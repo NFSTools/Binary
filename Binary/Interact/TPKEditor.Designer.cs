@@ -1,4 +1,4 @@
-﻿namespace Binary.Forms.Interact
+﻿namespace Binary.Interact
 {
     partial class TPKEditor
     {
@@ -311,7 +311,6 @@
 			this.TileableUVEnabled.TabIndex = 20;
 			this.TileableUVEnabled.Text = "Is tileable/seamless";
 			this.TileableUVEnabled.UseVisualStyleBackColor = true;
-			this.TileableUVEnabled.CheckedChanged += new System.EventHandler(this.TileableUVEnabled_CheckedChanged);
 			// 
 			// TPKEditor
 			// 
@@ -346,7 +345,6 @@
 			this.MaximizeBox = false;
 			this.Name = "TPKEditor";
 			this.Text = "Texture Editor by MaxHwoy";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TPKEditor_FormClosing);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TPKEditor_FormClosed);
 			this.Load += new System.EventHandler(this.TPKEditor_Load);
 			((System.ComponentModel.ISupportInitialize)(this.BackImage)).EndInit();
