@@ -187,8 +187,9 @@
 			// 
 			// OpenWindowsColorForm
 			// 
-			this.OpenWindowsColorForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.OpenWindowsColorForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.OpenWindowsColorForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.OpenWindowsColorForm.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.OpenWindowsColorForm.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.OpenWindowsColorForm.ForeColor = System.Drawing.SystemColors.Control;
 			this.OpenWindowsColorForm.Location = new System.Drawing.Point(33, 334);
 			this.OpenWindowsColorForm.Name = "OpenWindowsColorForm";
@@ -238,7 +239,8 @@
 			// 
 			// NewRed
 			// 
-			this.NewRed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.NewRed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.NewRed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.NewRed.ForeColor = System.Drawing.SystemColors.Info;
 			this.NewRed.Location = new System.Drawing.Point(33, 52);
 			this.NewRed.Maximum = new decimal(new int[] {
@@ -263,7 +265,8 @@
 			// 
 			// NewGreen
 			// 
-			this.NewGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.NewGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.NewGreen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.NewGreen.ForeColor = System.Drawing.SystemColors.Info;
 			this.NewGreen.Location = new System.Drawing.Point(130, 53);
 			this.NewGreen.Maximum = new decimal(new int[] {
@@ -278,7 +281,8 @@
 			// 
 			// NewBlue
 			// 
-			this.NewBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.NewBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.NewBlue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.NewBlue.ForeColor = System.Drawing.SystemColors.Info;
 			this.NewBlue.Location = new System.Drawing.Point(230, 52);
 			this.NewBlue.Maximum = new decimal(new int[] {
@@ -293,7 +297,8 @@
 			// 
 			// NewAlpha
 			// 
-			this.NewAlpha.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.NewAlpha.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.NewAlpha.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.NewAlpha.ForeColor = System.Drawing.SystemColors.Info;
 			this.NewAlpha.Location = new System.Drawing.Point(329, 52);
 			this.NewAlpha.Maximum = new decimal(new int[] {
@@ -358,7 +363,7 @@
 			// 
 			// CurrentOffset
 			// 
-			this.CurrentOffset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.CurrentOffset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.CurrentOffset.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.CurrentOffset.ForeColor = System.Drawing.SystemColors.Info;
 			this.CurrentOffset.Location = new System.Drawing.Point(86, 72);
@@ -370,7 +375,7 @@
 			// 
 			// CurrentGreen
 			// 
-			this.CurrentGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.CurrentGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.CurrentGreen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.CurrentGreen.ForeColor = System.Drawing.SystemColors.Info;
 			this.CurrentGreen.Location = new System.Drawing.Point(86, 155);
@@ -382,7 +387,7 @@
 			// 
 			// CurrentAlpha
 			// 
-			this.CurrentAlpha.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.CurrentAlpha.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.CurrentAlpha.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.CurrentAlpha.ForeColor = System.Drawing.SystemColors.Info;
 			this.CurrentAlpha.Location = new System.Drawing.Point(86, 221);
@@ -394,7 +399,7 @@
 			// 
 			// CurrentBlue
 			// 
-			this.CurrentBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.CurrentBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.CurrentBlue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.CurrentBlue.ForeColor = System.Drawing.SystemColors.Info;
 			this.CurrentBlue.Location = new System.Drawing.Point(86, 188);
@@ -406,7 +411,7 @@
 			// 
 			// CurrentRed
 			// 
-			this.CurrentRed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.CurrentRed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.CurrentRed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.CurrentRed.ForeColor = System.Drawing.SystemColors.Info;
 			this.CurrentRed.Location = new System.Drawing.Point(86, 122);
@@ -418,7 +423,7 @@
 			// 
 			// CurrentIndex
 			// 
-			this.CurrentIndex.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(50)))));
+			this.CurrentIndex.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.CurrentIndex.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.CurrentIndex.ForeColor = System.Drawing.SystemColors.Info;
 			this.CurrentIndex.Location = new System.Drawing.Point(86, 39);
@@ -431,7 +436,8 @@
 			// LabelIndex
 			// 
 			this.LabelIndex.AutoSize = true;
-			this.LabelIndex.Location = new System.Drawing.Point(32, 42);
+			this.LabelIndex.ForeColor = System.Drawing.Color.White;
+			this.LabelIndex.Location = new System.Drawing.Point(47, 41);
 			this.LabelIndex.Name = "LabelIndex";
 			this.LabelIndex.Size = new System.Drawing.Size(33, 13);
 			this.LabelIndex.TabIndex = 2;
@@ -440,7 +446,8 @@
 			// LabelOffset
 			// 
 			this.LabelOffset.AutoSize = true;
-			this.LabelOffset.Location = new System.Drawing.Point(33, 75);
+			this.LabelOffset.ForeColor = System.Drawing.Color.White;
+			this.LabelOffset.Location = new System.Drawing.Point(45, 74);
 			this.LabelOffset.Name = "LabelOffset";
 			this.LabelOffset.Size = new System.Drawing.Size(35, 13);
 			this.LabelOffset.TabIndex = 2;
@@ -449,7 +456,8 @@
 			// LabelCurrentBlue
 			// 
 			this.LabelCurrentBlue.AutoSize = true;
-			this.LabelCurrentBlue.Location = new System.Drawing.Point(32, 191);
+			this.LabelCurrentBlue.ForeColor = System.Drawing.Color.White;
+			this.LabelCurrentBlue.Location = new System.Drawing.Point(52, 190);
 			this.LabelCurrentBlue.Name = "LabelCurrentBlue";
 			this.LabelCurrentBlue.Size = new System.Drawing.Size(28, 13);
 			this.LabelCurrentBlue.TabIndex = 2;
@@ -458,7 +466,8 @@
 			// LabelCurrentRed
 			// 
 			this.LabelCurrentRed.AutoSize = true;
-			this.LabelCurrentRed.Location = new System.Drawing.Point(32, 125);
+			this.LabelCurrentRed.ForeColor = System.Drawing.Color.White;
+			this.LabelCurrentRed.Location = new System.Drawing.Point(53, 124);
 			this.LabelCurrentRed.Name = "LabelCurrentRed";
 			this.LabelCurrentRed.Size = new System.Drawing.Size(27, 13);
 			this.LabelCurrentRed.TabIndex = 2;
@@ -467,7 +476,8 @@
 			// LabelCurrentGreen
 			// 
 			this.LabelCurrentGreen.AutoSize = true;
-			this.LabelCurrentGreen.Location = new System.Drawing.Point(32, 158);
+			this.LabelCurrentGreen.ForeColor = System.Drawing.Color.White;
+			this.LabelCurrentGreen.Location = new System.Drawing.Point(44, 157);
 			this.LabelCurrentGreen.Name = "LabelCurrentGreen";
 			this.LabelCurrentGreen.Size = new System.Drawing.Size(36, 13);
 			this.LabelCurrentGreen.TabIndex = 2;
@@ -476,7 +486,8 @@
 			// LabelCurrentAlpha
 			// 
 			this.LabelCurrentAlpha.AutoSize = true;
-			this.LabelCurrentAlpha.Location = new System.Drawing.Point(32, 224);
+			this.LabelCurrentAlpha.ForeColor = System.Drawing.Color.White;
+			this.LabelCurrentAlpha.Location = new System.Drawing.Point(46, 223);
 			this.LabelCurrentAlpha.Name = "LabelCurrentAlpha";
 			this.LabelCurrentAlpha.Size = new System.Drawing.Size(34, 13);
 			this.LabelCurrentAlpha.TabIndex = 2;
@@ -484,9 +495,10 @@
 			// 
 			// ButtonCancel
 			// 
-			this.ButtonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.ButtonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ButtonCancel.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.ButtonCancel.ForeColor = System.Drawing.SystemColors.Control;
 			this.ButtonCancel.Location = new System.Drawing.Point(549, 393);
 			this.ButtonCancel.Name = "ButtonCancel";
@@ -497,8 +509,9 @@
 			// 
 			// ButtonOK
 			// 
-			this.ButtonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ButtonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.ButtonOK.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.ButtonOK.ForeColor = System.Drawing.SystemColors.Control;
 			this.ButtonOK.Location = new System.Drawing.Point(420, 393);
 			this.ButtonOK.Name = "ButtonOK";
@@ -525,7 +538,7 @@
 			this.AcceptButton = this.ButtonOK;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.CancelButton = this.ButtonCancel;
 			this.ClientSize = new System.Drawing.Size(684, 428);
 			this.Controls.Add(this.CheckReplaceSame);

@@ -44,7 +44,7 @@
 			// 
 			// StringTextBox
 			// 
-			this.StringTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+			this.StringTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.StringTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.StringTextBox.ForeColor = System.Drawing.SystemColors.Info;
 			this.StringTextBox.Location = new System.Drawing.Point(12, 101);
@@ -56,7 +56,7 @@
 			// 
 			// AddString
 			// 
-			this.AddString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+			this.AddString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.AddString.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.AddString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.AddString.ForeColor = System.Drawing.SystemColors.Info;
@@ -70,7 +70,7 @@
 			// 
 			// FindString
 			// 
-			this.FindString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+			this.FindString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.FindString.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.FindString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.FindString.ForeColor = System.Drawing.SystemColors.Info;
@@ -84,7 +84,7 @@
 			// 
 			// DeleteString
 			// 
-			this.DeleteString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+			this.DeleteString.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.DeleteString.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.DeleteString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.DeleteString.ForeColor = System.Drawing.SystemColors.Info;
@@ -98,7 +98,7 @@
 			// 
 			// ApplyChanges
 			// 
-			this.ApplyChanges.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+			this.ApplyChanges.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.ApplyChanges.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.ApplyChanges.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.ApplyChanges.ForeColor = System.Drawing.SystemColors.Info;
@@ -112,7 +112,7 @@
 			// 
 			// StringKeyBox
 			// 
-			this.StringKeyBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(65)))), ((int)(((byte)(72)))));
+			this.StringKeyBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.StringKeyBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.StringKeyBox.ForeColor = System.Drawing.SystemColors.Info;
 			this.StringKeyBox.Location = new System.Drawing.Point(55, 12);
@@ -124,7 +124,7 @@
 			// 
 			// StringLabelBox
 			// 
-			this.StringLabelBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(65)))), ((int)(((byte)(72)))));
+			this.StringLabelBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.StringLabelBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.StringLabelBox.ForeColor = System.Drawing.SystemColors.Info;
 			this.StringLabelBox.Location = new System.Drawing.Point(55, 38);
@@ -182,7 +182,7 @@
 			this.AcceptButton = this.ApplyChanges;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ClientSize = new System.Drawing.Size(644, 283);
 			this.Controls.Add(this.UseInvertedKeyCheckBox);
 			this.Controls.Add(this.UseCustomKeyCheckBox);

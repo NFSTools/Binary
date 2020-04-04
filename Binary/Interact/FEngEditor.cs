@@ -17,7 +17,7 @@ namespace Binary.Interact
         
         public FEngEditor()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         public FEngEditor(FEngColor color, int index)
@@ -35,21 +35,21 @@ namespace Binary.Interact
 
         private void TrackBar_Green_Scroll(object sender, EventArgs e)
         {
-            this.NewGreen.Value = TrackBar_Green.Value;
+            this.NewGreen.Value = this.TrackBar_Green.Value;
             this.NewColorBox.BackColor = Color.FromArgb(this.NewColorBox.BackColor.A,
                 this.NewColorBox.BackColor.R, (int)NewGreen.Value, this.NewColorBox.BackColor.B);
         }
 
         private void TrackBar_Blue_Scroll(object sender, EventArgs e)
         {
-            this.NewBlue.Value = TrackBar_Blue.Value;
+            this.NewBlue.Value = this.TrackBar_Blue.Value;
             this.NewColorBox.BackColor = Color.FromArgb(this.NewColorBox.BackColor.A,
                 this.NewColorBox.BackColor.R, this.NewColorBox.BackColor.G, (int)NewBlue.Value);
         }
 
         private void TrackBar_Alpha_Scroll(object sender, EventArgs e)
         {
-            this.NewAlpha.Value = TrackBar_Alpha.Value;
+            this.NewAlpha.Value = this.TrackBar_Alpha.Value;
             this.NewColorBox.BackColor = Color.FromArgb((int)NewAlpha.Value,
                 this.NewColorBox.BackColor.R, this.NewColorBox.BackColor.G, this.NewColorBox.BackColor.B);
         }
@@ -84,7 +84,7 @@ namespace Binary.Interact
 
         private void OpenWindowsColorForm_Click(object sender, EventArgs e)
         {
-            if (SwatchDialog.ShowDialog() == DialogResult.OK)
+            if (this.SwatchDialog.ShowDialog() == DialogResult.OK)
             {
                 this.TrackBar_Blue.Value = this.SwatchDialog.Color.B;
                 this.TrackBar_Green.Value = this.SwatchDialog.Color.G;
@@ -104,7 +104,7 @@ namespace Binary.Interact
             this.CurrentColorBox.Location = new Point(0, 0);
             this.NewColorBox.Location = new Point(0, 0);
             this.CurrentIndex.Text = this._index.ToString();
-            this.CurrentOffset.Text = "0x" + this._color.Offset.ToString("X");
+            this.CurrentOffset.Text = $"0x{this._color.Offset:X8}";
             this.CurrentAlpha.Text = this._color.Alpha.ToString();
             this.CurrentRed.Text = this._color.Red.ToString();
             this.CurrentGreen.Text = this._color.Green.ToString();

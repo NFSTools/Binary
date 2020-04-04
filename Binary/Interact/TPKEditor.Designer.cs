@@ -94,7 +94,8 @@
 			// 
 			// BoxCollectionName
 			// 
-			this.BoxCollectionName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(65)))), ((int)(((byte)(72)))));
+			this.BoxCollectionName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.BoxCollectionName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.BoxCollectionName.ForeColor = System.Drawing.SystemColors.Info;
 			this.BoxCollectionName.Location = new System.Drawing.Point(16, 35);
 			this.BoxCollectionName.Name = "BoxCollectionName";
@@ -114,7 +115,8 @@
 			// 
 			// BoxCompression
 			// 
-			this.BoxCompression.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(65)))), ((int)(((byte)(72)))));
+			this.BoxCompression.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.BoxCompression.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.BoxCompression.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.BoxCompression.ForeColor = System.Drawing.SystemColors.Info;
 			this.BoxCompression.Location = new System.Drawing.Point(138, 72);
@@ -125,7 +127,8 @@
 			// 
 			// BoxWidth
 			// 
-			this.BoxWidth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(65)))), ((int)(((byte)(72)))));
+			this.BoxWidth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.BoxWidth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.BoxWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.BoxWidth.ForeColor = System.Drawing.SystemColors.Info;
 			this.BoxWidth.Location = new System.Drawing.Point(138, 100);
@@ -147,7 +150,8 @@
 			// 
 			// BoxHeight
 			// 
-			this.BoxHeight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(65)))), ((int)(((byte)(72)))));
+			this.BoxHeight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.BoxHeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.BoxHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.BoxHeight.ForeColor = System.Drawing.SystemColors.Info;
 			this.BoxHeight.Location = new System.Drawing.Point(138, 128);
@@ -169,7 +173,8 @@
 			// 
 			// BoxMipmaps
 			// 
-			this.BoxMipmaps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(65)))), ((int)(((byte)(72)))));
+			this.BoxMipmaps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.BoxMipmaps.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.BoxMipmaps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.BoxMipmaps.ForeColor = System.Drawing.SystemColors.Info;
 			this.BoxMipmaps.Location = new System.Drawing.Point(138, 156);
@@ -191,8 +196,9 @@
 			// 
 			// ReplaceTexture
 			// 
-			this.ReplaceTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(62)))));
-			this.ReplaceTexture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ReplaceTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.ReplaceTexture.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.ReplaceTexture.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.ReplaceTexture.ForeColor = System.Drawing.SystemColors.Info;
 			this.ReplaceTexture.Location = new System.Drawing.Point(16, 285);
 			this.ReplaceTexture.Name = "ReplaceTexture";
@@ -204,8 +210,9 @@
 			// 
 			// ExportOneAs
 			// 
-			this.ExportOneAs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(62)))));
-			this.ExportOneAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ExportOneAs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.ExportOneAs.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.ExportOneAs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.ExportOneAs.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportOneAs.Location = new System.Drawing.Point(16, 325);
 			this.ExportOneAs.Name = "ExportOneAs";
@@ -217,8 +224,9 @@
 			// 
 			// DeleteTexture
 			// 
-			this.DeleteTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(62)))));
-			this.DeleteTexture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.DeleteTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.DeleteTexture.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.DeleteTexture.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.DeleteTexture.ForeColor = System.Drawing.SystemColors.Info;
 			this.DeleteTexture.Location = new System.Drawing.Point(17, 367);
 			this.DeleteTexture.Name = "DeleteTexture";
@@ -230,8 +238,9 @@
 			// 
 			// DuplicateTexture
 			// 
-			this.DuplicateTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(62)))));
-			this.DuplicateTexture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.DuplicateTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.DuplicateTexture.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.DuplicateTexture.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.DuplicateTexture.ForeColor = System.Drawing.SystemColors.Info;
 			this.DuplicateTexture.Location = new System.Drawing.Point(16, 245);
 			this.DuplicateTexture.Name = "DuplicateTexture";
@@ -243,8 +252,9 @@
 			// 
 			// ButtonOK
 			// 
-			this.ButtonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(62)))));
-			this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ButtonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.ButtonOK.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.ButtonOK.ForeColor = System.Drawing.SystemColors.Info;
 			this.ButtonOK.Location = new System.Drawing.Point(12, 499);
 			this.ButtonOK.Name = "ButtonOK";
@@ -256,9 +266,10 @@
 			// 
 			// ButtonCancel
 			// 
-			this.ButtonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(62)))));
+			this.ButtonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ButtonCancel.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.ButtonCancel.ForeColor = System.Drawing.SystemColors.Info;
 			this.ButtonCancel.Location = new System.Drawing.Point(133, 499);
 			this.ButtonCancel.Name = "ButtonCancel";
@@ -284,8 +295,9 @@
 			// 
 			// AddTexture
 			// 
-			this.AddTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(55)))), ((int)(((byte)(62)))));
-			this.AddTexture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.AddTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.AddTexture.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.AddTexture.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.AddTexture.ForeColor = System.Drawing.SystemColors.Info;
 			this.AddTexture.Location = new System.Drawing.Point(16, 205);
 			this.AddTexture.Name = "AddTexture";
@@ -317,7 +329,7 @@
 			this.AcceptButton = this.ButtonOK;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.CancelButton = this.ButtonCancel;
 			this.ClientSize = new System.Drawing.Size(784, 531);
 			this.Controls.Add(this.TileableUVEnabled);

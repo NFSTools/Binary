@@ -29,7 +29,7 @@ namespace Binary.Interact
 		public STREditor(StringRecord str)
 		{
 			this._record = str;
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void ApplyRecordChanges(uint newkey)
@@ -51,7 +51,7 @@ namespace Binary.Interact
 			this.StringTextBox.Text = this._record.Text;
 			this.labelchanged = false;
 			if (this._record.Key != Bin.Hash(this._record.Label))
-				UseCustomKeyCheckBox.Checked = true;
+				this.UseCustomKeyCheckBox.Checked = true;
 		}
 
 		private void StringLabelBox_TextChanged(object sender, EventArgs e)
@@ -84,15 +84,20 @@ namespace Binary.Interact
 		private void ApplyChanges_Click(object sender, EventArgs e)
 		{
 			if (string.IsNullOrEmpty(this.StringKeyBox.Text) || string.IsNullOrEmpty(this.StringLabelBox.Text))
-				throw new ArgumentNullException("Key value and label value cannot be left empty.");
+			{
+				MessageBox.Show("Key value and label value cannot be left empty.", "Warning",
+					MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
 			uint key = ConvertX.ToUInt32(this.StringKeyBox.Text);
-			if (UseInvertedKeyCheckBox.Checked) key = Bin.Reverse(key);
+			if (this.UseInvertedKeyCheckBox.Checked) key = Bin.Reverse(key);
 			if (key != this._record.Key) // if this is a different key from the one passed
 			{
 				var exist = this._record.ThisSTRBlock.GetRecord(key);
 				if (exist != null)
 				{
-					MessageBox.Show($"StringRecord with key {this.StringKeyBox.Text} already exists", "Warning");
+					MessageBox.Show($"StringRecord with key {this.StringKeyBox.Text} already exists", "Warning",
+						MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					return;
 				}
 			}

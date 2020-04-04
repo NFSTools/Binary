@@ -5,8 +5,10 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Binary.Endscript;
+using GlobalLib.Utils;
 using GlobalLib.Reflection.Enum;
 using GlobalLib.Support.Shared.Class;
+
 
 
 namespace Binary.Interact
@@ -15,26 +17,25 @@ namespace Binary.Interact
     {
         private TPKBlock TPK;
         private Texture _texture;
-        public string CollectionName { get; set; }
-        public string OriginalName { get; set; }
+        private string OName;
         public List<string> CommandsProcessed { get; set; } = new List<string>();
         private const string tpkblock = "TPKBlock";
         private const string cname = "CollectionName";
         private const string tileable = "TileableUV";
 
-        public TPKEditor(TPKBlock TPK, Texture texture)
+        public TPKEditor(TPKBlock TPK, uint key)
         {
             this.TPK = TPK;
-            this._texture = texture;
-            InitializeComponent();
+            this._texture = this.TPK.FindTexture(key, eKeyType.BINKEY);
+            this.InitializeComponent();
             this.BackImage.Controls.Add(this.PreviewImage);
-            PreviewImage.Location = new Point(0, 0);
-            PreviewImage.BackColor = Color.FromArgb(0, 0, 0, 0);
+            this.PreviewImage.Location = new Point(0, 0);
+            this.PreviewImage.BackColor = Color.FromArgb(0, 0, 0, 0);
         }
 
         private void DisposeImage()
         {
-            var disposer = PreviewImage.Image;
+            var disposer = this.PreviewImage.Image;
             if (disposer != null) disposer.Dispose();
         }
 
@@ -44,22 +45,21 @@ namespace Binary.Interact
             {
                 this._texture.TileableUV = 3;
                 this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
-                    $"{this._texture.CollectionName} {tileable} {true}");
+                    $"0x{this._texture.BinKey:X8} {tileable} {true}");
             }
-            else if (this._texture.TileableUV > 0 && !TileableUVEnabled.Checked)
+            else if (this._texture.TileableUV > 0 && !this.TileableUVEnabled.Checked)
             {
                 this._texture.TileableUV = 0;
                 this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
-                    $"{this._texture.CollectionName} {tileable} {false}");
+                    $"0x{this._texture.BinKey:X8} {tileable} {false}");
             }
         }
 
         private void TPKEditor_Load(object sender, EventArgs e)
         {
-            PreviewImage.Image = this._texture.GetImage();
-            this.CollectionName = this._texture.CollectionName;
-            this.OriginalName = this.CollectionName;
-            this.BoxCollectionName.Text = this.CollectionName;
+            this.PreviewImage.Image = this._texture.GetImage();
+            this.OName = this._texture.CollectionName;
+            this.BoxCollectionName.Text = this._texture.CollectionName;
             this.BoxCompression.Text = this._texture.GetValue("Compression");
             this.BoxWidth.Text = this._texture.Width.ToString();
             this.BoxHeight.Text = this._texture.Height.ToString();
@@ -98,13 +98,13 @@ namespace Binary.Interact
 
         private void AddTexture_Click(object sender, EventArgs e)
         {
-            AddTextureDialog.ShowDialog();
+            this.AddTextureDialog.ShowDialog();
         }
 
         private void AddTextureDialog_FileOk(object sender, CancelEventArgs e)
         {
             string CName = Path.GetFileNameWithoutExtension(AddTextureDialog.FileName);
-            if (!this.TPK.TryAddTexture(CName, AddTextureDialog.FileName, out var error))
+            if (!this.TPK.TryAddTexture(CName, this.AddTextureDialog.FileName, out var error))
             {
                 MessageBox.Show($"Error occured: {error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 e.Cancel = true;
@@ -113,13 +113,13 @@ namespace Binary.Interact
 
         private void ReplaceTexture_Click(object sender, EventArgs e)
         {
-            ReplaceTextureDialog.ShowDialog();
+            this.ReplaceTextureDialog.ShowDialog();
         }
 
         private void ReplaceTextureDialog_FileOk(object sender, CancelEventArgs e)
         {
             if (this.TPK.TryReplaceTexture(this._texture.BinKey, eKeyType.BINKEY,
-                ReplaceTextureDialog.FileName, out var error))
+                this.ReplaceTextureDialog.FileName, out var error))
             {
                 this.DisposeImage();
                 this.PreviewImage.Image = this._texture.GetImage();
@@ -146,10 +146,10 @@ namespace Binary.Interact
             FilterExt += "Joint Photographic Group files|*.jpg|";
             FilterExt += "Bitmap Pixel Format files|*.bmp|";
             FilterExt += "Tagged Image File Format files|*.tiff";
-            ExportTextureDialog.Filter = FilterExt;
-            if (ExportTextureDialog.ShowDialog() == DialogResult.OK)
+            this.ExportTextureDialog.Filter = FilterExt;
+            if (this.ExportTextureDialog.ShowDialog() == DialogResult.OK)
             {
-                string path = ExportTextureDialog.FileName;
+                string path = this.ExportTextureDialog.FileName;
                 string ext = Path.GetExtension(path);
                 if (this.TPK.TryExportTexture(this._texture.BinKey, eKeyType.BINKEY, path, ext, out var error))
                     MessageBox.Show("Texture has been successfully exported.", "Success",
@@ -179,23 +179,23 @@ namespace Binary.Interact
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(BoxCollectionName.Text))
+            if (string.IsNullOrWhiteSpace(this.BoxCollectionName.Text))
             {
                 MessageBox.Show("Collection Name cannot be empty or whitespace.", "Warning");
                 return;
             }
-            var CName = BoxCollectionName.Text;
-            if (CName != this.OriginalName)
+            var CName = this.BoxCollectionName.Text;
+            if (CName != this.OName)
             {
-                var exist = this.TPK.FindTexture(GlobalLib.Utils.Bin.Hash(CName), eKeyType.BINKEY);
+                var exist = this.TPK.FindTexture(Bin.Hash(CName), eKeyType.BINKEY);
                 if (exist != null)
                 {
-                    MessageBox.Show($"Texture with CollectionName {CName} already exists.", "Warning",
+                    MessageBox.Show($"Texture with {cname} {CName} already exists.", "Warning",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
-                    $"0x{this._texture.BinKey:X8} {CName}");
+                    $"0x{this._texture.BinKey:X8} {cname} {CName}");
                 this._texture.CollectionName = CName;
             }
             this.ChangeTileable();
