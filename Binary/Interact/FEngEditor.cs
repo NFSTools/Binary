@@ -11,9 +11,6 @@ namespace Binary.Interact
     {
         private int _index;
         private FEngColor _color;
-        public bool KeepAlpha { get; set; } = false;
-        public bool ReplaceSame { get; set; } = false;
-        public bool ReplaceAll { get; set; } = false;
         
         public FEngEditor()
         {
@@ -127,14 +124,27 @@ namespace Binary.Interact
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            this._color.Alpha = this.NewColorBox.BackColor.A;
-            this._color.Red = this.NewColorBox.BackColor.R;
-            this._color.Green = this.NewColorBox.BackColor.G;
-            this._color.Blue = this.NewColorBox.BackColor.B;
-            this.KeepAlpha = this.CheckKeepAlpha.Checked;
-            this.ReplaceSame = this.CheckReplaceSame.Checked;
-            this.ReplaceAll = this.CheckReplaceAll.Checked;
-
+            bool keepalpha = this.CheckKeepAlpha.Checked;
+            if (this.CheckReplaceSame.Checked)
+            {
+                var newcolor = new FEngColor(null)
+                {
+                    Alpha = this.NewColorBox.BackColor.A,
+                    Red = this.NewColorBox.BackColor.R,
+                    Green = this.NewColorBox.BackColor.G,
+                    Blue = this.NewColorBox.BackColor.B
+                };
+                this._color.ThisFNGroup.TrySetSame(this._index, newcolor, keepalpha);
+            }
+            else
+            {
+                this._color.Alpha = this.NewColorBox.BackColor.A;
+                this._color.Red = this.NewColorBox.BackColor.R;
+                this._color.Green = this.NewColorBox.BackColor.G;
+                this._color.Blue = this.NewColorBox.BackColor.B;
+                if (this.CheckReplaceAll.Checked)
+                    this._color.ThisFNGroup.TrySetAll(this._color, keepalpha);
+            }
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

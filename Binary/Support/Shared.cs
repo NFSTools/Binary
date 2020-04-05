@@ -3,6 +3,7 @@ using System.IO;
 using System.Data;
 using System.Linq;
 using System.Drawing;
+using System.Collections;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using Binary.Endscript;
@@ -567,9 +568,11 @@ namespace Binary.Support
 					this.ShowAllFNGProperties();
 					return;
 				case eRootType.TPKBlocks:
-
+					this.ShowAllTPKProperties();
+					return;
 				case eRootType.STRBlocks:
-
+					this.ShowAllSTRProperties();
+					return;
 				default:
 					break;
 			}
@@ -612,6 +615,25 @@ namespace Binary.Support
 					row.Cells.AddRange(attribcell, valuecell);
 					this.BinaryDataView.Rows.Add(row);
 				}
+			}
+		}
+
+		private void BinaryDataView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+		{
+			var roottype = this.CheckRootSelectionType();
+			switch (roottype)
+			{
+				case eRootType.FNGroups:
+					this.LaunchFNGEditor(e.RowIndex);
+					return;
+				case eRootType.TPKBlocks:
+					
+					return;
+				case eRootType.STRBlocks:
+					
+					return;
+				default:
+					break;
 			}
 		}
 
@@ -971,15 +993,15 @@ namespace Binary.Support
 			column_red.SortMode = DataGridViewColumnSortMode.NotSortable;
 			column_green.SortMode = DataGridViewColumnSortMode.NotSortable;
 			column_blue.SortMode = DataGridViewColumnSortMode.NotSortable;
-			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			BinaryDataView.MultiSelect = false;
+			this.BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			this.BinaryDataView.MultiSelect = false;
 
-			BinaryDataView.Columns.Add(column_descr);
-			BinaryDataView.Columns.Add(column_alpha);
-			BinaryDataView.Columns.Add(column_red);
-			BinaryDataView.Columns.Add(column_green);
-			BinaryDataView.Columns.Add(column_blue);
-			BinaryDataView.RowHeadersWidth = 30;
+			this.BinaryDataView.Columns.Add(column_descr);
+			this.BinaryDataView.Columns.Add(column_alpha);
+			this.BinaryDataView.Columns.Add(column_red);
+			this.BinaryDataView.Columns.Add(column_green);
+			this.BinaryDataView.Columns.Add(column_blue);
+			this.BinaryDataView.RowHeadersWidth = 30;
 		}
 
 		private void ShowAllFNGProperties()
@@ -1014,6 +1036,20 @@ namespace Binary.Support
 			}
 		}
 
+		private void LaunchFNGEditor(int RowIndex)
+		{
+			var fng = (FNGroup)this.db.GetCollection(this.BinaryTree.SelectedNode.Text, FNGroups);
+			if (fng == null) return;
+
+			var inter = this.BinaryDataView.Rows[RowIndex].Cells[0].Value.ToString();
+			FormatX.GetInt32(inter, "Color[{X}]", out int index);
+			var color = fng.GetColor(index);
+
+			var FNGForm = new Interact.FEngEditor(color, index);
+			FNGForm.ShowDialog();
+			this.UpdateBinaryDataView();
+		}
+
 		#endregion
 
 		#region TPK
@@ -1027,8 +1063,8 @@ namespace Binary.Support
 			var column_heigt = new DataGridViewTextBoxColumn();
 			var column_nmmip = new DataGridViewTextBoxColumn();
 
-			column_index.Name = "Index";
-			column_index.HeaderText = "Index";
+			column_index.Name = "Key";
+			column_index.HeaderText = "Key";
 			column_index.ReadOnly = true;
 			column_index.Resizable = DataGridViewTriState.False;
 
@@ -1057,8 +1093,8 @@ namespace Binary.Support
 			column_nmmip.ReadOnly = true;
 			column_nmmip.Resizable = DataGridViewTriState.False;
 
-			column_index.Width = 30;
-			column_cname.Width = 250;
+			column_index.Width = 80;
+			column_cname.Width = 300;
 
 			column_compr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 			column_width.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -1071,18 +1107,48 @@ namespace Binary.Support
 			column_width.SortMode = DataGridViewColumnSortMode.NotSortable;
 			column_heigt.SortMode = DataGridViewColumnSortMode.NotSortable;
 			column_nmmip.SortMode = DataGridViewColumnSortMode.NotSortable;
-			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			BinaryDataView.MultiSelect = false;
+			this.BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			this.BinaryDataView.MultiSelect = false;
 
-			BinaryDataView.Columns.Add(column_index);
-			BinaryDataView.Columns.Add(column_cname);
-			BinaryDataView.Columns.Add(column_compr);
-			BinaryDataView.Columns.Add(column_width);
-			BinaryDataView.Columns.Add(column_heigt);
-			BinaryDataView.Columns.Add(column_nmmip);
-			BinaryDataView.RowHeadersWidth = 30;
+			this.BinaryDataView.Columns.Add(column_index);
+			this.BinaryDataView.Columns.Add(column_cname);
+			this.BinaryDataView.Columns.Add(column_compr);
+			this.BinaryDataView.Columns.Add(column_width);
+			this.BinaryDataView.Columns.Add(column_heigt);
+			this.BinaryDataView.Columns.Add(column_nmmip);
+			this.BinaryDataView.RowHeadersWidth = 30;
 		}
 
+		private void ShowAllTPKProperties()
+		{
+			string CName = this.BinaryTree.SelectedNode.Text;
+			var tpk = (TPKBlock)this.db.GetCollection(CName, TPKBlocks);
+			if (tpk == null) return;
+
+			// Use Reflection to get textures
+			var textures = tpk.GetType().GetProperty("Textures").GetValue(tpk) as IList;
+
+			this.BinaryDataViewTPKColumnInit();
+			
+			foreach (Texture tex in textures)
+			{
+				var keycell = new DataGridViewTextBoxCell();
+				var namecell = new DataGridViewTextBoxCell();
+				var widthcell = new DataGridViewTextBoxCell();
+				var heightcell = new DataGridViewTextBoxCell();
+				var mipmapscell = new DataGridViewTextBoxCell();
+				var compresscell = new DataGridViewTextBoxCell();
+				keycell.Value = $"0x{tex.BinKey:X8}";
+				namecell.Value = tex.CollectionName;
+				widthcell.Value = tex.Width;
+				heightcell.Value = tex.Height;
+				mipmapscell.Value = tex.Mipmaps;
+				compresscell.Value = tex.GetType().GetProperty("Compression").GetValue(tex).ToString();
+				var row = new DataGridViewRow();
+				row.Cells.AddRange(keycell, namecell, compresscell, widthcell, heightcell, mipmapscell);
+				this.BinaryDataView.Rows.Add(row);
+			}
+		}
 
 		#endregion
 
@@ -1116,7 +1182,7 @@ namespace Binary.Support
 			column_descr.Resizable = DataGridViewTriState.False;
 
 			column_index.Width = 50;
-			column_bhash.Width = 70;
+			column_bhash.Width = 80;
 			column_label.Width = 250;
 			column_descr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
@@ -1124,18 +1190,42 @@ namespace Binary.Support
 			column_bhash.SortMode = DataGridViewColumnSortMode.NotSortable;
 			column_label.SortMode = DataGridViewColumnSortMode.NotSortable;
 			column_descr.SortMode = DataGridViewColumnSortMode.NotSortable;
-			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			BinaryDataView.MultiSelect = false;
+			this.BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			this.BinaryDataView.MultiSelect = false;
 
-			BinaryDataView.Columns.Add(column_index);
-			BinaryDataView.Columns.Add(column_bhash);
-			BinaryDataView.Columns.Add(column_label);
-			BinaryDataView.Columns.Add(column_descr);
-			BinaryDataView.RowHeadersWidth = 30;
+			this.BinaryDataView.Columns.Add(column_index);
+			this.BinaryDataView.Columns.Add(column_bhash);
+			this.BinaryDataView.Columns.Add(column_label);
+			this.BinaryDataView.Columns.Add(column_descr);
+			this.BinaryDataView.RowHeadersWidth = 30;
 		}
 
+		private void ShowAllSTRProperties()
+		{
+			string CName = this.BinaryTree.SelectedNode.Text;
+			var str = (STRBlock)this.db.GetCollection(CName, STRBlocks);
+			if (str == null) return;
+
+			this.BinaryDataViewSTRColumnInit();
+
+			int index = 0;
+			foreach (var record in str.GetRecords())
+			{
+				if (record.Label == "KMS") record.Text = ":kms:";
+				var indexcell = new DataGridViewTextBoxCell();
+				var keycell = new DataGridViewTextBoxCell();
+				var labelcell = new DataGridViewTextBoxCell();
+				var textcell = new DataGridViewTextBoxCell();
+				indexcell.Value = (index++).ToString();
+				keycell.Value = $"0x{record.Key:X8}";
+				labelcell.Value = record.Label == null ? string.Empty : record.Label;
+				textcell.Value = record.Text == null ? string.Empty : record.Text;
+				var row = new DataGridViewRow();
+				row.Cells.AddRange(indexcell, keycell, labelcell, textcell);
+				this.BinaryDataView.Rows.Add(row);
+			}
+		}
 
 		#endregion
-
 	}
 }
