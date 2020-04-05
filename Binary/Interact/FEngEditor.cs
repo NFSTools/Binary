@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Binary.Endscript;
+using GlobalLib.Utils.EA;
 using GlobalLib.Support.Shared.Parts.FNGParts;
 
 
@@ -11,6 +13,12 @@ namespace Binary.Interact
     {
         private int _index;
         private FEngColor _color;
+        public string CommandProcessed { get; set; }
+        public const string FNGroups = "FNGroups";
+        public const string ReplaceAllNoAlpha = "ReplaceAllNoAlpha";
+        public const string ReplaceAllWithAlpha = "ReplaceAllWithAlpha";
+        public const string ReplaceSameNoAlpha = "ReplaceSameNoAlpha";
+        public const string ReplaceSameWithAlpha = "ReplaceSameWithAlpha";
         
         public FEngEditor()
         {
@@ -125,6 +133,9 @@ namespace Binary.Interact
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
+            string path = $"{Commands.update} {FNGroups} {this._color.ThisFNGroup.CollectionName}";
+            string hex = SAT.ColorToHex(this.NewColorBox.BackColor.A, this.NewColorBox.BackColor.R,
+                this.NewColorBox.BackColor.G, this.NewColorBox.BackColor.B);
             bool keepalpha = this.CheckKeepAlpha.Checked;
             if (this.CheckReplaceSame.Checked)
             {
@@ -136,6 +147,10 @@ namespace Binary.Interact
                     Blue = this.NewColorBox.BackColor.B
                 };
                 this._color.ThisFNGroup.TrySetSame(this._index, newcolor, keepalpha);
+                if (keepalpha)
+                    this.CommandProcessed = $"{path} {ReplaceSameNoAlpha}[{this._index}] {hex}";
+                else
+                    this.CommandProcessed = $"{path} {ReplaceSameWithAlpha}[{this._index}] {hex}";
             }
             else
             {
@@ -144,7 +159,15 @@ namespace Binary.Interact
                 this._color.Green = this.NewColorBox.BackColor.G;
                 this._color.Blue = this.NewColorBox.BackColor.B;
                 if (this.CheckReplaceAll.Checked)
+                {
                     this._color.ThisFNGroup.TrySetAll(this._color, keepalpha);
+                    if (keepalpha)
+                        this.CommandProcessed = $"{path} {ReplaceAllNoAlpha} {hex}";
+                    else
+                        this.CommandProcessed = $"{path} {ReplaceAllWithAlpha} {hex}";
+                }
+                else
+                    this.CommandProcessed = $"{path} Color[{this._index}] {hex}";
             }
             this.DialogResult = DialogResult.OK;
             this.Close();

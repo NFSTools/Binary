@@ -630,7 +630,7 @@ namespace Binary.Support
 					this.LaunchTPKEditor(e.RowIndex);
 					return;
 				case eRootType.STRBlocks:
-					
+					this.LaunchSTREditor(e.RowIndex);
 					return;
 				default:
 					break;
@@ -1047,6 +1047,7 @@ namespace Binary.Support
 
 			var FNGForm = new Interact.FEngEditor(color, index);
 			FNGForm.ShowDialog();
+			Generate.WriteCommand(FNGForm.CommandProcessed, this.ColoredTextForm);
 			this.UpdateBinaryDataView();
 		}
 
@@ -1224,20 +1225,49 @@ namespace Binary.Support
 			this.BinaryDataViewSTRColumnInit();
 
 			int index = 0;
+			this.BinaryDataView.Rows.Add(str.InfoLength);
+
+			// Temporary remove validating handler
+			this.BinaryDataView.CellValidating -= this.BinaryDataView_CellValidating;
+			this.BinaryDataView.CellValueChanged -= this.BinaryDataView_CellValueChanged;
+
 			foreach (var record in str.GetRecords())
 			{
-				if (record.Label == "KMS") record.Text = ":kms:";
-				var indexcell = new DataGridViewTextBoxCell();
-				var keycell = new DataGridViewTextBoxCell();
-				var labelcell = new DataGridViewTextBoxCell();
-				var textcell = new DataGridViewTextBoxCell();
-				indexcell.Value = (index++).ToString();
-				keycell.Value = $"0x{record.Key:X8}";
-				labelcell.Value = record.Label == null ? string.Empty : record.Label;
-				textcell.Value = record.Text == null ? string.Empty : record.Text;
-				var row = new DataGridViewRow();
-				row.Cells.AddRange(indexcell, keycell, labelcell, textcell);
-				this.BinaryDataView.Rows.Add(row);
+				// Use assumed and predefined amount of columns and rows
+				this.BinaryDataView.Rows[index].Cells[0].Value = index.ToString();
+				this.BinaryDataView.Rows[index].Cells[1].Value = $"0x{record.Key:X8}";
+				this.BinaryDataView.Rows[index].Cells[2].Value = record.Label == null ? string.Empty : record.Label;
+				this.BinaryDataView.Rows[index].Cells[3].Value = record.Text == null ? string.Empty : record.Text;
+				++index;
+			}
+
+			// Add validating handler back
+			this.BinaryDataView.CellValidating += this.BinaryDataView_CellValidating;
+			this.BinaryDataView.CellValueChanged += this.BinaryDataView_CellValueChanged;
+		}
+
+		private void LaunchSTREditor(int RowIndex)
+		{
+			var str = (STRBlock)this.db.GetCollection(this.BinaryTree.SelectedNode.Text, STRBlocks);
+			if (str == null) return;
+
+			var inter = this.BinaryDataView.Rows[RowIndex].Cells[1].Value.ToString();
+			var key = ConvertX.ToUInt32(inter);
+
+			var record = str.GetRecord(key);
+
+			var STRForm = new Interact.STREditor(record);
+			STRForm.ShowDialog();
+			foreach (var command in STRForm.CommandsProcessed)
+				Generate.WriteCommand(command, this.ColoredTextForm);
+			this.UpdateBinaryDataView();
+			if (STRForm.FindTexts)
+			{
+				foreach (DataGridViewRow row in this.BinaryDataView.Rows)
+				{
+					if (row.Cells[3].Value.ToString().Contains(STRForm.TextToFind))
+						row.DefaultCellStyle.BackColor = Color.DarkGoldenrod;
+				}
 			}
 		}
 

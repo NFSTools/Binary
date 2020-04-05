@@ -47,7 +47,7 @@ namespace Binary.Interact
 		private void STREditor_Load(object sender, EventArgs e)
 		{
 			this.StringLabelBox.Text = string.IsNullOrEmpty(this._record.Label) ? "???" : this._record.Label;
-			this.StringKeyBox.Text = $"0x{this._record.Key}";
+			this.StringKeyBox.Text = $"0x{this._record.Key:X8}";
 			this.StringTextBox.Text = this._record.Text;
 			this.labelchanged = false;
 			if (this._record.Key != Bin.Hash(this._record.Label))
@@ -123,6 +123,7 @@ namespace Binary.Interact
 			var newkey = Bin.Hash($"{global}{index}");
 			var newrecord = this._record.ThisSTRBlock.GetRecord(newkey);
 			this._record = newrecord;
+			this.CommandsProcessed.Add($"{Commands.add} {path} {BaseArguments.AUTO} {global}{index} \"\"");
 			this.STREditor_Load(this, EventArgs.Empty);
 		}
 
