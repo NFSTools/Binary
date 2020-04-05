@@ -11,6 +11,7 @@ using GlobalLib.Utils;
 using GlobalLib.Reflection.Enum;
 using GlobalLib.Reflection.Abstract;
 using GlobalLib.Database.Collection;
+using GlobalLib.Support.Shared.Class;
 
 
 
@@ -21,6 +22,9 @@ namespace Binary.Support
 		private BasicBase db;
 		private string _dir = string.Empty;
 		private GameINT _game = GameINT.None;
+		private const string FNGroups = "FNGroups";
+		private const string TPKBlocks = "TPKBlocks";
+		private const string STRBlocks = "STRBlocks";
 
 		private void InstantiateControls()
 		{
@@ -71,6 +75,8 @@ namespace Binary.Support
 		}
 
 		public string GetDirectory() => this._dir;
+
+		#region Supportive
 
 		private void EnableButtons()
 		{
@@ -181,6 +187,10 @@ namespace Binary.Support
 			this.DisableButtons();
 		}
 
+		#endregion
+
+		#region Selections
+
 		private int GetLastShownRowIndex()
 		{
 			if (this.BinaryDataView.Rows != null && this.BinaryDataView.Rows.Count > 0)
@@ -212,11 +222,23 @@ namespace Binary.Support
 		{
 			if (this.BinaryTree.SelectedNode == null || this.BinaryTree.SelectedNode.Parent == null)
 				return eRootType.Empty;
-			if (this.BinaryTree.SelectedNode.Parent.Text == "FNGroups") return eRootType.FNGroups;
-			else if (this.BinaryTree.SelectedNode.Parent.Text == "TPKBlocks") return eRootType.TPKBlocks;
-			else if (this.BinaryTree.SelectedNode.Parent.Text == "STRBlocks") return eRootType.STRBlocks;
+			if (this.BinaryTree.SelectedNode.Parent.Text == FNGroups) return eRootType.FNGroups;
+			else if (this.BinaryTree.SelectedNode.Parent.Text == TPKBlocks) return eRootType.TPKBlocks;
+			else if (this.BinaryTree.SelectedNode.Parent.Text == STRBlocks) return eRootType.STRBlocks;
 			else return eRootType.Regular;
 		}
+
+		private TreeNode AppendTreeNode(string name, List<VirtualNode> subnodes)
+		{
+			var treenode = new TreeNode(name);
+			foreach (var subnode in subnodes)
+				treenode.Nodes.Add(this.AppendTreeNode(subnode.NodeName, subnode.SubNodes));
+			return treenode;
+		}
+
+		#endregion
+
+		#region Loading
 
 		private void LoadDatabase(string foldername)
 		{
@@ -253,14 +275,6 @@ namespace Binary.Support
 				this.CreateBackupFiles(false);
 			if (this.BinaryTree.Nodes != null && this.BinaryTree.Nodes.Count > 0)
 				this.BinaryTree.SelectedNode = this.BinaryTree.Nodes[0];
-		}
-
-		private TreeNode AppendTreeNode(string name, List<VirtualNode> subnodes)
-		{
-			var treenode = new TreeNode(name);
-			foreach (var subnode in subnodes)
-				treenode.Nodes.Add(this.AppendTreeNode(subnode.NodeName, subnode.SubNodes));
-			return treenode;
 		}
 
 		private void LoadBinaryTree(bool load_last_select, string newpath = null)
@@ -333,171 +347,25 @@ namespace Binary.Support
 			this.BinaryDataView.RowHeadersWidth = 30;
 		}
 
-		private void BinaryDataViewFNGColumnInit()
+		private void Carbon_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			var column_descr = new DataGridViewTextBoxColumn();
-			var column_alpha = new DataGridViewTextBoxColumn();
-			var column_red = new DataGridViewTextBoxColumn();
-			var column_green = new DataGridViewTextBoxColumn();
-			var column_blue = new DataGridViewTextBoxColumn();
-
-			column_descr.Name = "Attribute";
-			column_descr.HeaderText = "Attribute";
-			column_descr.ReadOnly = true;
-			column_descr.Resizable = DataGridViewTriState.False;
-
-			column_alpha.Name = "Alpha";
-			column_alpha.HeaderText = "Alpha";
-			column_alpha.ReadOnly = true;
-			column_alpha.Resizable = DataGridViewTriState.False;
-
-			column_red.Name = "Red";
-			column_red.HeaderText = "Red";
-			column_red.ReadOnly = true;
-			column_red.Resizable = DataGridViewTriState.False;
-
-			column_green.Name = "Green";
-			column_green.HeaderText = "Green";
-			column_green.ReadOnly = true;
-			column_green.Resizable = DataGridViewTriState.False;
-
-			column_blue.Name = "Blue";
-			column_blue.HeaderText = "Blue";
-			column_blue.ReadOnly = true;
-			column_blue.Resizable = DataGridViewTriState.False;
-
-			column_descr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			column_alpha.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			column_red.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			column_green.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			column_blue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-			column_descr.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_alpha.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_red.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_green.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_blue.SortMode = DataGridViewColumnSortMode.NotSortable;
-			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			BinaryDataView.MultiSelect = false;
-
-			BinaryDataView.Columns.Add(column_descr);
-			BinaryDataView.Columns.Add(column_alpha);
-			BinaryDataView.Columns.Add(column_red);
-			BinaryDataView.Columns.Add(column_green);
-			BinaryDataView.Columns.Add(column_blue);
-			BinaryDataView.RowHeadersWidth = 30;
+			var list = Application.OpenForms.Cast<Form>().ToList();
+			for (int a1 = list.Count - 1; a1 >= 0; --a1)
+			{
+				if (list[a1].Name != "Main" && list[a1].Name != this.Name)
+					list[a1].Close();
+			}
 		}
 
-		private void BinaryDataViewTPKColumnInit()
+		private void Carbon_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			var column_index = new DataGridViewTextBoxColumn();
-			var column_cname = new DataGridViewTextBoxColumn();
-			var column_compr = new DataGridViewTextBoxColumn();
-			var column_width = new DataGridViewTextBoxColumn();
-			var column_heigt = new DataGridViewTextBoxColumn();
-			var column_nmmip = new DataGridViewTextBoxColumn();
-
-			column_index.Name = "Index";
-			column_index.HeaderText = "Index";
-			column_index.ReadOnly = true;
-			column_index.Resizable = DataGridViewTriState.False;
-
-			column_cname.Name = "CollectionName";
-			column_cname.HeaderText = "CollectionName";
-			column_cname.ReadOnly = true;
-			column_cname.Resizable = DataGridViewTriState.False;
-
-			column_compr.Name = "Compression";
-			column_compr.HeaderText = "Compression";
-			column_compr.ReadOnly = true;
-			column_compr.Resizable = DataGridViewTriState.False;
-
-			column_width.Name = "Width";
-			column_width.HeaderText = "Width";
-			column_width.ReadOnly = true;
-			column_width.Resizable = DataGridViewTriState.False;
-
-			column_heigt.Name = "Height";
-			column_heigt.HeaderText = "Height";
-			column_heigt.ReadOnly = true;
-			column_heigt.Resizable = DataGridViewTriState.False;
-
-			column_nmmip.Name = "Mipmaps";
-			column_nmmip.HeaderText = "MipMaps";
-			column_nmmip.ReadOnly = true;
-			column_nmmip.Resizable = DataGridViewTriState.False;
-
-			column_index.Width = 30;
-			column_cname.Width = 250;
-
-			column_compr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			column_width.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			column_heigt.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			column_nmmip.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-			column_index.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_cname.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_compr.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_width.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_heigt.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_nmmip.SortMode = DataGridViewColumnSortMode.NotSortable;
-			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			BinaryDataView.MultiSelect = false;
-
-			BinaryDataView.Columns.Add(column_index);
-			BinaryDataView.Columns.Add(column_cname);
-			BinaryDataView.Columns.Add(column_compr);
-			BinaryDataView.Columns.Add(column_width);
-			BinaryDataView.Columns.Add(column_heigt);
-			BinaryDataView.Columns.Add(column_nmmip);
-			BinaryDataView.RowHeadersWidth = 30;
+			this.db = null;
+			Utils.CleanUp.GCCollect();
 		}
 
-		private void BinaryDataViewSTRColumnInit()
-		{
-			var column_index = new DataGridViewTextBoxColumn();
-			var column_bhash = new DataGridViewTextBoxColumn();
-			var column_label = new DataGridViewTextBoxColumn();
-			var column_descr = new DataGridViewTextBoxColumn();
+		#endregion
 
-			column_index.Name = "Index";
-			column_index.HeaderText = "Index";
-			column_index.ReadOnly = true;
-			column_index.Resizable = DataGridViewTriState.False;
-
-			column_bhash.Name = "Key";
-			column_bhash.HeaderText = "Key";
-			column_bhash.ReadOnly = true;
-			column_bhash.Resizable = DataGridViewTriState.False;
-
-			column_label.Name = "Label";
-			column_label.HeaderText = "Label";
-			column_label.ReadOnly = true;
-			column_label.Resizable = DataGridViewTriState.False;
-
-			column_descr.Name = "Text";
-			column_descr.HeaderText = "Text";
-			column_descr.ReadOnly = true;
-			column_descr.Resizable = DataGridViewTriState.False;
-
-			column_index.Width = 50;
-			column_bhash.Width = 70;
-			column_label.Width = 250;
-			column_descr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-			column_index.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_bhash.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_label.SortMode = DataGridViewColumnSortMode.NotSortable;
-			column_descr.SortMode = DataGridViewColumnSortMode.NotSortable;
-			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			BinaryDataView.MultiSelect = false;
-
-			BinaryDataView.Columns.Add(column_index);
-			BinaryDataView.Columns.Add(column_bhash);
-			BinaryDataView.Columns.Add(column_label);
-			BinaryDataView.Columns.Add(column_descr);
-			BinaryDataView.RowHeadersWidth = 30;
-		}
+		#region DataSet
 
 		private void DataSet_OpenFile_Click(object sender, EventArgs e)
 		{
@@ -516,66 +384,6 @@ namespace Binary.Support
 			Process.SaveData(this.db, this._dir, Properties.Settings.Default.EnableCompression);
 			watch.Stop();
 			DataSet_Status.Text = $"Finished saving data in {watch.ElapsedMilliseconds}ms | {DateTime.Now.ToString()}";
-		}
-
-		private void BinaryTree_AfterSelect(object sender, TreeViewEventArgs e)
-		{
-			this.BinaryDataView.Columns.Clear();
-
-			var roottype = this.CheckRootSelectionType();
-			switch (roottype)
-			{
-				case eRootType.Empty:
-					return;
-				case eRootType.FNGroups:
-
-				case eRootType.TPKBlocks:
-
-				case eRootType.STRBlocks:
-
-				default:
-					break;
-			}
-
-			var obj = this.db.GetPrimitive(Utils.Path.SplitPath(this.BinaryTree.SelectedNode.FullPath));
-			if (obj == null) return;
-			var list = obj.GetAccessibles(eGetInfoType.PROPERTY_NAMES);
-
-			this.BinaryDataViewRegColumnInit();
-
-			var accessibles = new List<string>(list.Length);
-			for (int a1 = 0; a1 < list.Length; ++a1)
-				accessibles.Add(list[a1].ToString());
-			accessibles.Sort();
-
-			foreach (var access in accessibles)
-			{
-				string field = access.ToString();
-				if (obj.OfEnumerableType(field))
-				{
-					var attribcell = new DataGridViewTextBoxCell();
-					var valuecell = new DataGridViewComboBoxCell();
-					attribcell.Value = field;
-					valuecell.Items.AddRange(obj.GetPropertyEnumerableTypes(field));
-					valuecell.Value = obj.GetValue(field);
-					valuecell.FlatStyle = FlatStyle.Flat;
-					valuecell.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
-					valuecell.Style.BackColor = Color.FromArgb(30, 30, 45);
-					var row = new DataGridViewRow();
-					row.Cells.AddRange(attribcell, valuecell);
-					this.BinaryDataView.Rows.Add(row);
-				}
-				else
-				{
-					var attribcell = new DataGridViewTextBoxCell();
-					var valuecell = new DataGridViewTextBoxCell();
-					attribcell.Value = field;
-					valuecell.Value = obj.GetValue(field);
-					var row = new DataGridViewRow();
-					row.Cells.AddRange(attribcell, valuecell);
-					this.BinaryDataView.Rows.Add(row);
-				}
-			}
 		}
 
 		private void DataSet_ReloadFile_Click(object sender, EventArgs e)
@@ -611,22 +419,6 @@ namespace Binary.Support
 		{
 			this.Carbon_FormClosing(this, null);
 			this.Close();
-		}
-
-		private void Carbon_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			var list = Application.OpenForms.Cast<Form>().ToList();
-			for (int a1 = list.Count - 1; a1 >= 0; --a1)
-			{
-				if (list[a1].Name != "Main" && list[a1].Name != this.Name)
-					list[a1].Close();
-			}
-		}
-
-		private void Carbon_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			this.db = null;
-			Utils.CleanUp.GCCollect();
 		}
 
 		private void DataSet_CreateBackups_Click(object sender, EventArgs e)
@@ -742,6 +534,85 @@ namespace Binary.Support
 		private void DataSet_DBInfo_Click(object sender, EventArgs e)
 		{
 			MessageBox.Show(this.db.GetDatabaseInfo(), "Database Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		private void OpenReadmeToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (File.Exists("Readme.txt"))
+				System.Diagnostics.Process.Start("explorer", "Readme.txt");
+			else
+				MessageBox.Show("Could not find Readme.txt file.", "Failure");
+		}
+
+		private void DataSet_AboutBox_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show($"Binary by MaxHwoy v0.9.0 Beta.{Environment.NewLine}Do not distribute.", "About",
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		#endregion
+
+		#region BinaryTree
+
+		private void BinaryTree_AfterSelect(object sender, TreeViewEventArgs e)
+		{
+			this.BinaryDataView.Columns.Clear();
+
+			var roottype = this.CheckRootSelectionType();
+			switch (roottype)
+			{
+				case eRootType.Empty:
+					return;
+				case eRootType.FNGroups:
+					this.ShowAllFNGProperties();
+					return;
+				case eRootType.TPKBlocks:
+
+				case eRootType.STRBlocks:
+
+				default:
+					break;
+			}
+
+			var obj = this.db.GetPrimitive(Utils.Path.SplitPath(this.BinaryTree.SelectedNode.FullPath));
+			if (obj == null) return;
+			var list = obj.GetAccessibles(eGetInfoType.PROPERTY_NAMES);
+
+			this.BinaryDataViewRegColumnInit();
+
+			var accessibles = new List<string>(list.Length);
+			for (int a1 = 0; a1 < list.Length; ++a1)
+				accessibles.Add(list[a1].ToString());
+			accessibles.Sort();
+
+			foreach (var access in accessibles)
+			{
+				string field = access.ToString();
+				if (obj.OfEnumerableType(field))
+				{
+					var attribcell = new DataGridViewTextBoxCell();
+					var valuecell = new DataGridViewComboBoxCell();
+					attribcell.Value = field;
+					valuecell.Items.AddRange(obj.GetPropertyEnumerableTypes(field));
+					valuecell.Value = obj.GetValue(field);
+					valuecell.FlatStyle = FlatStyle.Flat;
+					valuecell.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
+					valuecell.Style.BackColor = Color.FromArgb(30, 30, 45);
+					var row = new DataGridViewRow();
+					row.Cells.AddRange(attribcell, valuecell);
+					this.BinaryDataView.Rows.Add(row);
+				}
+				else
+				{
+					var attribcell = new DataGridViewTextBoxCell();
+					var valuecell = new DataGridViewTextBoxCell();
+					attribcell.Value = field;
+					valuecell.Value = obj.GetValue(field);
+					var row = new DataGridViewRow();
+					row.Cells.AddRange(attribcell, valuecell);
+					this.BinaryDataView.Rows.Add(row);
+				}
+			}
 		}
 
 		private void BinaryTreeAddNode_Click(object sender, EventArgs e)
@@ -871,6 +742,10 @@ namespace Binary.Support
 			}
 		}
 
+		#endregion
+
+		#region BinaryDataView
+
 		private void BinaryDataView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
 		{
 			// If current cell is readonly -> simply return
@@ -919,6 +794,10 @@ namespace Binary.Support
 			}
 		}
 
+		#endregion
+
+		#region Endscript
+
 		private void DataSet_ClearEditor_Click(object sender, EventArgs e)
 		{
 			this.ColoredTextForm.Text = string.Empty;
@@ -940,20 +819,6 @@ namespace Binary.Support
 				args[args.Length - 1] = value;
 				Generate.WriteCommand(Commands.update, this.ColoredTextForm, args);
 			}
-		}
-
-		private void OpenReadmeToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (File.Exists("Readme.txt"))
-				System.Diagnostics.Process.Start("explorer", "Readme.txt");
-			else
-				MessageBox.Show("Could not find Readme.txt file.", "Failure");
-		}
-
-		private void DataSet_AboutBox_Click(object sender, EventArgs e)
-		{
-			MessageBox.Show($"Binary by MaxHwoy v0.9.0 Beta.{Environment.NewLine}Do not distribute.", "About",
-				MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private void EndscriptToolStripMenuItemI_Click(object sender, EventArgs e)
@@ -1057,5 +922,220 @@ namespace Binary.Support
 
 			}
 		}
+
+		#endregion
+
+		#region FNG
+
+		private void BinaryDataViewFNGColumnInit()
+		{
+			var column_descr = new DataGridViewTextBoxColumn();
+			var column_alpha = new DataGridViewTextBoxColumn();
+			var column_red = new DataGridViewTextBoxColumn();
+			var column_green = new DataGridViewTextBoxColumn();
+			var column_blue = new DataGridViewTextBoxColumn();
+
+			column_descr.Name = "Attribute";
+			column_descr.HeaderText = "Attribute";
+			column_descr.ReadOnly = true;
+			column_descr.Resizable = DataGridViewTriState.False;
+
+			column_alpha.Name = "Alpha";
+			column_alpha.HeaderText = "Alpha";
+			column_alpha.ReadOnly = true;
+			column_alpha.Resizable = DataGridViewTriState.False;
+
+			column_red.Name = "Red";
+			column_red.HeaderText = "Red";
+			column_red.ReadOnly = true;
+			column_red.Resizable = DataGridViewTriState.False;
+
+			column_green.Name = "Green";
+			column_green.HeaderText = "Green";
+			column_green.ReadOnly = true;
+			column_green.Resizable = DataGridViewTriState.False;
+
+			column_blue.Name = "Blue";
+			column_blue.HeaderText = "Blue";
+			column_blue.ReadOnly = true;
+			column_blue.Resizable = DataGridViewTriState.False;
+
+			column_descr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_alpha.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_red.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_green.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_blue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+			column_descr.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_alpha.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_red.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_green.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_blue.SortMode = DataGridViewColumnSortMode.NotSortable;
+			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			BinaryDataView.MultiSelect = false;
+
+			BinaryDataView.Columns.Add(column_descr);
+			BinaryDataView.Columns.Add(column_alpha);
+			BinaryDataView.Columns.Add(column_red);
+			BinaryDataView.Columns.Add(column_green);
+			BinaryDataView.Columns.Add(column_blue);
+			BinaryDataView.RowHeadersWidth = 30;
+		}
+
+		private void ShowAllFNGProperties()
+		{
+			string CName = this.BinaryTree.SelectedNode.Text;
+			var fng = (FNGroup)this.db.GetCollection(CName, FNGroups);
+			if (fng == null) return;
+
+			this.BinaryDataViewFNGColumnInit();
+
+			for (int a1 = 0; a1 < fng.InfoLength; ++a1)
+			{
+				var color = fng.GetColor(a1);
+				var namecell = new DataGridViewTextBoxCell();
+				var alphacell = new DataGridViewTextBoxCell();
+				var redcell = new DataGridViewTextBoxCell();
+				var greencell = new DataGridViewTextBoxCell();
+				var bluecell = new DataGridViewTextBoxCell();
+				namecell.Value = $"Color[{a1}]";
+				alphacell.Value = color.Alpha.ToString();
+				redcell.Value = color.Red.ToString();
+				greencell.Value = color.Green.ToString();
+				bluecell.Value = color.Blue.ToString();
+				var row = new DataGridViewRow();
+				row.DefaultCellStyle.BackColor = Color.FromArgb(color.Red, color.Green, color.Blue);
+				if (row.DefaultCellStyle.BackColor.GetBrightness() > 0.5)
+					row.DefaultCellStyle.ForeColor = Color.Black;
+				else
+					row.DefaultCellStyle.ForeColor = Color.White;
+				row.Cells.AddRange(namecell, alphacell, redcell, greencell, bluecell);
+				this.BinaryDataView.Rows.Add(row);
+			}
+		}
+
+		#endregion
+
+		#region TPK
+
+		private void BinaryDataViewTPKColumnInit()
+		{
+			var column_index = new DataGridViewTextBoxColumn();
+			var column_cname = new DataGridViewTextBoxColumn();
+			var column_compr = new DataGridViewTextBoxColumn();
+			var column_width = new DataGridViewTextBoxColumn();
+			var column_heigt = new DataGridViewTextBoxColumn();
+			var column_nmmip = new DataGridViewTextBoxColumn();
+
+			column_index.Name = "Index";
+			column_index.HeaderText = "Index";
+			column_index.ReadOnly = true;
+			column_index.Resizable = DataGridViewTriState.False;
+
+			column_cname.Name = "CollectionName";
+			column_cname.HeaderText = "CollectionName";
+			column_cname.ReadOnly = true;
+			column_cname.Resizable = DataGridViewTriState.False;
+
+			column_compr.Name = "Compression";
+			column_compr.HeaderText = "Compression";
+			column_compr.ReadOnly = true;
+			column_compr.Resizable = DataGridViewTriState.False;
+
+			column_width.Name = "Width";
+			column_width.HeaderText = "Width";
+			column_width.ReadOnly = true;
+			column_width.Resizable = DataGridViewTriState.False;
+
+			column_heigt.Name = "Height";
+			column_heigt.HeaderText = "Height";
+			column_heigt.ReadOnly = true;
+			column_heigt.Resizable = DataGridViewTriState.False;
+
+			column_nmmip.Name = "Mipmaps";
+			column_nmmip.HeaderText = "MipMaps";
+			column_nmmip.ReadOnly = true;
+			column_nmmip.Resizable = DataGridViewTriState.False;
+
+			column_index.Width = 30;
+			column_cname.Width = 250;
+
+			column_compr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_width.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_heigt.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			column_nmmip.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+			column_index.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_cname.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_compr.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_width.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_heigt.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_nmmip.SortMode = DataGridViewColumnSortMode.NotSortable;
+			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			BinaryDataView.MultiSelect = false;
+
+			BinaryDataView.Columns.Add(column_index);
+			BinaryDataView.Columns.Add(column_cname);
+			BinaryDataView.Columns.Add(column_compr);
+			BinaryDataView.Columns.Add(column_width);
+			BinaryDataView.Columns.Add(column_heigt);
+			BinaryDataView.Columns.Add(column_nmmip);
+			BinaryDataView.RowHeadersWidth = 30;
+		}
+
+
+		#endregion
+
+		#region STR
+
+		private void BinaryDataViewSTRColumnInit()
+		{
+			var column_index = new DataGridViewTextBoxColumn();
+			var column_bhash = new DataGridViewTextBoxColumn();
+			var column_label = new DataGridViewTextBoxColumn();
+			var column_descr = new DataGridViewTextBoxColumn();
+
+			column_index.Name = "Index";
+			column_index.HeaderText = "Index";
+			column_index.ReadOnly = true;
+			column_index.Resizable = DataGridViewTriState.False;
+
+			column_bhash.Name = "Key";
+			column_bhash.HeaderText = "Key";
+			column_bhash.ReadOnly = true;
+			column_bhash.Resizable = DataGridViewTriState.False;
+
+			column_label.Name = "Label";
+			column_label.HeaderText = "Label";
+			column_label.ReadOnly = true;
+			column_label.Resizable = DataGridViewTriState.False;
+
+			column_descr.Name = "Text";
+			column_descr.HeaderText = "Text";
+			column_descr.ReadOnly = true;
+			column_descr.Resizable = DataGridViewTriState.False;
+
+			column_index.Width = 50;
+			column_bhash.Width = 70;
+			column_label.Width = 250;
+			column_descr.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+			column_index.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_bhash.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_label.SortMode = DataGridViewColumnSortMode.NotSortable;
+			column_descr.SortMode = DataGridViewColumnSortMode.NotSortable;
+			BinaryDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			BinaryDataView.MultiSelect = false;
+
+			BinaryDataView.Columns.Add(column_index);
+			BinaryDataView.Columns.Add(column_bhash);
+			BinaryDataView.Columns.Add(column_label);
+			BinaryDataView.Columns.Add(column_descr);
+			BinaryDataView.RowHeadersWidth = 30;
+		}
+
+
+		#endregion
+
 	}
 }
