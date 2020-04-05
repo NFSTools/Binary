@@ -26,5 +26,12 @@ namespace Binary.Endscript
 			box.Text += str + Environment.NewLine;
 			Core.WriteEndscriptLine(str);
 		}
+
+		public static void WriteCommand(string line, FastColoredTextBox box)
+		{
+			box.Text += NeedsNewLine(box) ? Environment.NewLine : string.Empty;
+			box.Text += line + Environment.NewLine;
+			Core.WriteEndscriptLine(line);
+		}
 	}
 }

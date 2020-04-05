@@ -627,7 +627,7 @@ namespace Binary.Support
 					this.LaunchFNGEditor(e.RowIndex);
 					return;
 				case eRootType.TPKBlocks:
-					
+					this.LaunchTPKEditor(e.RowIndex);
 					return;
 				case eRootType.STRBlocks:
 					
@@ -1148,6 +1148,21 @@ namespace Binary.Support
 				row.Cells.AddRange(keycell, namecell, compresscell, widthcell, heightcell, mipmapscell);
 				this.BinaryDataView.Rows.Add(row);
 			}
+		}
+
+		private void LaunchTPKEditor(int RowIndex)
+		{
+			var tpk = (TPKBlock)this.db.GetCollection(this.BinaryTree.SelectedNode.Text, TPKBlocks);
+			if (tpk == null) return;
+
+			var inter = this.BinaryDataView.Rows[RowIndex].Cells[0].Value.ToString();
+			var key = ConvertX.ToUInt32(inter);
+
+			var TPKForm = new Interact.TPKEditor(tpk, key);
+			TPKForm.ShowDialog();
+			foreach (var command in TPKForm.CommandsProcessed)
+				Generate.WriteCommand(command, this.ColoredTextForm);
+			this.UpdateBinaryDataView();
 		}
 
 		#endregion

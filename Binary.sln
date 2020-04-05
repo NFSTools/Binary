@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Binary", "Binary\Binary.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalLib", "..\GlobalLib\GlobalLib\GlobalLib.csproj", "{048C0AF5-4580-45B9-B51D-9E5788EFFEA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFS-Binary", "..\Build_2\NFS-GlobalEd\NFS-GlobalEd\NFS-Binary.csproj", "{385F0417-223B-47FE-A32B-A04FA5AEDFFB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{048C0AF5-4580-45B9-B51D-9E5788EFFEA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{048C0AF5-4580-45B9-B51D-9E5788EFFEA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{048C0AF5-4580-45B9-B51D-9E5788EFFEA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{385F0417-223B-47FE-A32B-A04FA5AEDFFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{385F0417-223B-47FE-A32B-A04FA5AEDFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{385F0417-223B-47FE-A32B-A04FA5AEDFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{385F0417-223B-47FE-A32B-A04FA5AEDFFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

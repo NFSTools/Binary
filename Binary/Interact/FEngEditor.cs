@@ -21,6 +21,7 @@ namespace Binary.Interact
         {
             this._color = color;
             this._index = index;
+            this.InitializeComponent();
         }
 
         private void TrackBar_Red_Scroll(object sender, EventArgs e)
