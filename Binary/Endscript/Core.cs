@@ -1,12 +1,16 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using GlobalLib.Core;
-using GlobalLib.Reflection.Abstract;
 using GlobalLib.Utils;
+using GlobalLib.Utils.EA;
+using GlobalLib.Reflection.Enum;
+using GlobalLib.Reflection.Abstract;
+using GlobalLib.Support.Shared.Class;
+using GlobalLib.Support.Shared.Parts.FNGParts;
 
 
 
@@ -20,15 +24,18 @@ namespace Binary.Endscript
         private const string relative = "relative";
         private const string file = "file";
         private const string folder = "folder";
-        private static System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+        private const string FNGroups = "FNGroups";
+        private const string TPKBlocks = "TPKBlocks";
+        private const string STRBlocks = "STRBlocks";
+        private static Stopwatch watch = new Stopwatch();
 
-		#endregion
+        #endregion
 
-		#region End File Management
+        #region End File Management
 
-        private static string GlobalDir { get; set; }
+        private static string GlobalDir { get; set; } = string.Empty;
 
-		private static string EndFileDir { get; set; }
+        private static string EndFileDir { get; set; } = string.Empty;
 
         public static void CreateEndscriptFile(string filename)
         {
@@ -215,11 +222,11 @@ namespace Binary.Endscript
             else return false;
         }
 
-		#endregion
+        #endregion
 
-		#region Processing
+        #region Processing
 
-		public static string ExecuteEndscriptLine(string line, BasicBase db, string filedir = null)
+        public static string ExecuteEndscriptLine(string line, BasicBase db, string filedir = "")
         {
             string error = "Incorrect amount of passed script parameters.";
             var words = DisperseLine(line, new char[] { ' ', '\t', '\n'});
@@ -233,26 +240,45 @@ namespace Binary.Endscript
                 case Commands.update:
                     if (len == 5) return ExecuteUpdateCollection(db, words[1], words[2],
                         words[3], words[4]);
+                    else if (len == 6) return ExecuteUpdateTPKSTR(db, words[1], words[2],
+                        words[3], words[4], words[5]);
                     else if (len == 7) return ExecuteUpdateSubNode(db, words[1], words[2],
                         words[3], words[4], words[5], words[6]);
                     else goto default;
 
                 case Commands.add:
                     if (len == 3) return ExecuteAddCollection(db, words[1], words[2]);
+                    else if (len == 4) return ExecuteAddTexture(db, words[1], words[2], 
+                        Path.Combine(filedir, words[3]));
+                    else if (len == 6) return ExecuteAddString(db, words[1], words[2],
+                        words[3], words[4], words[5]);
                     else goto default;
 
                 case Commands.delete:
                     if (len == 3) return ExecuteDeleteCollection(db, words[1], words[2]);
+                    else if (len == 4) return ExecuteDeleteTPKSTR(db, words[1], words[2], words[3]);
                     else goto default;
 
                 case Commands.copy:
                     if (len == 4) return ExecuteCopyCollection(db, words[1], words[2], words[3]);
+                    else if (len == 5) return ExecuteCopyTexture(db, words[1], words[2],
+                        words[3], words[4]);
                     else goto default;
 
                 case Commands.@static:
                     if (!Properties.Settings.Default.EnableStaticEnd)
                         return "Static command execution is not enabled. Unable to process.";
                     if (len == 4) return ExecuteStaticCollection(db, words[1], words[2], words[3]);
+                    else goto default;
+
+                case Commands.replace:
+                    if (len == 5) return ExecuteReplaceTexture(db, words[1], words[2],
+                        words[3], Path.Combine(filedir, words[4]));
+                    else goto default;
+
+                case Commands.import:
+                    if (len == 3) return ExecuteImportCollection(db, words[1], 
+                        Path.Combine(filedir, words[2]));
                     else goto default;
 
                 case Commands.move:
@@ -332,11 +358,93 @@ namespace Binary.Endscript
 		private static string ExecuteUpdateCollection(BasicBase db, string root, string node,
             string field, string value)
         {
+            if (root == FNGroups) return ExecuteUpdateFNG(db, node, field, value);
             string error = null;
             if (!db.TryGetCollection(node, root, out var collection))
                 return $"Collection {node} cannot be found in root {root}.";
             if (collection.SetValue(field, value, ref error)) return null;
             else return error;
+        }
+
+        private static string ExecuteUpdateFNG(BasicBase db, string node, string field, string value)
+        {
+            if (!db.TryGetCollection(node, FNGroups, out var collection))
+                return $"Collection {node} does not exist in root {FNGroups}.";
+            if (!(collection is FNGroup fng))
+                return $"Collection {node} is not a {FNGroups} collection.";
+
+            if (!SAT.CanBeColor(value))
+                return $"Value {value} is not an 8-digit hexadecimal color-type.";
+
+            var color = new FEngColor(null);
+            color.Alpha = SAT.GetAlpha(value);
+            color.Red = SAT.GetRed(value);
+            color.Green = SAT.GetGreen(value);
+            color.Blue = SAT.GetBlue(value);
+
+            if (field.StartsWith("ReplaceSame"))
+            {
+                if (field.StartsWith("ReplaceSameNoAlpha[") && field.EndsWith("]"))
+                {
+                    if (FormatX.GetInt32(field, "ReplaceSameNoAlpha[{X}]", out int index))
+                        fng.TrySetSame(index, color, true);
+                    else
+                        return $"Unable to get color index from field named {field}.";
+                }
+                else if (field.StartsWith("ReplaceSameWithAlpha[") && field.EndsWith("]"))
+                {
+                    if (FormatX.GetInt32(field, "ReplaceSameWithAlpha[{X}]", out int index))
+                        fng.TrySetSame(index, color, false);
+                    else
+                        return $"Unable to get color index from field named {field}.";
+                }
+                else
+                    return $"Incorrect passed parameter named {field}.";
+            }
+            else if (field == "ReplaceAllNoAlpha")
+                fng.TrySetAll(color, true);
+            else if (field == "ReplaceAllWithAlpha")
+                fng.TrySetAll(color, false);
+            else
+            {
+                int index = SAT.GetIndex(field);
+                if (index >= fng.InfoLength || index == -1)
+                    return $"Field named {field} does not exist.";
+                fng.TrySetOne(index, color);
+            }
+            return null;
+        }
+
+        private static string ExecuteUpdateTPKSTR(BasicBase db, string root, string node,
+            string hash, string field, string value)
+        {
+            switch (root)
+            {
+                case TPKBlocks:
+                    if (!db.TryGetCollection(node, root, out var inter))
+                        return $"Collection {node} cannot be found in root {root}.";
+                    if (!(inter is TPKBlock tpk))
+                        return $"Collection {node} is not a {STRBlocks} collection.";
+                    var texture = tpk.FindTexture(ConvertX.ToUInt32(hash), eKeyType.BINKEY);
+                    if (texture == null) return $"Texture with key {hash} does not exist in {node}";
+                    string error = null;
+                    texture.SetValue(field, value, ref error);
+                    return error;
+
+                case STRBlocks:
+                    if (!db.TryGetCollection(node, root, out var collection))
+                        return $"Collection {node} cannot be found in root {root}.";
+                    if (!(collection is STRBlock str))
+                        return $"Collection {node} is not a {STRBlocks} collection.";
+                    var record = str.GetRecord(hash);
+                    if (record == null) return $"StringRecord with key {hash} does not exist.";
+                    if (!record.TrySetValue(field, value))
+                        return $"Unable to set value {value} in field {field} specified.";
+                    else return null;
+
+                default:
+                    return $"Invalid root passed named {root}.";
+            }
         }
 
         private static string ExecuteUpdateSubNode(BasicBase db, string root, string node,
@@ -360,9 +468,34 @@ namespace Binary.Endscript
             else return error;
         }
 
-		#endregion
+        private static string ExecuteAddTexture(BasicBase db, string root, string node, string path)
+        {
+            if (!db.TryGetCollection(node, root, out var collection))
+                return $"Collection {node} cannot be found in root {root}.";
+            if (!(collection is TPKBlock tpk))
+                return $"Collection {node} is not a {root} collection.";
+            if (!File.Exists(path))
+                return $"File named {path} does not exist.";
+            if (tpk.TryAddTexture(Path.GetFileNameWithoutExtension(path), path, out var error))
+                return null;
+            else
+                return error;
+        }
 
-		#region Delete Command
+        private static string ExecuteAddString(BasicBase db, string root, string node,
+            string key, string label, string text)
+        {
+            if (!db.TryGetCollection(node, root, out var collection))
+                return $"Collection {node} cannot be found in root {root}.";
+            if (!(collection is STRBlock str))
+                return $"Collection {node} is not a {STRBlocks} collection.";
+            if (str.TryAddRecord(key, label, text, out var error)) return null;
+            else return error;
+        }
+
+        #endregion
+
+        #region Delete Command
 
         private static string ExecuteDeleteCollection(BasicBase db, string root, string node)
         {
@@ -370,9 +503,36 @@ namespace Binary.Endscript
             else return error;
         }
 
-		#endregion
+        private static string ExecuteDeleteTPKSTR(BasicBase db, string root, string node, string hash)
+        {
+            switch (root)
+            {
+                case TPKBlocks:
+                    if (!db.TryGetCollection(node, root, out var inter))
+                        return $"Collection {node} cannot be found in root {root}.";
+                    if (!(inter is TPKBlock tpk))
+                        return $"Collection {node} is not a {STRBlocks} collection.";
+                    if (tpk.TryRemoveTexture(ConvertX.ToUInt32(hash), eKeyType.BINKEY, out var error))
+                        return null;
+                    else
+                        return error;
 
-		#region Copy Command
+                case STRBlocks:
+                    if (!db.TryGetCollection(node, root, out var collection))
+                        return $"Collection {node} cannot be found in root {root}.";
+                    if (!(collection is STRBlock str))
+                        return $"Collection {node} is not a {STRBlocks} collection.";
+                    if (str.TryRemoveRecord(hash, out var fail)) return null;
+                    else return fail;
+
+                default:
+                    return $"Invalid root passed named {root}.";
+            }
+        }
+
+        #endregion
+
+        #region Copy Command
 
         private static string ExecuteCopyCollection(BasicBase db, string root,
             string copyfrom, string newname)
@@ -381,9 +541,22 @@ namespace Binary.Endscript
             else return error;
         }
 
-		#endregion
+        private static string ExecuteCopyTexture(BasicBase db, string root, string node,
+            string hash, string cname)
+        {
+            if (!db.TryGetCollection(node, root, out var collection))
+                return $"Collection {node} cannot be found in root {root}.";
+            if (!(collection is TPKBlock tpk))
+                return $"Collection {node} is not a {STRBlocks} collection.";
+            if (tpk.TryCloneTexture(cname, ConvertX.ToUInt32(hash), eKeyType.BINKEY, out var error))
+                return null;
+            else
+                return error;
+        }
 
-		#region Static Command
+        #endregion
+
+        #region Static Command
 
         private static string ExecuteStaticCollection(BasicBase db, string root,
             string field, string value)
@@ -394,9 +567,50 @@ namespace Binary.Endscript
 
 		#endregion
 
+		#region Replace Command
+
+        private static string ExecuteReplaceTexture(BasicBase db, string root, string node,
+            string hash, string path)
+        {
+            if (!db.TryGetCollection(node, root, out var collection))
+                return $"Collection {node} cannot be found in root {root}.";
+            if (!(collection is TPKBlock tpk))
+                return $"Collection {node} is not a {STRBlocks} collection.";
+            if (!File.Exists(path))
+                return $"File named {path} does not exist.";
+            if (tpk.TryReplaceTexture(ConvertX.ToUInt32(hash), eKeyType.BINKEY, path, out var error))
+                return null;
+            else
+                return error;
+        }
+
+		#endregion
+
+		#region Import Command
+
+        private static string ExecuteImportCollection(BasicBase db, string root, string path)
+        {
+            if (root == "Collision")
+            {
+                if (db.TryAddCollision(Path.GetFileNameWithoutExtension(path), path, out var error))
+                    return null;
+                else
+                    return error;
+            }
+            else
+            {
+                if (db.TryImportCollection(root, path, out var error))
+                    return null;
+                else
+                    return error;
+            }
+        }
+
+		#endregion
+
 		#region Move Command
 
-        private static string ExecuteMoveCommand(string method, string type,
+		private static string ExecuteMoveCommand(string method, string type,
             string dir, string thispath, string destpath)
         {
             try

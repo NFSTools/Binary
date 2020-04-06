@@ -45,13 +45,13 @@ namespace Binary.Interact
             {
                 this._texture.TileableUV = 3;
                 this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
-                    $"0x{this._texture.BinKey:X8} {tileable} {true}");
+                    $"0x{this._texture.BinKey:X8} {tileable} 3");
             }
             else if (this._texture.TileableUV > 0 && !this.TileableUVEnabled.Checked)
             {
                 this._texture.TileableUV = 0;
                 this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
-                    $"0x{this._texture.BinKey:X8} {tileable} {false}");
+                    $"0x{this._texture.BinKey:X8} {tileable} 0");
             }
         }
 
@@ -90,7 +90,7 @@ namespace Binary.Interact
                 }
                 else
                 {
-                    this.CommandsProcessed.Add($"{Commands.duplicate} {tpkblock} {this.TPK.CollectionName} " +
+                    this.CommandsProcessed.Add($"{Commands.copy} {tpkblock} {this.TPK.CollectionName} " +
                         $"0x{this._texture.BinKey:X8} {newname}");
                 }
             }

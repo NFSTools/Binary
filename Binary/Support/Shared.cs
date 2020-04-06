@@ -90,9 +90,23 @@ namespace Binary.Support
 			this.DataSet_CreateBackups.Enabled = true;
 			this.DataSet_UnlockFiles.Enabled = true;
 			this.DataSet_RunGame.Enabled = true;
-			this.DataSet_ExportAllTextures.Enabled = true;
+			//this.DataSet_ExportAllTextures.Enabled = true;
 			this.DataSet_DBInfo.Enabled = true;
 			this.EndscriptToolStripMenuItemI.Enabled = true;
+			switch (this._game)
+			{
+				case GameINT.Carbon:
+					this.CollisionToolStripMenuItemI.Enabled = true;
+					this.DataSet_BoundsList.Enabled = true;
+					this.PresetSkinToolStripMenuItemI.Enabled = true;
+					break;
+				case GameINT.MostWanted:
+					this.CollisionToolStripMenuItemI.Enabled = true;
+					this.DataSet_BoundsList.Enabled = true;
+					break;
+				default:
+					break;
+			}
 		}
 
 		private void DisableButtons()
@@ -109,6 +123,9 @@ namespace Binary.Support
 			this.DataSet_ExportAllTextures.Enabled = false;
 			this.DataSet_DBInfo.Enabled = false;
 			this.EndscriptToolStripMenuItemI.Enabled = false;
+			this.CollisionToolStripMenuItemI.Enabled = false;
+			this.DataSet_BoundsList.Enabled = false;
+			this.PresetSkinToolStripMenuItemI.Enabled = false;
 		}
 
 		private void CreateBackupFiles(bool force)

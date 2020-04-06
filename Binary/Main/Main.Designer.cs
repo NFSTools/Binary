@@ -269,9 +269,9 @@
 			// 
 			this.GlobalStatusStrip.ForeColor = System.Drawing.SystemColors.Window;
 			this.GlobalStatusStrip.Name = "GlobalStatusStrip";
-			this.GlobalStatusStrip.Size = new System.Drawing.Size(785, 17);
+			this.GlobalStatusStrip.Size = new System.Drawing.Size(754, 17);
 			this.GlobalStatusStrip.Spring = true;
-			this.GlobalStatusStrip.Text = "Binary by MaxHwoy Beta v0.8.5 | Powered by GlobalLib";
+			this.GlobalStatusStrip.Text = "Binary by MaxHwoy Beta v0.9.0 | Powered by GlobalLib";
 			this.GlobalStatusStrip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// PanelDescription

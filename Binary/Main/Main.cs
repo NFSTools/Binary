@@ -97,12 +97,12 @@ namespace Binary.Main
         private void ChooseNFSC_Click(object sender, EventArgs e)
         {
             this.Hide();
+            this.ParseConfigurations();
+            this.InitializeLogFile();
             if (Settings.Default.EnableWatermarks)
                 Process.Watermark = $"Binary by MaxHwoy | Edited by {Settings.Default.BinaryUsername}";
             else
                 Process.Watermark = string.Empty;
-            this.ParseConfigurations();
-            this.InitializeLogFile();
             
             bool forceload = false;
             string dir = Settings.Default.DirectoryC;
@@ -122,6 +122,10 @@ namespace Binary.Main
             this.Hide();
             this.ParseConfigurations();
             this.InitializeLogFile();
+            if (Settings.Default.EnableWatermarks)
+                Process.Watermark = $"Binary by MaxHwoy | Edited by {Settings.Default.BinaryUsername}";
+            else
+                Process.Watermark = string.Empty;
 
             bool forceload = false;
             string dir = Settings.Default.DirectoryMW;
@@ -139,9 +143,12 @@ namespace Binary.Main
         private void ChooseNFSUG2_Click(object sender, EventArgs e)
         {
             this.Hide();
-            string str = Settings.Default.YAMLDirectory;
             this.ParseConfigurations();
             this.InitializeLogFile();
+            if (Settings.Default.EnableWatermarks)
+                Process.Watermark = $"Binary by MaxHwoy | Edited by {Settings.Default.BinaryUsername}";
+            else
+                Process.Watermark = string.Empty;
 
             bool forceload = false;
             string dir = Settings.Default.DirectoryUG2;
