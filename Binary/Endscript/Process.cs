@@ -47,7 +47,7 @@ namespace Binary.Endscript
 						if (!line.Contains("="))
 							throw new Exception($"Unable to process line {line} in script {filename}.");
 						var tokens = Utils.CleanUp.SplitScriptString(line);
-						if (!Enum.TryParse(tokens.Item1, out ScriptArgs arg))
+						if (!Enum.TryParse(tokens.Item1, out eScriptArgs arg))
 							throw new Exception($"Unrecognized keyword {tokens.Item1} in script {filename}.");
 						if (!ScriptDict.KeywordFunctions[arg].Invoke(tokens.Item2, launches[last_index]))
 							throw new Exception($"Unable to process keyword {arg} in script {filename}.");

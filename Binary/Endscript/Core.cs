@@ -122,7 +122,7 @@ namespace Binary.Endscript
                 string line = lines[loop];
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 else if (line.StartsWith("//")) continue;
-                else if (line.StartsWith(Commands.attach.ToString()))
+                else if (line.StartsWith(eCommands.attach.ToString()))
                 {
                     int a1 = line.LastIndexOf(' ') + 1;
                     var subfile = line.Substring(a1, line.Length - a1);
@@ -230,14 +230,14 @@ namespace Binary.Endscript
         {
             string error = "Incorrect amount of passed script parameters.";
             var words = DisperseLine(line, new char[] { ' ', '\t', '\n'});
-            if (!Enum.TryParse(words[0], out Commands command))
+            if (!Enum.TryParse(words[0], out eCommands command))
                 return $"Unrecognized command {words[0]}; unable to process.";
 
             int len = words.Length;
 
             switch (command)
             {
-                case Commands.update:
+                case eCommands.update:
                     if (len == 5) return ExecuteUpdateCollection(db, words[1], words[2],
                         words[3], words[4]);
                     else if (len == 6) return ExecuteUpdateTPKSTR(db, words[1], words[2],
@@ -246,7 +246,7 @@ namespace Binary.Endscript
                         words[3], words[4], words[5], words[6]);
                     else goto default;
 
-                case Commands.add:
+                case eCommands.add:
                     if (len == 3) return ExecuteAddCollection(db, words[1], words[2]);
                     else if (len == 4) return ExecuteAddTexture(db, words[1], words[2], 
                         Path.Combine(filedir, words[3]));
@@ -254,47 +254,47 @@ namespace Binary.Endscript
                         words[3], words[4], words[5]);
                     else goto default;
 
-                case Commands.delete:
+                case eCommands.delete:
                     if (len == 3) return ExecuteDeleteCollection(db, words[1], words[2]);
                     else if (len == 4) return ExecuteDeleteTPKSTR(db, words[1], words[2], words[3]);
                     else goto default;
 
-                case Commands.copy:
+                case eCommands.copy:
                     if (len == 4) return ExecuteCopyCollection(db, words[1], words[2], words[3]);
                     else if (len == 5) return ExecuteCopyTexture(db, words[1], words[2],
                         words[3], words[4]);
                     else goto default;
 
-                case Commands.@static:
+                case eCommands.@static:
                     if (!Properties.Settings.Default.EnableStaticEnd)
                         return "Static command execution is not enabled. Unable to process.";
                     if (len == 4) return ExecuteStaticCollection(db, words[1], words[2], words[3]);
                     else goto default;
 
-                case Commands.replace:
+                case eCommands.replace:
                     if (len == 5) return ExecuteReplaceTexture(db, words[1], words[2],
                         words[3], Path.Combine(filedir, words[4]));
                     else goto default;
 
-                case Commands.import:
+                case eCommands.import:
                     if (len == 3) return ExecuteImportCollection(db, words[1], 
                         Path.Combine(filedir, words[2]));
                     else goto default;
 
-                case Commands.move:
+                case eCommands.move:
                     if (len == 5) return ExecuteMoveCommand(words[1], words[2], filedir,
                         words[3], words[4]);
                     else goto default;
 
-                case Commands.erase:
+                case eCommands.erase:
                     if (len == 4) return ExecuteEraseCommand(words[1], words[2], filedir, words[3]);
                     else goto default;
 
-                case Commands.create:
+                case eCommands.create:
                     if (len == 4) return ExecuteCreateCommand(words[1], words[2], filedir, words[3]);
                     else goto default;
 
-                case Commands.execute:
+                case eCommands.execute:
                     if (len == 2)
                     {
                         watch.Stop();
@@ -313,12 +313,12 @@ namespace Binary.Endscript
         {
             if (string.IsNullOrWhiteSpace(line)) return false;
             var words = DisperseLine(line, ' ', '\t', '\n', '\r', '\0');
-            Enum.TryParse(words[0], out Commands command);
+            Enum.TryParse(words[0], out eCommands command);
             var parent = words[1];
             switch (command)
             {
-                case Commands.update:
-                case Commands.@static:
+                case eCommands.update:
+                case eCommands.@static:
                     if (line.Contains("CollectionName"))
                         return true;
                     return false;

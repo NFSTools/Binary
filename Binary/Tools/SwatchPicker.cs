@@ -10,7 +10,7 @@ namespace Binary.Tools
     {
         public SwatchPicker()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void RGBtoHSV(float red, float green, float blue)
@@ -47,66 +47,66 @@ namespace Binary.Tools
 
             hue = 90 - (hue / 4);
 
-            TextBoxPaintSwatch.Text = ((int)hue).ToString();
-            TextBoxSaturation.Text = sat.ToString();
-            TextBoxBrightness.Text = brt.ToString();
-            ColorPreview.BackColor = Color.FromArgb((int)TrackBar_Red.Value, (int)TrackBar_Green.Value, (int)TrackBar_Blue.Value);
+            this.TextBoxPaintSwatch.Text = ((int)hue).ToString();
+            this.TextBoxSaturation.Text = sat.ToString();
+            this.TextBoxBrightness.Text = brt.ToString();
+            this.ColorPreview.BackColor = Color.FromArgb(this.TrackBar_Red.Value, this.TrackBar_Green.Value, this.TrackBar_Blue.Value);
         }
 
         private void TrackBar_Red_Scroll(object sender, EventArgs e)
         {
-            float red = Convert.ToSingle(TrackBar_Red.Value) / 255;
-            float green = Convert.ToSingle(TrackBar_Green.Value) / 255;
-            float blue = Convert.ToSingle(TrackBar_Blue.Value) / 255;
-            RGBtoHSV(red, green, blue);
+            float red = Convert.ToSingle(this.TrackBar_Red.Value) / 255;
+            float green = Convert.ToSingle(this.TrackBar_Green.Value) / 255;
+            float blue = Convert.ToSingle(this.TrackBar_Blue.Value) / 255;
+            this.RGBtoHSV(red, green, blue);
         }
 
         private void TrackBar_Green_Scroll(object sender, EventArgs e)
         {
-            float red = Convert.ToSingle(TrackBar_Red.Value) / 255;
-            float green = Convert.ToSingle(TrackBar_Green.Value) / 255;
-            float blue = Convert.ToSingle(TrackBar_Blue.Value) / 255;
-            RGBtoHSV(red, green, blue);
+            float red = Convert.ToSingle(this.TrackBar_Red.Value) / 255;
+            float green = Convert.ToSingle(this.TrackBar_Green.Value) / 255;
+            float blue = Convert.ToSingle(this.TrackBar_Blue.Value) / 255;
+            this.RGBtoHSV(red, green, blue);
         }
 
         private void TrackBar_Blue_Scroll(object sender, EventArgs e)
         {
-            float red = Convert.ToSingle(TrackBar_Red.Value) / 255;
-            float green = Convert.ToSingle(TrackBar_Green.Value) / 255;
-            float blue = Convert.ToSingle(TrackBar_Blue.Value) / 255;
-            RGBtoHSV(red, green, blue);
+            float red = Convert.ToSingle(this.TrackBar_Red.Value) / 255;
+            float green = Convert.ToSingle(this.TrackBar_Green.Value) / 255;
+            float blue = Convert.ToSingle(this.TrackBar_Blue.Value) / 255;
+            this.RGBtoHSV(red, green, blue);
         }
 
         private void OpenWindowsColorForm_Click(object sender, EventArgs e)
         {
-            if (SwatchDialog.ShowDialog() == DialogResult.OK)
+            if (this.SwatchDialog.ShowDialog() == DialogResult.OK)
             {
 
-                TrackBar_Red.Value = SwatchDialog.Color.R;
-                TrackBar_Green.Value = SwatchDialog.Color.G;
-                TrackBar_Blue.Value = SwatchDialog.Color.B;
+                this.TrackBar_Red.Value = this.SwatchDialog.Color.R;
+                this.TrackBar_Green.Value = this.SwatchDialog.Color.G;
+                this.TrackBar_Blue.Value = this.SwatchDialog.Color.B;
 
-                float red = Convert.ToSingle(TrackBar_Red.Value) / 255;
-                float green = Convert.ToSingle(TrackBar_Green.Value) / 255;
-                float blue = Convert.ToSingle(TrackBar_Blue.Value) / 255;
+                float red = Convert.ToSingle(this.TrackBar_Red.Value) / 255;
+                float green = Convert.ToSingle(this.TrackBar_Green.Value) / 255;
+                float blue = Convert.ToSingle(this.TrackBar_Blue.Value) / 255;
 
-                RGBtoHSV(red, green, blue);
+                this.RGBtoHSV(red, green, blue);
             }
         }
 
         private void CopyPaintSwatchValue_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(TextBoxPaintSwatch.Text);
+            Clipboard.SetText(this.TextBoxPaintSwatch.Text);
         }
 
         private void CopySaturationValue_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(TextBoxSaturation.Text);
+            Clipboard.SetText(this.TextBoxSaturation.Text);
         }
 
         private void CopyBrightnessValue_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(TextBoxBrightness.Text);
+            Clipboard.SetText(this.TextBoxBrightness.Text);
         }
     }
 }

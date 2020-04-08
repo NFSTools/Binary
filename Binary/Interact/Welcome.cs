@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Binary.Properties;
 
 
 
@@ -9,7 +10,7 @@ namespace Binary.Interact
 	{
 		public Welcome()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void ExitButton_Click(object sender, EventArgs e)
@@ -20,16 +21,16 @@ namespace Binary.Interact
 		private void ConfirmButton_Click(object sender, EventArgs e)
 		{
 			string PasswordPassed = "I_Am_The_Most_Wanted";
-			string PasswordEntered = PasswordBox.Text;
+			string PasswordEntered = this.PasswordBox.Text;
 			if (PasswordPassed == PasswordEntered)
 			{
-				Properties.Settings.Default.PasswordPassed = true;
-				Properties.Settings.Default.Save();
+				Settings.Default.PasswordPassed = true;
+				Settings.Default.Save();
 				this.Close();
 			}
 			else
 			{
-				PasswordBox.Text = "";
+				this.PasswordBox.Text = "";
 				MessageBox.Show("Incorrect password. Please read Readme.txt to find the correct one.", "Warning");
 			}
 		}

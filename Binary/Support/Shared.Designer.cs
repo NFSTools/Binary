@@ -30,11 +30,11 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Shared));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.DataSet_MenuStrip = new System.Windows.Forms.MenuStrip();
 			this.mainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.DataSet_OpenFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +73,7 @@
 			this.DataSet_BoundsList = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.DataSet_AboutBox = new System.Windows.Forms.ToolStripMenuItem();
-			this.OpenReadmeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DataSet_Readme = new System.Windows.Forms.ToolStripMenuItem();
 			this.DataSet_StatusStrip = new System.Windows.Forms.StatusStrip();
 			this.DataSet_Status = new System.Windows.Forms.ToolStripStatusLabel();
 			this.DataSet_Split1 = new System.Windows.Forms.SplitContainer();
@@ -83,6 +83,7 @@
 			this.BinaryTreeDeleteNode = new System.Windows.Forms.ToolStripMenuItem();
 			this.BinaryTreeCopyNode = new System.Windows.Forms.ToolStripMenuItem();
 			this.BinaryTreeExportNode = new System.Windows.Forms.ToolStripMenuItem();
+			this.BinaryTreeScriptNode = new System.Windows.Forms.ToolStripMenuItem();
 			this.BinaryTreeImageList = new System.Windows.Forms.ImageList(this.components);
 			this.DataSet_Split2 = new System.Windows.Forms.SplitContainer();
 			this.BinaryDataView = new System.Windows.Forms.DataGridView();
@@ -91,6 +92,7 @@
 			this.OpenEndscriptDialog = new System.Windows.Forms.OpenFileDialog();
 			this.ExportCollectionDialog = new System.Windows.Forms.SaveFileDialog();
 			this.OpenBinFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.TextureExportDialog = new System.Windows.Forms.FolderBrowserDialog();
 			this.DataSet_MenuStrip.SuspendLayout();
 			this.DataSet_StatusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DataSet_Split1)).BeginInit();
@@ -142,7 +144,7 @@
 			this.DataSet_OpenFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_OpenFile.Name = "DataSet_OpenFile";
 			this.DataSet_OpenFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.DataSet_OpenFile.Size = new System.Drawing.Size(180, 22);
+			this.DataSet_OpenFile.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_OpenFile.Text = "Open";
 			this.DataSet_OpenFile.Click += new System.EventHandler(this.DataSet_OpenFile_Click);
 			// 
@@ -153,7 +155,7 @@
 			this.DataSet_ReloadFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ReloadFile.Name = "DataSet_ReloadFile";
 			this.DataSet_ReloadFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-			this.DataSet_ReloadFile.Size = new System.Drawing.Size(180, 22);
+			this.DataSet_ReloadFile.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_ReloadFile.Text = "Reload";
 			this.DataSet_ReloadFile.Click += new System.EventHandler(this.DataSet_ReloadFile_Click);
 			// 
@@ -164,7 +166,7 @@
 			this.DataSet_SaveFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_SaveFile.Name = "DataSet_SaveFile";
 			this.DataSet_SaveFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.DataSet_SaveFile.Size = new System.Drawing.Size(180, 22);
+			this.DataSet_SaveFile.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_SaveFile.Text = "Save";
 			this.DataSet_SaveFile.Click += new System.EventHandler(this.DataSet_SaveFile_Click);
 			// 
@@ -181,7 +183,7 @@
 			this.DataSet_ImportFile.Enabled = false;
 			this.DataSet_ImportFile.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_ImportFile.Name = "DataSet_ImportFile";
-			this.DataSet_ImportFile.Size = new System.Drawing.Size(180, 22);
+			this.DataSet_ImportFile.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_ImportFile.Text = "Import";
 			// 
 			// EndscriptToolStripMenuItemI
@@ -191,7 +193,7 @@
 			this.EndscriptToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.EndscriptToolStripMenuItemI.Name = "EndscriptToolStripMenuItemI";
 			this.EndscriptToolStripMenuItemI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-			this.EndscriptToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
+			this.EndscriptToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
 			this.EndscriptToolStripMenuItemI.Text = "Endscript";
 			this.EndscriptToolStripMenuItemI.Click += new System.EventHandler(this.EndscriptToolStripMenuItemI_Click);
 			// 
@@ -200,7 +202,7 @@
 			this.MaterialToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.MaterialToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.MaterialToolStripMenuItemI.Name = "MaterialToolStripMenuItemI";
-			this.MaterialToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
+			this.MaterialToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
 			this.MaterialToolStripMenuItemI.Text = "Material";
 			this.MaterialToolStripMenuItemI.Click += new System.EventHandler(this.MaterialToolStripMenuItemI_Click);
 			// 
@@ -209,7 +211,7 @@
 			this.CarTypeInfoToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.CarTypeInfoToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.CarTypeInfoToolStripMenuItemI.Name = "CarTypeInfoToolStripMenuItemI";
-			this.CarTypeInfoToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
+			this.CarTypeInfoToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
 			this.CarTypeInfoToolStripMenuItemI.Text = "CarTypeInfo";
 			this.CarTypeInfoToolStripMenuItemI.Click += new System.EventHandler(this.CarTypeInfoToolStripMenuItemI_Click);
 			// 
@@ -218,7 +220,7 @@
 			this.PresetRideToolStripMenuItemI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.PresetRideToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.PresetRideToolStripMenuItemI.Name = "PresetRideToolStripMenuItemI";
-			this.PresetRideToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
+			this.PresetRideToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
 			this.PresetRideToolStripMenuItemI.Text = "Preset Ride";
 			this.PresetRideToolStripMenuItemI.Click += new System.EventHandler(this.PresetRideToolStripMenuItemI_Click);
 			// 
@@ -228,7 +230,7 @@
 			this.PresetSkinToolStripMenuItemI.Enabled = false;
 			this.PresetSkinToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.PresetSkinToolStripMenuItemI.Name = "PresetSkinToolStripMenuItemI";
-			this.PresetSkinToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
+			this.PresetSkinToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
 			this.PresetSkinToolStripMenuItemI.Text = "Preset Skin";
 			this.PresetSkinToolStripMenuItemI.Click += new System.EventHandler(this.PresetSkinToolStripMenuItemI_Click);
 			// 
@@ -238,7 +240,7 @@
 			this.CollisionToolStripMenuItemI.Enabled = false;
 			this.CollisionToolStripMenuItemI.ForeColor = System.Drawing.SystemColors.Info;
 			this.CollisionToolStripMenuItemI.Name = "CollisionToolStripMenuItemI";
-			this.CollisionToolStripMenuItemI.Size = new System.Drawing.Size(180, 22);
+			this.CollisionToolStripMenuItemI.Size = new System.Drawing.Size(160, 22);
 			this.CollisionToolStripMenuItemI.Text = "Collision";
 			this.CollisionToolStripMenuItemI.Click += new System.EventHandler(this.CollisionToolStripMenuItemI_Click);
 			// 
@@ -248,7 +250,7 @@
 			this.DataSet_Exit.ForeColor = System.Drawing.SystemColors.Info;
 			this.DataSet_Exit.Name = "DataSet_Exit";
 			this.DataSet_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-			this.DataSet_Exit.Size = new System.Drawing.Size(180, 22);
+			this.DataSet_Exit.Size = new System.Drawing.Size(151, 22);
 			this.DataSet_Exit.Text = "Exit";
 			this.DataSet_Exit.Click += new System.EventHandler(this.DataSet_Exit_Click);
 			// 
@@ -368,40 +370,45 @@
 			this.ExportAsddsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ExportAsddsToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportAsddsToolStripMenuItem.Name = "ExportAsddsToolStripMenuItem";
-			this.ExportAsddsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ExportAsddsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.ExportAsddsToolStripMenuItem.Text = "Export as .dds";
+			this.ExportAsddsToolStripMenuItem.Click += new System.EventHandler(this.ExportAsddsToolStripMenuItem_Click);
 			// 
 			// ExportAspngToolStripMenuItem
 			// 
 			this.ExportAspngToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ExportAspngToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportAspngToolStripMenuItem.Name = "ExportAspngToolStripMenuItem";
-			this.ExportAspngToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ExportAspngToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.ExportAspngToolStripMenuItem.Text = "Export as .png";
+			this.ExportAspngToolStripMenuItem.Click += new System.EventHandler(this.ExportAspngToolStripMenuItem_Click);
 			// 
 			// ExportAsjpgToolStripMenuItem
 			// 
 			this.ExportAsjpgToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ExportAsjpgToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportAsjpgToolStripMenuItem.Name = "ExportAsjpgToolStripMenuItem";
-			this.ExportAsjpgToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ExportAsjpgToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.ExportAsjpgToolStripMenuItem.Text = "Export as .jpg";
+			this.ExportAsjpgToolStripMenuItem.Click += new System.EventHandler(this.ExportAsjpgToolStripMenuItem_Click);
 			// 
 			// ExportAstiffToolStripMenuItem
 			// 
 			this.ExportAstiffToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ExportAstiffToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportAstiffToolStripMenuItem.Name = "ExportAstiffToolStripMenuItem";
-			this.ExportAstiffToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ExportAstiffToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.ExportAstiffToolStripMenuItem.Text = "Export as .tiff";
+			this.ExportAstiffToolStripMenuItem.Click += new System.EventHandler(this.ExportAstiffToolStripMenuItem_Click);
 			// 
 			// ExportAsbmpToolStripMenuItem
 			// 
 			this.ExportAsbmpToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
 			this.ExportAsbmpToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.ExportAsbmpToolStripMenuItem.Name = "ExportAsbmpToolStripMenuItem";
-			this.ExportAsbmpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ExportAsbmpToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
 			this.ExportAsbmpToolStripMenuItem.Text = "Export as .bmp";
+			this.ExportAsbmpToolStripMenuItem.Click += new System.EventHandler(this.ExportAsbmpToolStripMenuItem_Click);
 			// 
 			// scriptingToolStripMenuItem
 			// 
@@ -489,12 +496,13 @@
 			this.DataSet_BoundsList.Name = "DataSet_BoundsList";
 			this.DataSet_BoundsList.Size = new System.Drawing.Size(214, 22);
 			this.DataSet_BoundsList.Text = "List of Collision Bounds";
+			this.DataSet_BoundsList.Click += new System.EventHandler(this.DataSet_BoundsList_Click);
 			// 
 			// helpToolStripMenuItem
 			// 
 			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DataSet_AboutBox,
-            this.OpenReadmeToolStripMenuItem});
+            this.DataSet_Readme});
 			this.helpToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
 			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
 			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -510,16 +518,16 @@
 			this.DataSet_AboutBox.Text = "About";
 			this.DataSet_AboutBox.Click += new System.EventHandler(this.DataSet_AboutBox_Click);
 			// 
-			// OpenReadmeToolStripMenuItem
+			// DataSet_Readme
 			// 
-			this.OpenReadmeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
-			this.OpenReadmeToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
-			this.OpenReadmeToolStripMenuItem.Name = "OpenReadmeToolStripMenuItem";
-			this.OpenReadmeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+			this.DataSet_Readme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(36)))), ((int)(((byte)(53)))));
+			this.DataSet_Readme.ForeColor = System.Drawing.SystemColors.Info;
+			this.DataSet_Readme.Name = "DataSet_Readme";
+			this.DataSet_Readme.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.R)));
-			this.OpenReadmeToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-			this.OpenReadmeToolStripMenuItem.Text = "Open Readme";
-			this.OpenReadmeToolStripMenuItem.Click += new System.EventHandler(this.OpenReadmeToolStripMenuItem_Click);
+			this.DataSet_Readme.Size = new System.Drawing.Size(222, 22);
+			this.DataSet_Readme.Text = "Open Readme";
+			this.DataSet_Readme.Click += new System.EventHandler(this.DataSet_Readme_Click);
 			// 
 			// DataSet_StatusStrip
 			// 
@@ -576,6 +584,7 @@
 			this.BinaryTree.SelectedImageIndex = 2;
 			this.BinaryTree.Size = new System.Drawing.Size(261, 398);
 			this.BinaryTree.TabIndex = 0;
+			this.BinaryTree.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.BinaryTree_BeforeSelect);
 			this.BinaryTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BinaryTree_AfterSelect);
 			// 
 			// BinaryTreeRightClick
@@ -584,9 +593,10 @@
             this.BinaryTreeAddNode,
             this.BinaryTreeDeleteNode,
             this.BinaryTreeCopyNode,
-            this.BinaryTreeExportNode});
+            this.BinaryTreeExportNode,
+            this.BinaryTreeScriptNode});
 			this.BinaryTreeRightClick.Name = "BinaryTreeRightClick";
-			this.BinaryTreeRightClick.Size = new System.Drawing.Size(141, 92);
+			this.BinaryTreeRightClick.Size = new System.Drawing.Size(141, 114);
 			this.BinaryTreeRightClick.Text = "ContextMenuStrip";
 			// 
 			// BinaryTreeAddNode
@@ -625,6 +635,15 @@
 			this.BinaryTreeExportNode.Text = "Export Node";
 			this.BinaryTreeExportNode.Click += new System.EventHandler(this.BinaryTreeExportNode_Click);
 			// 
+			// BinaryTreeScriptNode
+			// 
+			this.BinaryTreeScriptNode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			this.BinaryTreeScriptNode.ForeColor = System.Drawing.Color.White;
+			this.BinaryTreeScriptNode.Name = "BinaryTreeScriptNode";
+			this.BinaryTreeScriptNode.Size = new System.Drawing.Size(140, 22);
+			this.BinaryTreeScriptNode.Text = "Script Node";
+			this.BinaryTreeScriptNode.Click += new System.EventHandler(this.BinaryTreeScriptNode_Click);
+			// 
 			// BinaryTreeImageList
 			// 
 			this.BinaryTreeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("BinaryTreeImageList.ImageStream")));
@@ -656,50 +675,50 @@
 			this.BinaryDataView.AllowUserToAddRows = false;
 			this.BinaryDataView.AllowUserToDeleteRows = false;
 			this.BinaryDataView.AllowUserToResizeRows = false;
-			dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.Info;
-			this.BinaryDataView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.Info;
+			this.BinaryDataView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
 			this.BinaryDataView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.BinaryDataView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
 			this.BinaryDataView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Info;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.BinaryDataView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.Info;
+			dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.BinaryDataView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
 			this.BinaryDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.Info;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(53)))), ((int)(((byte)(75)))));
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.BinaryDataView.DefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+			dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.Info;
+			dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(53)))), ((int)(((byte)(75)))));
+			dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.BinaryDataView.DefaultCellStyle = dataGridViewCellStyle8;
 			this.BinaryDataView.EnableHeadersVisualStyles = false;
 			this.BinaryDataView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.BinaryDataView.Location = new System.Drawing.Point(0, 3);
 			this.BinaryDataView.MultiSelect = false;
 			this.BinaryDataView.Name = "BinaryDataView";
 			this.BinaryDataView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
-			dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.Info;
-			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.BinaryDataView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+			dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.Info;
+			dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.BinaryDataView.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
 			this.BinaryDataView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-			dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.Info;
-			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(53)))), ((int)(((byte)(75)))));
-			this.BinaryDataView.RowsDefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+			dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.Info;
+			dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(53)))), ((int)(((byte)(75)))));
+			this.BinaryDataView.RowsDefaultCellStyle = dataGridViewCellStyle10;
 			this.BinaryDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
 			this.BinaryDataView.Size = new System.Drawing.Size(527, 279);
 			this.BinaryDataView.TabIndex = 0;
@@ -731,7 +750,6 @@
 			this.ColoredTextForm.CurrentLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(100)))));
 			this.ColoredTextForm.Cursor = System.Windows.Forms.Cursors.IBeam;
 			this.ColoredTextForm.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-			this.ColoredTextForm.Font = new System.Drawing.Font("Courier New", 9.75F);
 			this.ColoredTextForm.IndentBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
 			this.ColoredTextForm.IsReplaceMode = false;
 			this.ColoredTextForm.LineNumberColor = System.Drawing.Color.Gainsboro;
@@ -762,6 +780,11 @@
 			// 
 			this.OpenBinFileDialog.Filter = "All Files | *.*";
 			this.OpenBinFileDialog.Multiselect = true;
+			// 
+			// TextureExportDialog
+			// 
+			this.TextureExportDialog.Description = "Select folder where all textures should be exported.";
+			this.TextureExportDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
 			// 
 			// Shared
 			// 
@@ -838,7 +861,7 @@
 		private System.Windows.Forms.ToolStripMenuItem DataSet_BoundsList;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem DataSet_AboutBox;
-		private System.Windows.Forms.ToolStripMenuItem OpenReadmeToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DataSet_Readme;
 		private System.Windows.Forms.StatusStrip DataSet_StatusStrip;
 		private System.Windows.Forms.ToolStripStatusLabel DataSet_Status;
 		private System.Windows.Forms.SplitContainer DataSet_Split1;
@@ -856,5 +879,7 @@
 		private System.Windows.Forms.SaveFileDialog ExportCollectionDialog;
 		private FastColoredTextBoxNS.FastColoredTextBox ColoredTextForm;
 		private System.Windows.Forms.OpenFileDialog OpenBinFileDialog;
+		private System.Windows.Forms.FolderBrowserDialog TextureExportDialog;
+		private System.Windows.Forms.ToolStripMenuItem BinaryTreeScriptNode;
 	}
 }

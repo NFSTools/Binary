@@ -1,6 +1,6 @@
 ﻿namespace Binary.Endscript
 {
-    public enum Commands : int
+    public enum eCommands : int
     {
         none = 0,
         update = 1,

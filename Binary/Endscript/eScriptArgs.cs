@@ -1,6 +1,6 @@
 ﻿namespace Binary.Endscript
 {
-	public enum ScriptArgs : int
+	public enum eScriptArgs : int
 	{
 		None = 0,
 		Process = 1,

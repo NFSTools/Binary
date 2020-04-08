@@ -39,9 +39,9 @@ namespace Binary.Interact
 			this._record.Key = newkey;
 			this._record.Label = this.labelchanged ? this.StringLabelBox.Text : this._record.Label;
 			this._record.Text = this.StringTextBox.Text;
-			this.CommandsProcessed.Add($"{Commands.update} {path} {prevs} {key} {after}");
-			this.CommandsProcessed.Add($"{Commands.update} {path} {after} {label} \"{this._record.Label}\"");
-			this.CommandsProcessed.Add($"{Commands.update} {path} {after} {text} \"{this._record.Text}\"");
+			this.CommandsProcessed.Add($"{eCommands.update} {path} {prevs} {key} {after}");
+			this.CommandsProcessed.Add($"{eCommands.update} {path} {after} {label} \"{this._record.Label}\"");
+			this.CommandsProcessed.Add($"{eCommands.update} {path} {after} {text} \"{this._record.Text}\"");
 		}
 
 		private void STREditor_Load(object sender, EventArgs e)
@@ -108,7 +108,7 @@ namespace Binary.Interact
 		private void DeleteString_Click(object sender, EventArgs e)
 		{
 			var key = $"0x{this._record.Key:X8}";
-			this.CommandsProcessed.Add($"{Commands.delete} {path} {key}");
+			this.CommandsProcessed.Add($"{eCommands.delete} {path} {key}");
 			this._record.ThisSTRBlock.TryRemoveRecord(this._record.Key);
 			this.DialogResult = DialogResult.OK;
 			this.Close();
@@ -123,7 +123,7 @@ namespace Binary.Interact
 			var newkey = Bin.Hash($"{global}{index}");
 			var newrecord = this._record.ThisSTRBlock.GetRecord(newkey);
 			this._record = newrecord;
-			this.CommandsProcessed.Add($"{Commands.add} {path} {BaseArguments.AUTO} {global}{index} \"\"");
+			this.CommandsProcessed.Add($"{eCommands.add} {path} {BaseArguments.AUTO} {global}{index} \"\"");
 			this.STREditor_Load(this, EventArgs.Empty);
 		}
 

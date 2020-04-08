@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.IO;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using GlobalLib.Utils.EA;
+using GlobalLib.Utils.HTML;
 
 
 
@@ -15,7 +11,7 @@ namespace Binary.Interact
 {
 	public partial class EndMenu : Form
 	{
-		private GlobalLib.Utils.HTML.HTMLTextBox DescriptionBox;
+		private HTMLTextBox DescriptionBox;
 		private Panel TextPanel;
 		private Panel ImagePanel;
 		private Button InstallConfirm;
@@ -25,7 +21,7 @@ namespace Binary.Interact
 
 		public EndMenu(string[] lines, string filename)
 		{
-			this.DescriptionBox = new GlobalLib.Utils.HTML.HTMLTextBox(lines);
+			this.DescriptionBox = new HTMLTextBox(lines);
 			for (int a1 = 0; a1 < this.DescriptionBox.Menu.ImagePaths.Count; ++a1)
 				this.DescriptionBox.Menu.ImagePaths[a1] = Path.Combine(filename, this.DescriptionBox.Menu.ImagePaths[a1]);
 			this.CustomInitializer();
@@ -82,7 +78,7 @@ namespace Binary.Interact
 			this.Image1.Name = "Image1";
 			this.Image1.SizeMode = PictureBoxSizeMode.Zoom;
 			this.Image1.Size = new Size(this.ImagePanel.Width, (int)(this.ImagePanel.Height / 3));
-			if (GlobalLib.Utils.EA.Resolve.IsImageFormat(this.DescriptionBox.Menu.ImagePaths[0]))
+			if (Resolve.IsImageFormat(this.DescriptionBox.Menu.ImagePaths[0]))
 				this.Image1.Image = Image.FromFile(this.DescriptionBox.Menu.ImagePaths[0]);
 			//
 			// Image2
@@ -92,7 +88,7 @@ namespace Binary.Interact
 			this.Image2.Name = "Image2";
 			this.Image2.SizeMode = PictureBoxSizeMode.Zoom;
 			this.Image2.Size = new Size(this.ImagePanel.Width, (int)(this.ImagePanel.Height / 3));
-			if (GlobalLib.Utils.EA.Resolve.IsImageFormat(this.DescriptionBox.Menu.ImagePaths[1]))
+			if (Resolve.IsImageFormat(this.DescriptionBox.Menu.ImagePaths[1]))
 				this.Image2.Image = Image.FromFile(this.DescriptionBox.Menu.ImagePaths[1]);
 			//
 			// Image3
@@ -102,7 +98,7 @@ namespace Binary.Interact
 			this.Image3.Name = "Image3";
 			this.Image3.SizeMode = PictureBoxSizeMode.Zoom;
 			this.Image3.Size = new Size(this.ImagePanel.Width, (int)(this.ImagePanel.Height / 3));
-			if (GlobalLib.Utils.EA.Resolve.IsImageFormat(this.DescriptionBox.Menu.ImagePaths[2]))
+			if (Resolve.IsImageFormat(this.DescriptionBox.Menu.ImagePaths[2]))
 				this.Image3.Image = Image.FromFile(this.DescriptionBox.Menu.ImagePaths[2]);
 			// 
 			// ButtonOK

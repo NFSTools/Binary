@@ -11,12 +11,12 @@ namespace Binary.Interact
 
         public Input()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         public Input(string text)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.UserAskLabel.Text = text;
         }
 
@@ -28,12 +28,12 @@ namespace Binary.Interact
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(UserInput.Text))
+            if (string.IsNullOrWhiteSpace(this.UserInput.Text))
             {
                 MessageBox.Show("This field cannot be left empty or be a whitespace.", "Warning");
                 return;
             }
-            this.CollectionName = UserInput.Text;
+            this.CollectionName = this.UserInput.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

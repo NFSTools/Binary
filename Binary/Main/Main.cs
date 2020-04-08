@@ -14,7 +14,7 @@ namespace Binary.Main
     {
         public Main()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void InitializeLogFile()
@@ -27,24 +27,26 @@ namespace Binary.Main
 
         private void ParseConfigurations()
         {
-            Settings.Default.EnableAutobackup = ConfigAutoSave.Checked;
-            Settings.Default.EnableCompression = ConfigCompressFiles.Checked;
-            Settings.Default.EnableEndscriptLog = ConfigCommand.Checked;
-            Settings.Default.EnableStaticEnd = ConfigStatic.Checked;
-            Settings.Default.EnableMaximized = ConfigMaximized.Checked;
-            Settings.Default.EnableWatermarks = ConfigWatermark.Checked;
+            Settings.Default.EnableAutobackup = this.ConfigAutoSave.Checked;
+            Settings.Default.EnableCompression = this.ConfigCompressFiles.Checked;
+            Settings.Default.EnableEndscriptLog = this.ConfigCommand.Checked;
+            Settings.Default.EnableStaticEnd = this.ConfigStatic.Checked;
+            Settings.Default.EnableMaximized = this.ConfigMaximized.Checked;
+            Settings.Default.EnableWatermarks = this.ConfigWatermark.Checked;
             Settings.Default.Save();
         }
 
-        private void Main_Load(object sender, EventArgs e)
+		#region Main
+
+		private void Main_Load(object sender, EventArgs e)
         {
             // Set properties from memory
-            ConfigAutoSave.Checked = Settings.Default.EnableAutobackup;
-            ConfigCompressFiles.Checked = Settings.Default.EnableCompression;
-            ConfigCommand.Checked = Settings.Default.EnableEndscriptLog;
-            ConfigStatic.Checked = Settings.Default.EnableStaticEnd;
-            ConfigMaximized.Checked = Settings.Default.EnableMaximized;
-            ConfigWatermark.Checked = Settings.Default.EnableWatermarks;
+            this.ConfigAutoSave.Checked = Settings.Default.EnableAutobackup;
+            this.ConfigCompressFiles.Checked = Settings.Default.EnableCompression;
+            this.ConfigCommand.Checked = Settings.Default.EnableEndscriptLog;
+            this.ConfigStatic.Checked = Settings.Default.EnableStaticEnd;
+            this.ConfigMaximized.Checked = Settings.Default.EnableMaximized;
+            this.ConfigWatermark.Checked = Settings.Default.EnableWatermarks;
 
             var NFSCToolTip = new ToolTip();
             var NFSMWToolTip = new ToolTip();
@@ -100,7 +102,7 @@ namespace Binary.Main
             this.ParseConfigurations();
             this.InitializeLogFile();
             if (Settings.Default.EnableWatermarks)
-                Process.Watermark = $"Binary by MaxHwoy | Edited by {Settings.Default.BinaryUsername}";
+                Process.Watermark = $"Binary: used by {Settings.Default.BinaryUsername}";
             else
                 Process.Watermark = string.Empty;
             
@@ -123,7 +125,7 @@ namespace Binary.Main
             this.ParseConfigurations();
             this.InitializeLogFile();
             if (Settings.Default.EnableWatermarks)
-                Process.Watermark = $"Binary by MaxHwoy | Edited by {Settings.Default.BinaryUsername}";
+                Process.Watermark = $"Binary: used by {Settings.Default.BinaryUsername}";
             else
                 Process.Watermark = string.Empty;
 
@@ -146,7 +148,7 @@ namespace Binary.Main
             this.ParseConfigurations();
             this.InitializeLogFile();
             if (Settings.Default.EnableWatermarks)
-                Process.Watermark = $"Binary by MaxHwoy | Edited by {Settings.Default.BinaryUsername}";
+                Process.Watermark = $"Binary: used by {Settings.Default.BinaryUsername}";
             else
                 Process.Watermark = string.Empty;
 
@@ -169,7 +171,11 @@ namespace Binary.Main
             this.ParseConfigurations();
         }
 
-        private void LaunchHasher_Click(object sender, EventArgs e)
+		#endregion
+
+		#region Launch
+
+		private void LaunchHasher_Click(object sender, EventArgs e)
         {
             var HasherWindow = new Tools.Hasher();
             HasherWindow.Show();
@@ -208,36 +214,40 @@ namespace Binary.Main
             OpenFolderDialog.Description = "Select Need for Speed directory that you want to unlock files in.";
             if (OpenFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                string GlobalB_dir = OpenFolderDialog.SelectedPath;
+                string Global_dir = OpenFolderDialog.SelectedPath;
 
                 // Unlock Memory Files
-                MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\CarHeadersMemoryFile.bin");
-                MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\FrontEndMemoryFile.bin");
-                MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\InGameMemoryFile.bin");
-                MemoryUnlock.FastUnlock(GlobalB_dir + @"\GLOBAL\PermanentMemoryFile.bin");
-                MemoryUnlock.LongUnlock(GlobalB_dir + @"\GLOBAL\GlobalMemoryFile.bin");
+                MemoryUnlock.FastUnlock(Global_dir + @"\GLOBAL\CarHeadersMemoryFile.bin");
+                MemoryUnlock.FastUnlock(Global_dir + @"\GLOBAL\FrontEndMemoryFile.bin");
+                MemoryUnlock.FastUnlock(Global_dir + @"\GLOBAL\InGameMemoryFile.bin");
+                MemoryUnlock.FastUnlock(Global_dir + @"\GLOBAL\PermanentMemoryFile.bin");
+                MemoryUnlock.LongUnlock(Global_dir + @"\GLOBAL\GlobalMemoryFile.bin");
 
                 MessageBox.Show("Memory files were successfully unlocked for modding.", "Success");
             }
         }
 
-        private void ButtonDiscord_Click(object sender, EventArgs e)
+		#endregion
+
+		#region Buttons
+
+		private void ButtonDiscord_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://discord.gg/jzksXXn");
         }
 
         private void ButtonYAML_Click(object sender, EventArgs e)
         {
-            if (OpenYAMLDialog.ShowDialog() == DialogResult.OK)
+            if (this.OpenYAMLDialog.ShowDialog() == DialogResult.OK)
             {
-                Settings.Default.YAMLDirectory = OpenYAMLDialog.FileName;
+                Settings.Default.YAMLDirectory = this.OpenYAMLDialog.FileName;
                 Settings.Default.Save();
             }
         }
 
         private void OpenYAMLDialog_FileOk(object sender, CancelEventArgs e)
         {
-            var name = Path.GetFileName(OpenYAMLDialog.FileName);
+            var name = Path.GetFileName(this.OpenYAMLDialog.FileName);
             if (name != "YAMLDatabase.exe")
             {
                 MessageBox.Show("File selected is not YAMLDatabase.exe.", "Warning",
@@ -251,9 +261,9 @@ namespace Binary.Main
             var input = new Interact.Input("Enter your username that will be used on runtime:");
             if (input.ShowDialog() == DialogResult.OK)
             {
-                if (input.CollectionName.Length > 0x20)
+                if (input.CollectionName.Length > 15)
                 {
-                    MessageBox.Show("Your name should not exceed 32 characters.", "Warning");
+                    MessageBox.Show("Your name should not exceed 14 characters.", "Warning");
                     this.SetModderName_Click(sender, e);
                 }
                 else
@@ -263,5 +273,7 @@ namespace Binary.Main
                 }
             }
         }
-    }
+
+		#endregion
+	}
 }

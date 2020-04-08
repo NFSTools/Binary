@@ -15,7 +15,7 @@ namespace Binary.Endscript
 				return true;
 		}
 
-		public static void WriteCommand(Commands command, FastColoredTextBox box, params string[] paths)
+		public static void WriteCommand(eCommands command, FastColoredTextBox box, params string[] paths)
 		{
 			string str = command.ToString();
 			bool needs_newline = NeedsNewLine(box);

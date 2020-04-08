@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using GlobalLib.Core;
 using GlobalLib.Utils;
 
 
@@ -10,84 +11,84 @@ namespace Binary.Tools
     {
         public Raider()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void ChooseSearchMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ChooseSearchMode.Text == "Use Bin Memory Hash search")
+            if (this.ChooseSearchMode.Text == "Use Bin Memory Hash search")
             {
-                BinHashInput.ReadOnly = false;
-                BinFileInput.ReadOnly = true;
+                this.BinHashInput.ReadOnly = false;
+                this.BinFileInput.ReadOnly = true;
             }
             else
             {
-                BinFileInput.ReadOnly = false;
-                BinHashInput.ReadOnly = true;
+                this.BinFileInput.ReadOnly = false;
+                this.BinHashInput.ReadOnly = true;
             }
         }
 
         private void BinHashInput_TextChanged(object sender, EventArgs e)
         {
-            if (!BinHashInput.ReadOnly)
+            if (!this.BinHashInput.ReadOnly)
             {
                 uint key = 0;
-                var temp = BinHashInput.Text;
+                var temp = this.BinHashInput.Text;
                 try
                 {
                     key = Convert.ToUInt32(temp, 16);
 
                     // Try looking for the hash
-                    string result = GlobalLib.Core.Map.Lookup(key, true);
+                    string result = Map.Lookup(key, true);
                     key = Bin.Reverse(key);
-                    BinFileInput.Text = $"0x{key:X8}";
-                    StringGuessed.Text = result;
+                    this.BinFileInput.Text = $"0x{key:X8}";
+                    this.StringGuessed.Text = result;
                 }
                 catch (Exception)
                 {
-                    StringGuessed.Text = "N/A";
-                    BinFileInput.Text = null;
+                    this.StringGuessed.Text = "N/A";
+                    this.BinFileInput.Text = null;
                 }
             }
         }
 
         private void BinFileInput_TextChanged(object sender, EventArgs e)
         {
-            if (!BinFileInput.ReadOnly)
+            if (!this.BinFileInput.ReadOnly)
             {
                 uint key = 0;
-                var temp = BinFileInput.Text;
+                var temp = this.BinFileInput.Text;
                 try
                 {
                     key = ConvertX.ToUInt32(temp);
                     key = Bin.Reverse(key);
 
                     // Try looking for the hash
-                    string result = GlobalLib.Core.Map.Lookup(key, true);
-                    BinHashInput.Text = $"0x{key:X8}";
-                    StringGuessed.Text = result;
+                    string result = Map.Lookup(key, true);
+                    this.BinHashInput.Text = $"0x{key:X8}";
+                    this.StringGuessed.Text = result;
                 }
                 catch (Exception)
                 {
-                    StringGuessed.Text = "N/A";
-                    BinHashInput.Text = null;
+                    this.StringGuessed.Text = "N/A";
+                    this.BinHashInput.Text = null;
                 }
             }
         }
 
         private void CopyBinHash_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(BinHashInput.Text);
+            Clipboard.SetText(this.BinHashInput.Text);
         }
 
         private void CopyBinFile_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(BinFileInput.Text);
+            Clipboard.SetText(this.BinFileInput.Text);
         }
 
         private void CopyString_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(StringGuessed.Text);
+            Clipboard.SetText(this.StringGuessed.Text);
         }
     }
 }

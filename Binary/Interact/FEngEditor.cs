@@ -133,7 +133,7 @@ namespace Binary.Interact
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            string path = $"{Commands.update} {FNGroups} {this._color.ThisFNGroup.CollectionName}";
+            string path = $"{eCommands.update} {FNGroups} {this._color.ThisFNGroup.CollectionName}";
             string hex = SAT.ColorToHex(this.NewColorBox.BackColor.A, this.NewColorBox.BackColor.R,
                 this.NewColorBox.BackColor.G, this.NewColorBox.BackColor.B);
             bool keepalpha = this.CheckKeepAlpha.Checked;

@@ -26,6 +26,7 @@ namespace Binary.Support
 		private const string FNGroups = "FNGroups";
 		private const string TPKBlocks = "TPKBlocks";
 		private const string STRBlocks = "STRBlocks";
+		private bool _same_root_change = false;
 
 		private void InstantiateControls()
 		{
@@ -90,7 +91,7 @@ namespace Binary.Support
 			this.DataSet_CreateBackups.Enabled = true;
 			this.DataSet_UnlockFiles.Enabled = true;
 			this.DataSet_RunGame.Enabled = true;
-			//this.DataSet_ExportAllTextures.Enabled = true;
+			this.DataSet_ExportAllTextures.Enabled = true;
 			this.DataSet_DBInfo.Enabled = true;
 			this.EndscriptToolStripMenuItemI.Enabled = true;
 			switch (this._game)
@@ -554,7 +555,13 @@ namespace Binary.Support
 			MessageBox.Show(this.db.GetDatabaseInfo(), "Database Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
-		private void OpenReadmeToolStripMenuItem_Click(object sender, EventArgs e)
+		private void DataSet_BoundsList_Click(object sender, EventArgs e)
+		{
+			var BoundsForm = new Interact.BoundsList();
+			BoundsForm.ShowDialog();
+		}
+
+		private void DataSet_Readme_Click(object sender, EventArgs e)
 		{
 			if (File.Exists("Readme.txt"))
 				System.Diagnostics.Process.Start("explorer", "Readme.txt");
@@ -572,8 +579,23 @@ namespace Binary.Support
 
 		#region BinaryTree
 
+		private void BinaryTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+		{
+			this._same_root_change = false;
+			if (this.BinaryDataView.Columns == null || this.BinaryDataView.Columns.Count == 0)
+				return;
+			var root_before = this.BinaryTree.SelectedNode.Parent?.Text;
+			var root_after = e.Node.Parent?.Text;
+			if (root_before == root_after)
+				this._same_root_change = true;
+		}
+
 		private void BinaryTree_AfterSelect(object sender, TreeViewEventArgs e)
 		{
+			int index = 0;
+			if (this._same_root_change)
+				index = this.GetLastShownRowIndex();
+
 			this.BinaryDataView.Columns.Clear();
 
 			var roottype = this.CheckRootSelectionType();
@@ -633,10 +655,14 @@ namespace Binary.Support
 					this.BinaryDataView.Rows.Add(row);
 				}
 			}
+
+			if (this._same_root_change)
+				this.ScrollDownToRowIndex(index);
 		}
 
 		private void BinaryDataView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
+			if (e.RowIndex < 0) return;
 			var roottype = this.CheckRootSelectionType();
 			switch (roottype)
 			{
@@ -673,7 +699,7 @@ namespace Binary.Support
 				string root = this.BinaryTree.SelectedNode.Text;
 				if (this.db.TryAddCollection(CName, root, out string error))
 				{
-					Generate.WriteCommand(Commands.add, this.ColoredTextForm, root, CName);
+					Generate.WriteCommand(eCommands.add, this.ColoredTextForm, root, CName);
 					this.LoadBinaryTree(true);
 					return;
 				}
@@ -706,7 +732,7 @@ namespace Binary.Support
 
 			if (this.db.TryRemoveCollection(CName, root, out string error))
 			{
-				Generate.WriteCommand(Commands.delete, this.ColoredTextForm, root, CName);
+				Generate.WriteCommand(eCommands.delete, this.ColoredTextForm, root, CName);
 				this.LoadBinaryTree(false);
 			}
 			else
@@ -740,7 +766,7 @@ namespace Binary.Support
 				string root = this.BinaryTree.SelectedNode.Parent.Text;
 				if (this.db.TryCloneCollection(newname, copyname, root, out string error))
 				{
-					Generate.WriteCommand(Commands.copy, this.ColoredTextForm, root, copyname, newname);
+					Generate.WriteCommand(eCommands.copy, this.ColoredTextForm, root, copyname, newname);
 					this.LoadBinaryTree(true);
 					return;
 				}
@@ -781,6 +807,85 @@ namespace Binary.Support
 			}
 		}
 
+		private void BinaryTreeScriptNode_Click(object sender, EventArgs e)
+		{
+			if (this.BinaryTree.SelectedNode == null) return;
+			if (this.BinaryTree.SelectedNode.Parent == null) return;
+			if (this.BinaryTree.SelectedNode.Parent.Parent != null)
+			{
+				MessageBox.Show("Only collections can be scripted.", "Warning",
+					MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			var roottype = this.CheckRootSelectionType();
+			switch (roottype)
+			{
+				case eRootType.Empty:
+					return;
+				case eRootType.FNGroups:
+					MessageBox.Show($"{FNGroups} collections are not scriptable.", "Warning",
+						MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					return;
+				case eRootType.TPKBlocks:
+					MessageBox.Show($"{TPKBlocks} collections are not scriptable.", "Warning",
+						MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					return;
+				case eRootType.STRBlocks:
+					MessageBox.Show($"{STRBlocks} collections are not scriptable.", "Warning",
+						MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					return;
+				default:
+					break;
+			}
+
+			string CName = this.BinaryTree.SelectedNode.Text;
+			string root = this.BinaryTree.SelectedNode.Parent.Text;
+			var collection = this.db.GetCollection(CName, root);
+			if (collection == null)
+			{
+				MessageBox.Show($"Unable to script collection {CName} in root {root}.", "Error",
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			var list = new List<string[]>();
+
+			foreach (string field in collection.GetAccessibles(eGetInfoType.PROPERTY_NAMES))
+			{
+				if (field == "CollectionName") continue;
+				var value = collection.GetValue(field);
+				if (value.Contains(" ")) value = $"\"{value}\"";
+				list.Add(new string[] { root, CName, field, value });
+			}
+
+			if (this.BinaryTree.SelectedNode.Nodes == null) goto LABEL_WRITE;
+
+			foreach (TreeNode node in this.BinaryTree.SelectedNode.Nodes)
+			{
+				if (node.Nodes == null) continue;
+				foreach (TreeNode subnode in node.Nodes)
+				{
+					var subroute = node.Text;
+					var name = subnode.Text;
+					var part = collection.GetSubPart(name, subroute);
+					if (part == null) continue;
+					foreach (string field in part.GetAccessibles(eGetInfoType.PROPERTY_NAMES))
+					{
+						var value = part.GetValue(field);
+						if (value.Contains(" ")) value = $"\"{value}\"";
+						list.Add(new string[] { root, CName, subroute, name, field, value });
+					}
+				}
+			}
+
+		LABEL_WRITE:
+			foreach (var str in list)
+			{
+				Generate.WriteCommand(eCommands.update, this.ColoredTextForm, str);
+			}
+		}
+
 		#endregion
 
 		#region BinaryDataView
@@ -815,7 +920,7 @@ namespace Binary.Support
 				args[a1] = tokens[a1];
 			args[args.Length - 2] = field;
 			args[args.Length - 1] = value;
-			Generate.WriteCommand(Commands.update, this.ColoredTextForm, args);
+			Generate.WriteCommand(eCommands.update, this.ColoredTextForm, args);
 		}
 
 		private void BinaryDataView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -856,7 +961,7 @@ namespace Binary.Support
 				if (value.Contains(" ")) value = $"\"{value}\"";
 				args[args.Length - 2] = field;
 				args[args.Length - 1] = value;
-				Generate.WriteCommand(Commands.update, this.ColoredTextForm, args);
+				Generate.WriteCommand(eCommands.update, this.ColoredTextForm, args);
 			}
 		}
 
@@ -1144,6 +1249,7 @@ namespace Binary.Support
 			if (tpk == null) return;
 
 			// Use Reflection to get textures
+			tpk.SortTexturesByType(true);
 			var textures = tpk.GetType().GetProperty("Textures").GetValue(tpk) as IList;
 
 			this.BinaryDataViewTPKColumnInit();
@@ -1285,6 +1391,60 @@ namespace Binary.Support
 					if (row.Cells[3].Value.ToString().Contains(STRForm.TextToFind))
 						row.DefaultCellStyle.BackColor = Color.DarkGoldenrod;
 				}
+			}
+		}
+
+		#endregion
+
+		#region TexExport
+
+		private void ExportAsddsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (TextureExportDialog.ShowDialog() == DialogResult.OK)
+			{
+				if (this.db.ExportTextures(TextureExportDialog.SelectedPath, ".dds"))
+					MessageBox.Show($"All textures were exported to {TextureExportDialog.SelectedPath}.",
+						"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+		}
+
+		private void ExportAspngToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (TextureExportDialog.ShowDialog() == DialogResult.OK)
+			{
+				if (this.db.ExportTextures(TextureExportDialog.SelectedPath, ".png"))
+					MessageBox.Show($"All textures were exported to {TextureExportDialog.SelectedPath}.",
+						"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+		}
+
+		private void ExportAsjpgToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (TextureExportDialog.ShowDialog() == DialogResult.OK)
+			{
+				if (this.db.ExportTextures(TextureExportDialog.SelectedPath, ".jpg"))
+					MessageBox.Show($"All textures were exported to {TextureExportDialog.SelectedPath}.",
+						"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+		}
+
+		private void ExportAstiffToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (TextureExportDialog.ShowDialog() == DialogResult.OK)
+			{
+				if (this.db.ExportTextures(TextureExportDialog.SelectedPath, ".tiff"))
+					MessageBox.Show($"All textures were exported to {TextureExportDialog.SelectedPath}.",
+						"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+		}
+
+		private void ExportAsbmpToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (TextureExportDialog.ShowDialog() == DialogResult.OK)
+			{
+				if (this.db.ExportTextures(TextureExportDialog.SelectedPath, ".bmp"))
+					MessageBox.Show($"All textures were exported to {TextureExportDialog.SelectedPath}.",
+						"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 		}
 

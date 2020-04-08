@@ -44,13 +44,13 @@ namespace Binary.Interact
             if (this._texture.TileableUV == 0 && this.TileableUVEnabled.Checked)
             {
                 this._texture.TileableUV = 3;
-                this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
+                this.CommandsProcessed.Add($"{eCommands.update} {tpkblock} {this.TPK.CollectionName} " +
                     $"0x{this._texture.BinKey:X8} {tileable} 3");
             }
             else if (this._texture.TileableUV > 0 && !this.TileableUVEnabled.Checked)
             {
                 this._texture.TileableUV = 0;
-                this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
+                this.CommandsProcessed.Add($"{eCommands.update} {tpkblock} {this.TPK.CollectionName} " +
                     $"0x{this._texture.BinKey:X8} {tileable} 0");
             }
         }
@@ -90,7 +90,7 @@ namespace Binary.Interact
                 }
                 else
                 {
-                    this.CommandsProcessed.Add($"{Commands.copy} {tpkblock} {this.TPK.CollectionName} " +
+                    this.CommandsProcessed.Add($"{eCommands.copy} {tpkblock} {this.TPK.CollectionName} " +
                         $"0x{this._texture.BinKey:X8} {newname}");
                 }
             }
@@ -164,7 +164,7 @@ namespace Binary.Interact
         {
             if (this.TPK.TryRemoveTexture(this._texture.BinKey, eKeyType.BINKEY, out var error))
             {
-                this.CommandsProcessed.Add($"{Commands.delete} {tpkblock} {this.TPK.CollectionName} " +
+                this.CommandsProcessed.Add($"{eCommands.delete} {tpkblock} {this.TPK.CollectionName} " +
                     $"0x{this._texture.BinKey:X8}");
                 this.Close();
             }
@@ -194,7 +194,7 @@ namespace Binary.Interact
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                this.CommandsProcessed.Add($"{Commands.update} {tpkblock} {this.TPK.CollectionName} " +
+                this.CommandsProcessed.Add($"{eCommands.update} {tpkblock} {this.TPK.CollectionName} " +
                     $"0x{this._texture.BinKey:X8} {cname} {CName}");
                 this._texture.CollectionName = CName;
             }

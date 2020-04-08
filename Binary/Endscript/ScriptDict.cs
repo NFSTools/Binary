@@ -8,11 +8,11 @@ namespace Binary.Endscript
 {
 	public static class ScriptDict
 	{
-		public static Dictionary<ScriptArgs, Func<string, Launch, bool>> KeywordFunctions { get; set; } =
-			new Dictionary<ScriptArgs, Func<string, Launch, bool>>()
+		public static Dictionary<eScriptArgs, Func<string, Launch, bool>> KeywordFunctions { get; set; } =
+			new Dictionary<eScriptArgs, Func<string, Launch, bool>>()
 		{
 			{
-				ScriptArgs.Process,
+				eScriptArgs.Process,
 				(string str, Launch lan) =>
 				{
 					if (string.IsNullOrEmpty(lan.ProcessName))
@@ -25,7 +25,7 @@ namespace Binary.Endscript
 			},
 
 			{
-				ScriptArgs.ChooseMethod,
+				eScriptArgs.ChooseMethod,
 				(string str, Launch lan) =>
 				{
 					if (lan.ChooseDir != eChooseDirMethod.None) return false;
@@ -39,7 +39,7 @@ namespace Binary.Endscript
 			},
 
 			{
-				ScriptArgs.Description,
+				eScriptArgs.Description,
 				(string str, Launch lan) =>
 				{
 					if (string.IsNullOrEmpty(lan.Description))
@@ -53,7 +53,7 @@ namespace Binary.Endscript
 			},
 
 			{
-				ScriptArgs.NumCommandArgs,
+				eScriptArgs.NumCommandArgs,
 				(string str, Launch lan) =>
 				{
 					if (lan.NumCommandArgs > -1) return false;
@@ -65,12 +65,12 @@ namespace Binary.Endscript
 			},
 
 			{
-				ScriptArgs.StrCommandArgs,
+				eScriptArgs.StrCommandArgs,
 				(string str, Launch lan) =>
 				{
 					if (lan.StrCommandArgs.Count >= lan.NumCommandArgs) return false;
-					else if (str.Contains(ScriptArgs.ScriptFilename.ToString()))
-						lan.StrCommandArgs.Add(str.Replace(ScriptArgs.ScriptFilename.ToString(),
+					else if (str.Contains(eScriptArgs.ScriptFilename.ToString()))
+						lan.StrCommandArgs.Add(str.Replace(eScriptArgs.ScriptFilename.ToString(),
 							lan.ScriptFilename));
 					else
 						lan.StrCommandArgs.Add(str);
@@ -79,7 +79,7 @@ namespace Binary.Endscript
 			},
 
 			{
-				ScriptArgs.ScriptFilename,
+				eScriptArgs.ScriptFilename,
 				(string str, Launch lan) =>
 				{
 					if (string.IsNullOrEmpty(lan.ScriptFilename))

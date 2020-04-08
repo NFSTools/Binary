@@ -1,7 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Binary.Endscript;
 
 
 
@@ -9,9 +10,9 @@ namespace Binary.Interact
 {
     public partial class ErrorView : Form
     {
-        public ErrorView(List<Endscript.EndLine> EndLines)
+        public ErrorView(List<EndLine> EndLines)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             foreach (var endline in EndLines)
             {
                 var Item = new ListViewItem();
@@ -19,13 +20,13 @@ namespace Binary.Interact
                 Item.SubItems.Add(Path.GetFileName(endline.Filename));
                 Item.SubItems.Add(endline.Text);
                 Item.SubItems.Add(endline.Error);
-                ErrorListView.Items.Add(Item);
+                this.ErrorListView.Items.Add(Item);
             }
         }
 
         private void ErrorListView_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
         {
-            e.Graphics.FillRectangle(System.Drawing.Brushes.DarkGray, e.Bounds);
+            e.Graphics.FillRectangle(Brushes.DarkGray, e.Bounds);
             e.DrawText();
         }
 
