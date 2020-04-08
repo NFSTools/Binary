@@ -251,6 +251,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Readme.md" />
     <None Include="Resources\binary.png" />
   </ItemGroup>
   <ItemGroup>
