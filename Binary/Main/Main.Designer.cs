@@ -296,7 +296,7 @@ namespace Binary.Main
 			// 
 			this.GlobalStatusStrip.ForeColor = System.Drawing.SystemColors.Window;
 			this.GlobalStatusStrip.Name = "GlobalStatusStrip";
-			this.GlobalStatusStrip.Size = new System.Drawing.Size(754, 17);
+			this.GlobalStatusStrip.Size = new System.Drawing.Size(785, 17);
 			this.GlobalStatusStrip.Spring = true;
 			this.GlobalStatusStrip.Text = "Binary by MaxHwoy v1.0.0 | Powered by GlobalLib";
 			this.GlobalStatusStrip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -371,12 +371,13 @@ namespace Binary.Main
 			// checkBox1
 			// 
 			this.checkBox1.AutoSize = true;
+			this.checkBox1.Enabled = false;
 			this.checkBox1.ForeColor = System.Drawing.SystemColors.Window;
 			this.checkBox1.Location = new System.Drawing.Point(13, 170);
 			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(82, 17);
+			this.checkBox1.Size = new System.Drawing.Size(89, 17);
 			this.checkBox1.TabIndex = 12;
-			this.checkBox1.Text = "Placeholder";
+			this.checkBox1.Text = "Coming Soon";
 			this.checkBox1.UseVisualStyleBackColor = true;
 			// 
 			// SetModderName
