@@ -26,6 +26,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.ComponentModel;
 using Binary.Endscript;
@@ -43,7 +44,9 @@ namespace Binary.Main
             this.InitializeComponent();
         }
 
-        private void InitializeLogFile()
+		#region Supportive
+
+		private void InitializeLogFile()
         {
             Log.EnableLog = false;
             Log.EnableTimeWrite = false;
@@ -61,6 +64,18 @@ namespace Binary.Main
             Settings.Default.EnableWatermarks = this.ConfigWatermark.Checked;
             Settings.Default.Save();
         }
+
+        public void CloseAllToolForms()
+        {
+            var list = Application.OpenForms.Cast<Form>().ToList();
+            for (int a1 = list.Count - 1; a1 >= 0; --a1)
+            {
+                if (list[a1].Name != this.Name)
+                    list[a1].Close();
+            }
+        }
+
+		#endregion
 
 		#region Main
 
@@ -127,6 +142,7 @@ namespace Binary.Main
             this.Hide();
             this.ParseConfigurations();
             this.InitializeLogFile();
+            this.CloseAllToolForms();
             if (Settings.Default.EnableWatermarks)
                 Process.Watermark = $"Binary: used by {Settings.Default.BinaryUsername}";
             else
@@ -150,6 +166,7 @@ namespace Binary.Main
             this.Hide();
             this.ParseConfigurations();
             this.InitializeLogFile();
+            this.CloseAllToolForms();
             if (Settings.Default.EnableWatermarks)
                 Process.Watermark = $"Binary: used by {Settings.Default.BinaryUsername}";
             else
@@ -173,6 +190,7 @@ namespace Binary.Main
             this.Hide();
             this.ParseConfigurations();
             this.InitializeLogFile();
+            this.CloseAllToolForms();
             if (Settings.Default.EnableWatermarks)
                 Process.Watermark = $"Binary: used by {Settings.Default.BinaryUsername}";
             else
