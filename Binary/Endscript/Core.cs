@@ -219,7 +219,6 @@ namespace Binary.Endscript
             if (window.ShowDialog() == DialogResult.OK)
             {
                 string filedir = Path.GetDirectoryName(filepath);
-                var watch = new System.Diagnostics.Stopwatch();
 
                 watch.Reset();
                 watch.Start();
@@ -243,9 +242,14 @@ namespace Binary.Endscript
 
                 text = build.ToString();
                 label = $"Processed {total_line_count} lines of script in {watch.ElapsedMilliseconds}ms";
+                GlobalDir = string.Empty;
                 return true;
             }
-            else return false;
+            else
+            {
+                GlobalDir = string.Empty;
+                return false;
+            }
         }
 
         #endregion
@@ -308,19 +312,30 @@ namespace Binary.Endscript
                     else goto default;
 
                 case eCommands.move:
+                    if (string.IsNullOrWhiteSpace(GlobalDir))
+                        return "This command can be executed only through endscript.";
                     if (len == 5) return ExecuteMoveCommand(words[1], words[2], filedir,
                         words[3], words[4]);
                     else goto default;
 
                 case eCommands.erase:
+                    if (string.IsNullOrWhiteSpace(GlobalDir))
+                        return "This command can be executed only through endscript.";
                     if (len == 4) return ExecuteEraseCommand(words[1], words[2], filedir, words[3]);
                     else goto default;
 
                 case eCommands.create:
+                    if (string.IsNullOrWhiteSpace(GlobalDir))
+                        return "This command can be executed only through endscript.";
                     if (len == 4) return ExecuteCreateCommand(words[1], words[2], filedir, words[3]);
                     else goto default;
 
+                case eCommands.attach:
+                    return "This command can be executed only through endscript.";
+
                 case eCommands.execute:
+                    if (string.IsNullOrWhiteSpace(GlobalDir))
+                        return "This command can be executed only through endscript.";
                     if (len == 2)
                     {
                         watch.Stop();

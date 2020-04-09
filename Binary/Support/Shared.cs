@@ -608,6 +608,10 @@ namespace Binary.Support
 		private void BinaryTree_BeforeSelect(object sender, TreeViewCancelEventArgs e)
 		{
 			this._same_root_change = false;
+			if (this.BinaryTree.Nodes == null || this.BinaryTree.Nodes.Count == 0)
+				return;
+			if (this.BinaryTree.SelectedNode == null)
+				return;
 			if (this.BinaryDataView.Columns == null || this.BinaryDataView.Columns.Count == 0)
 				return;
 			var root_before = this.BinaryTree.SelectedNode.Parent?.Text;
