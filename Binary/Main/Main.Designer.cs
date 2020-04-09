@@ -1,4 +1,30 @@
-﻿namespace Binary.Main
+﻿/********************************************************************************
+ * MIT License
+ * 
+ * Copyright (c) 2020 MaxHwoy & NFS Tools
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE. 
+********************************************************************************/
+
+
+
+namespace Binary.Main
 {
 	partial class Main
 	{
@@ -264,6 +290,7 @@
 			this.statusStrip1.Size = new System.Drawing.Size(800, 22);
 			this.statusStrip1.TabIndex = 14;
 			this.statusStrip1.Text = "statusStrip1";
+			this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
 			// 
 			// GlobalStatusStrip
 			// 
@@ -271,8 +298,9 @@
 			this.GlobalStatusStrip.Name = "GlobalStatusStrip";
 			this.GlobalStatusStrip.Size = new System.Drawing.Size(754, 17);
 			this.GlobalStatusStrip.Spring = true;
-			this.GlobalStatusStrip.Text = "Binary by MaxHwoy Beta v0.9.0 | Powered by GlobalLib";
+			this.GlobalStatusStrip.Text = "Binary by MaxHwoy v1.0.0 | Powered by GlobalLib";
 			this.GlobalStatusStrip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.GlobalStatusStrip.DoubleClick += new System.EventHandler(this.GlobalStatusStrip_DoubleClick);
 			// 
 			// PanelDescription
 			// 

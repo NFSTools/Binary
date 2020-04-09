@@ -93,6 +93,12 @@
     <Compile Include="Endscript\Process.cs" />
     <Compile Include="Endscript\eScriptArgs.cs" />
     <Compile Include="Endscript\ScriptDict.cs" />
+    <Compile Include="Interact\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interact\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interact\BoundsList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +189,9 @@
     <Compile Include="Utils\CleanUp.cs" />
     <Compile Include="Utils\Filenames.cs" />
     <Compile Include="Utils\Path.cs" />
+    <EmbeddedResource Include="Interact\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interact\BoundsList.resx">
       <DependentUpon>BoundsList.cs</DependentUpon>
     </EmbeddedResource>
@@ -294,12 +303,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\GlobalLib\GlobalLib\GlobalLib.csproj">
-      <Project>{048c0af5-4580-45b9-b51d-9e5788effea7}</Project>
-      <Name>GlobalLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
