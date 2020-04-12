@@ -29,6 +29,7 @@ using System.IO;
 using System.Data;
 using System.Linq;
 using System.Drawing;
+using System.Reflection;
 using System.Collections;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -289,6 +290,7 @@ namespace Binary.Support
 		{
 			this._dir = foldername;
 			this.db = null;
+			Utils.CleanUp.GCCollect();
 
 			switch (this._game)
 			{
@@ -328,7 +330,7 @@ namespace Binary.Support
 			int index = 0;
 			if (load_last_select)
 			{
-				if (newpath == null) path = this.BinaryTree.SelectedNode.FullPath;
+				if (newpath == null) path = this.BinaryTree.SelectedNode?.FullPath;
 				else path = newpath;
 				index = this.GetLastShownRowIndex();
 			}
@@ -338,7 +340,7 @@ namespace Binary.Support
 			var properties = this.db.GetType().GetProperties().ToList();
 			properties.Sort((p, q) => p.Name.CompareTo(q.Name));
 
-			foreach (var property in properties)
+			foreach (var property in properties ?? Enumerable.Empty<PropertyInfo>())
 			{
 				if (!ReflectX.IsGenericDefinition(property.PropertyType, typeof(Root<>)))
 					continue;
@@ -352,11 +354,13 @@ namespace Binary.Support
 			}
 
 			foreach (TreeNode node in this.BinaryTree.Nodes) node.ImageIndex = 1;
-			if (load_last_select)
+			if (load_last_select && path != null)
 			{
 				this.SelectNodeByFullPath(path, this.BinaryTree.Nodes);
 				this.ScrollDownToRowIndex(index);
 			}
+			else if (this.BinaryTree.Nodes != null && this.BinaryTree.Nodes.Count > 0)
+				this.BinaryTree.SelectedNode = this.BinaryTree.Nodes[0];
 		}
 
 		private void UpdateBinaryDataView()
@@ -610,13 +614,11 @@ namespace Binary.Support
 			this._same_root_change = false;
 			if (this.BinaryTree.Nodes == null || this.BinaryTree.Nodes.Count == 0)
 				return;
-			if (this.BinaryTree.SelectedNode == null)
-				return;
 			if (this.BinaryDataView.Columns == null || this.BinaryDataView.Columns.Count == 0)
 				return;
-			var root_before = this.BinaryTree.SelectedNode.Parent?.Text;
+			var root_before = this.BinaryTree.SelectedNode?.Parent?.Text;
 			var root_after = e.Node.Parent?.Text;
-			if (root_before == root_after)
+			if (root_before == root_after && root_before != null)
 				this._same_root_change = true;
 		}
 
@@ -657,7 +659,7 @@ namespace Binary.Support
 				accessibles.Add(list[a1].ToString());
 			accessibles.Sort();
 
-			foreach (var access in accessibles)
+			foreach (var access in accessibles ?? Enumerable.Empty<string>())
 			{
 				string field = access.ToString();
 				if (obj.OfEnumerableType(field))

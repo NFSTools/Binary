@@ -88,6 +88,7 @@
     <Compile Include="Endscript\Core.cs" />
     <Compile Include="Endscript\eChooseDirMethod.cs" />
     <Compile Include="Endscript\EndLine.cs" />
+    <Compile Include="Endscript\eSettingType.cs" />
     <Compile Include="Endscript\Generate.cs" />
     <Compile Include="Endscript\Launch.cs" />
     <Compile Include="Endscript\Process.cs" />
@@ -303,6 +304,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GlobalLib\GlobalLib\GlobalLib.csproj">
+      <Project>{048c0af5-4580-45b9-b51d-9e5788effea7}</Project>
+      <Name>GlobalLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

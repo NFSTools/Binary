@@ -43,5 +43,6 @@ namespace Binary.Endscript
         move = 12,
         erase = 13,
         create = 14,
+        @switch = 15,
     }
 }

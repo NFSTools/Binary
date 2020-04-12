@@ -62,7 +62,19 @@ namespace Binary.Main
             Settings.Default.EnableStaticEnd = this.ConfigStatic.Checked;
             Settings.Default.EnableMaximized = this.ConfigMaximized.Checked;
             Settings.Default.EnableWatermarks = this.ConfigWatermark.Checked;
+            Settings.Default.EnableSuppressABCI = this.ConfigSuppressADCI.Checked;
             Settings.Default.Save();
+        }
+
+        private void UpdateMainConfigs()
+        {
+            this.ConfigAutoSave.Checked = Settings.Default.EnableAutobackup;
+            this.ConfigCompressFiles.Checked = Settings.Default.EnableCompression;
+            this.ConfigCommand.Checked = Settings.Default.EnableEndscriptLog;
+            this.ConfigStatic.Checked = Settings.Default.EnableStaticEnd; 
+            this.ConfigMaximized.Checked = Settings.Default.EnableMaximized; 
+            this.ConfigWatermark.Checked = Settings.Default.EnableWatermarks;
+            this.ConfigSuppressADCI.Checked = Settings.Default.EnableSuppressABCI;
         }
 
         public void CloseAllToolForms()
@@ -82,12 +94,7 @@ namespace Binary.Main
 		private void Main_Load(object sender, EventArgs e)
         {
             // Set properties from memory
-            this.ConfigAutoSave.Checked = Settings.Default.EnableAutobackup;
-            this.ConfigCompressFiles.Checked = Settings.Default.EnableCompression;
-            this.ConfigCommand.Checked = Settings.Default.EnableEndscriptLog;
-            this.ConfigStatic.Checked = Settings.Default.EnableStaticEnd;
-            this.ConfigMaximized.Checked = Settings.Default.EnableMaximized;
-            this.ConfigWatermark.Checked = Settings.Default.EnableWatermarks;
+            this.UpdateMainConfigs();
 
             var NFSCToolTip = new ToolTip();
             var NFSMWToolTip = new ToolTip();
@@ -95,6 +102,7 @@ namespace Binary.Main
             var SoonToolTip = new ToolTip();
             var WindowToolTip = new ToolTip();
             var ButtonToolTip = new ToolTip();
+            var ConfigToolTip = new ToolTip();
 
             NFSCToolTip.AutoPopDelay = 5000;
             NFSCToolTip.InitialDelay = 1000;
@@ -120,6 +128,10 @@ namespace Binary.Main
             ButtonToolTip.InitialDelay = 800;
             ButtonToolTip.ReshowDelay = 500;
 
+            ConfigToolTip.AutoPopDelay = 3000;
+            ConfigToolTip.InitialDelay = 800;
+            ConfigToolTip.ReshowDelay = 500;
+
             NFSCToolTip.SetToolTip(this.ChooseNFSC, "Launch Binary for Need for Speed: Carbon");
             NFSMWToolTip.SetToolTip(this.ChooseNFSMW, "Launch Binary for Need for Speed: Most Wanted");
             NFSUG2ToolTip.SetToolTip(this.ChooseNFSUG2, "Launch Binary for Need for Speed: Underground 2");
@@ -132,9 +144,17 @@ namespace Binary.Main
             WindowToolTip.SetToolTip(this.LaunchUnlock, "Unlock Game Files for Modding");
             WindowToolTip.SetToolTip(this.LaunchReadme, "Open Readme.txt");
 
-            ButtonToolTip.SetToolTip(this.SetModderName, "Set Username that will be used when saving files.");
+            ButtonToolTip.SetToolTip(this.SetModderName, "Set Modder Name that will be used when saving files.");
             ButtonToolTip.SetToolTip(this.ButtonDiscord, "Join official modding and support discord community server.");
             ButtonToolTip.SetToolTip(this.ButtonYAML, "Link YAMLDatabase to process modscripts.");
+
+            ConfigToolTip.SetToolTip(this.ConfigAutoSave, "Enable making auto backups when there are none detected.");
+            ConfigToolTip.SetToolTip(this.ConfigCompressFiles, "Enable saving GlobalB.lzc as JDLZ-compressed.");
+            ConfigToolTip.SetToolTip(this.ConfigCommand, "Enable saving executed end commands to Binary.end file.");
+            ConfigToolTip.SetToolTip(this.ConfigStatic, "Enable execution of static commands.");
+            ConfigToolTip.SetToolTip(this.ConfigMaximized, "Start main editor in maximized mode.");
+            ConfigToolTip.SetToolTip(this.ConfigWatermark, "Make Modder Name watermarks be written in file when saving.");
+            ConfigToolTip.SetToolTip(this.ConfigSuppressADCI, "Suppress Add-Delete-Copy-Import end command errors.");
         }
 
         private void ChooseNFSC_Click(object sender, EventArgs e)
@@ -158,6 +178,7 @@ namespace Binary.Main
             Settings.Default.DirectoryC = CarbonForm.GetDirectory();
             CarbonForm = null;
             Utils.CleanUp.GCCollect();
+            this.UpdateMainConfigs();
             this.Show();
         }
 
@@ -182,6 +203,7 @@ namespace Binary.Main
             Settings.Default.DirectoryMW = MostWantedForm.GetDirectory();
             MostWantedForm = null;
             Utils.CleanUp.GCCollect();
+            this.UpdateMainConfigs();
             this.Show();
         }
 
@@ -207,6 +229,7 @@ namespace Binary.Main
             Settings.Default.DirectoryUG2 = Underground2Form.GetDirectory();
             Underground2Form = null;
             Utils.CleanUp.GCCollect();
+            this.UpdateMainConfigs();
             this.Show();
         }
 
@@ -302,12 +325,12 @@ namespace Binary.Main
 
         private void SetModderName_Click(object sender, EventArgs e)
         {
-            var input = new Interact.Input("Enter your username that will be used on runtime:");
+            var input = new Interact.Input("Enter Modder Name that will be used on runtime:");
             if (input.ShowDialog() == DialogResult.OK)
             {
                 if (input.CollectionName.Length > 15)
                 {
-                    MessageBox.Show("Your name should not exceed 14 characters.", "Warning");
+                    MessageBox.Show("Modder Name should not exceed 15 characters.", "Warning");
                     this.SetModderName_Click(sender, e);
                 }
                 else

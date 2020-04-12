@@ -76,7 +76,7 @@ namespace Binary.Main
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.PanelConfiguration = new System.Windows.Forms.Panel();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.ConfigSuppressADCI = new System.Windows.Forms.CheckBox();
 			this.SetModderName = new System.Windows.Forms.Button();
 			this.ButtonDiscord = new System.Windows.Forms.Button();
 			this.ButtonYAML = new System.Windows.Forms.Button();
@@ -298,7 +298,7 @@ namespace Binary.Main
 			this.GlobalStatusStrip.Name = "GlobalStatusStrip";
 			this.GlobalStatusStrip.Size = new System.Drawing.Size(785, 17);
 			this.GlobalStatusStrip.Spring = true;
-			this.GlobalStatusStrip.Text = "Binary by MaxHwoy v1.0.0 | Powered by GlobalLib";
+			this.GlobalStatusStrip.Text = "Binary by MaxHwoy v1.0.1 | Powered by GlobalLib";
 			this.GlobalStatusStrip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.GlobalStatusStrip.DoubleClick += new System.EventHandler(this.GlobalStatusStrip_DoubleClick);
 			// 
@@ -352,7 +352,7 @@ namespace Binary.Main
 			this.PanelConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.PanelConfiguration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PanelConfiguration.Controls.Add(this.checkBox1);
+			this.PanelConfiguration.Controls.Add(this.ConfigSuppressADCI);
 			this.PanelConfiguration.Controls.Add(this.SetModderName);
 			this.PanelConfiguration.Controls.Add(this.ButtonDiscord);
 			this.PanelConfiguration.Controls.Add(this.ButtonYAML);
@@ -368,17 +368,17 @@ namespace Binary.Main
 			this.PanelConfiguration.Size = new System.Drawing.Size(221, 288);
 			this.PanelConfiguration.TabIndex = 12;
 			// 
-			// checkBox1
+			// ConfigSuppressADCI
 			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Enabled = false;
-			this.checkBox1.ForeColor = System.Drawing.SystemColors.Window;
-			this.checkBox1.Location = new System.Drawing.Point(13, 170);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(89, 17);
-			this.checkBox1.TabIndex = 12;
-			this.checkBox1.Text = "Coming Soon";
-			this.checkBox1.UseVisualStyleBackColor = true;
+			this.ConfigSuppressADCI.AutoSize = true;
+			this.ConfigSuppressADCI.Enabled = false;
+			this.ConfigSuppressADCI.ForeColor = System.Drawing.SystemColors.Window;
+			this.ConfigSuppressADCI.Location = new System.Drawing.Point(13, 170);
+			this.ConfigSuppressADCI.Name = "ConfigSuppressADCI";
+			this.ConfigSuppressADCI.Size = new System.Drawing.Size(128, 17);
+			this.ConfigSuppressADCI.TabIndex = 12;
+			this.ConfigSuppressADCI.Text = "Suppress ADCI Errors";
+			this.ConfigSuppressADCI.UseVisualStyleBackColor = true;
 			// 
 			// SetModderName
 			// 
@@ -390,7 +390,7 @@ namespace Binary.Main
 			this.SetModderName.Name = "SetModderName";
 			this.SetModderName.Size = new System.Drawing.Size(197, 23);
 			this.SetModderName.TabIndex = 11;
-			this.SetModderName.Text = "Set Username";
+			this.SetModderName.Text = "Set Modder Name";
 			this.SetModderName.UseVisualStyleBackColor = false;
 			this.SetModderName.Click += new System.EventHandler(this.SetModderName_Click);
 			// 
@@ -586,7 +586,7 @@ namespace Binary.Main
 		private System.Windows.Forms.Button ButtonDiscord;
 		private System.Windows.Forms.Button ButtonYAML;
 		private System.Windows.Forms.OpenFileDialog OpenYAMLDialog;
-		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.CheckBox ConfigSuppressADCI;
 		private System.Windows.Forms.Button SetModderName;
 	}
 }

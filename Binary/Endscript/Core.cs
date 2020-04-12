@@ -31,6 +31,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Binary.Properties;
 using GlobalLib.Utils;
 using GlobalLib.Utils.EA;
 using GlobalLib.Reflection.Enum;
@@ -296,7 +297,7 @@ namespace Binary.Endscript
                     else goto default;
 
                 case eCommands.@static:
-                    if (!Properties.Settings.Default.EnableStaticEnd)
+                    if (!Settings.Default.EnableStaticEnd)
                         return "Static command execution is not enabled. Unable to process.";
                     if (len == 4) return ExecuteStaticCollection(db, words[1], words[2], words[3]);
                     else goto default;
@@ -343,6 +344,10 @@ namespace Binary.Endscript
                         watch.Start();
                         return error;
                     }
+                    else goto default;
+
+                case eCommands.@switch:
+                    if (len == 3) return ExecuteSwitchSetting(words[1], words[2]);
                     else goto default;
 
                 default:
@@ -506,6 +511,7 @@ namespace Binary.Endscript
         private static string ExecuteAddCollection(BasicBase db, string root, string node)
         {
             if (db.TryAddCollection(node, root, out var error)) return null;
+            else if (Settings.Default.EnableSuppressABCI) return null;
             else return error;
         }
 
@@ -519,6 +525,8 @@ namespace Binary.Endscript
                 return $"File named {path} does not exist.";
             if (tpk.TryAddTexture(Path.GetFileNameWithoutExtension(path), path, out var error))
                 return null;
+            else if (Settings.Default.EnableSuppressABCI)
+                return null;
             else
                 return error;
         }
@@ -531,6 +539,7 @@ namespace Binary.Endscript
             if (!(collection is STRBlock str))
                 return $"Collection {node} is not a {STRBlocks} collection.";
             if (str.TryAddRecord(key, label, text, out var error)) return null;
+            else if (Settings.Default.EnableSuppressABCI) return null;
             else return error;
         }
 
@@ -541,6 +550,7 @@ namespace Binary.Endscript
         private static string ExecuteDeleteCollection(BasicBase db, string root, string node)
         {
             if (db.TryRemoveCollection(node, root, out var error)) return null;
+            else if (Settings.Default.EnableSuppressABCI) return null;
             else return error;
         }
 
@@ -555,6 +565,8 @@ namespace Binary.Endscript
                         return $"Collection {node} is not a {STRBlocks} collection.";
                     if (tpk.TryRemoveTexture(ConvertX.ToUInt32(hash), eKeyType.BINKEY, out var error))
                         return null;
+                    else if (Settings.Default.EnableSuppressABCI)
+                        return null;
                     else
                         return error;
 
@@ -564,6 +576,7 @@ namespace Binary.Endscript
                     if (!(collection is STRBlock str))
                         return $"Collection {node} is not a {STRBlocks} collection.";
                     if (str.TryRemoveRecord(hash, out var fail)) return null;
+                    else if (Settings.Default.EnableSuppressABCI) return null;
                     else return fail;
 
                 default:
@@ -579,6 +592,7 @@ namespace Binary.Endscript
             string copyfrom, string newname)
         {
             if (db.TryCloneCollection(newname, copyfrom, root, out var error)) return null;
+            else if (Settings.Default.EnableSuppressABCI) return null;
             else return error;
         }
 
@@ -590,6 +604,8 @@ namespace Binary.Endscript
             if (!(collection is TPKBlock tpk))
                 return $"Collection {node} is not a {STRBlocks} collection.";
             if (tpk.TryCloneTexture(cname, ConvertX.ToUInt32(hash), eKeyType.BINKEY, out var error))
+                return null;
+            else if (Settings.Default.EnableSuppressABCI)
                 return null;
             else
                 return error;
@@ -640,10 +656,9 @@ namespace Binary.Endscript
             }
             else
             {
-                if (db.TryImportCollection(root, path, out var error))
-                    return null;
-                else
-                    return error;
+                if (db.TryImportCollection(root, path, out var error)) return null;
+                else if (Settings.Default.EnableSuppressABCI) return null;
+                else return error;
             }
         }
 
@@ -757,6 +772,60 @@ namespace Binary.Endscript
             else return $"Invalid path type specifier named {method}.";
         }
 
-        #endregion
-    }
+		#endregion
+
+		#region Switch Command
+
+        private static string ExecuteSwitchSetting(string setting, string option)
+        {
+            var set = setting.Replace(' ', '_');
+            if (!Enum.TryParse(set, out eSettingType type))
+                return $"Setting named \"{setting}\" does not exist.";
+            if (type == eSettingType.Set_Modder_Name) goto LABEL_NAME;
+            if (!Enum.TryParse(option, out eBoolean turn))
+                return $"Invalid option type named {option}.";
+            bool is_on = turn == eBoolean.True ? true : false;
+            switch (type)
+            {
+                case eSettingType.Enable_Auto_Backup_Save:
+                    Settings.Default.EnableAutobackup = is_on;
+                    Settings.Default.Save();
+                    return null;
+                case eSettingType.Compress_Files_When_Saving:
+                    Settings.Default.EnableCompression = is_on;
+                    Settings.Default.Save();
+                    return null;
+                case eSettingType.Save_End_Commands:
+                    Settings.Default.EnableEndscriptLog = is_on;
+                    Settings.Default.Save();
+                    return null;
+                case eSettingType.Enable_Static_Commands:
+                    Settings.Default.EnableStaticEnd = is_on;
+                    Settings.Default.Save();
+                    return null;
+                case eSettingType.Start_In_Maximized_Mode:
+                    Settings.Default.EnableMaximized = is_on;
+                    Settings.Default.Save();
+                    return null;
+                case eSettingType.Enable_Modder_Watermarks:
+                    Settings.Default.EnableWatermarks = is_on;
+                    Settings.Default.Save();
+                    return null;
+                case eSettingType.Suppress_ADCI_Errors:
+                    Settings.Default.EnableSuppressABCI = is_on;
+                    Settings.Default.Save();
+                    return null;
+                default:
+                    return $"Setting named \"{setting}\" does not exist.";
+            }
+
+        LABEL_NAME:
+            if (option.Length > 15) return $"Modder Name should not exceed 15 characters.";
+            Settings.Default.BinaryUsername = option;
+            Settings.Default.Save();
+            return null;
+        }
+
+		#endregion
+	}
 }

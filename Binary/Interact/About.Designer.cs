@@ -92,7 +92,7 @@ namespace Binary.Interact
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(171, 35);
 			this.label2.TabIndex = 2;
-			this.label2.Text = "Binary v1.0.0";
+			this.label2.Text = "Binary v1.0.1";
 			// 
 			// textBox1
 			// 
