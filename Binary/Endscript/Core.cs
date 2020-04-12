@@ -377,7 +377,7 @@ namespace Binary.Endscript
         public static string[] DisperseLine(string line, params char[] delim)
         {
             var result = new List<string>();
-            string str = null;
+            string str = string.Empty;
             bool inquote = false;
             line += '\0'.ToString();
 
@@ -387,9 +387,8 @@ namespace Binary.Endscript
                 else if (val == '"') inquote = !inquote;
                 else if (!inquote && delim.Contains(val))
                 {
-                    if (!string.IsNullOrEmpty(str))
-                        result.Add(str);
-                    str = null;
+                    result.Add(str);
+                    str = string.Empty;
                     continue;
                 }
                 else str += val.ToString();
@@ -778,6 +777,7 @@ namespace Binary.Endscript
 
         private static string ExecuteSwitchSetting(string setting, string option)
         {
+            if (option == null) option = string.Empty;
             var set = setting.Replace(' ', '_');
             if (!Enum.TryParse(set, out eSettingType type))
                 return $"Setting named \"{setting}\" does not exist.";
@@ -823,6 +823,10 @@ namespace Binary.Endscript
             if (option.Length > 15) return $"Modder Name should not exceed 15 characters.";
             Settings.Default.BinaryUsername = option;
             Settings.Default.Save();
+            if (Settings.Default.EnableWatermarks)
+                GlobalLib.Core.Process.Watermark = $"Binary: used by {Settings.Default.BinaryUsername}";
+            else
+                GlobalLib.Core.Process.Watermark = string.Empty;
             return null;
         }
 

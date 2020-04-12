@@ -305,11 +305,5 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\GlobalLib\GlobalLib\GlobalLib.csproj">
-      <Project>{048c0af5-4580-45b9-b51d-9e5788effea7}</Project>
-      <Name>GlobalLib</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

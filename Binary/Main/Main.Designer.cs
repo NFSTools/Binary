@@ -296,9 +296,9 @@ namespace Binary.Main
 			// 
 			this.GlobalStatusStrip.ForeColor = System.Drawing.SystemColors.Window;
 			this.GlobalStatusStrip.Name = "GlobalStatusStrip";
-			this.GlobalStatusStrip.Size = new System.Drawing.Size(785, 17);
+			this.GlobalStatusStrip.Size = new System.Drawing.Size(754, 17);
 			this.GlobalStatusStrip.Spring = true;
-			this.GlobalStatusStrip.Text = "Binary by MaxHwoy v1.0.1 | Powered by GlobalLib";
+			this.GlobalStatusStrip.Text = "Binary by MaxHwoy v1.0.4 | Powered by GlobalLib";
 			this.GlobalStatusStrip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.GlobalStatusStrip.DoubleClick += new System.EventHandler(this.GlobalStatusStrip_DoubleClick);
 			// 
@@ -371,7 +371,6 @@ namespace Binary.Main
 			// ConfigSuppressADCI
 			// 
 			this.ConfigSuppressADCI.AutoSize = true;
-			this.ConfigSuppressADCI.Enabled = false;
 			this.ConfigSuppressADCI.ForeColor = System.Drawing.SystemColors.Window;
 			this.ConfigSuppressADCI.Location = new System.Drawing.Point(13, 170);
 			this.ConfigSuppressADCI.Name = "ConfigSuppressADCI";
