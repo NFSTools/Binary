@@ -298,7 +298,7 @@ namespace Binary.Main
 			this.GlobalStatusStrip.Name = "GlobalStatusStrip";
 			this.GlobalStatusStrip.Size = new System.Drawing.Size(754, 17);
 			this.GlobalStatusStrip.Spring = true;
-			this.GlobalStatusStrip.Text = "Binary by MaxHwoy v1.0.4 | Powered by GlobalLib";
+			this.GlobalStatusStrip.Text = "Binary by MaxHwoy v1.0.5 | Powered by GlobalLib";
 			this.GlobalStatusStrip.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.GlobalStatusStrip.DoubleClick += new System.EventHandler(this.GlobalStatusStrip_DoubleClick);
 			// 
