@@ -1,5 +1,14 @@
-﻿![](https://cdn.discordapp.com/attachments/696160463192326154/697376548894015528/binary_logo.png)
+# This repository is probably not what you're looking for.
 
+The "latest" code is [here](https://github.com/SpeedReflect/Binary).
+
+Forks include:
+- [NFSCO/Binary](https://github.com/NFSCO/Binary)
+- [nlgxzef/Binarius](https://github.com/nlgxzef/Binarius)
+
+This repository is outdated, and there are no plans to change that.
+
+---
 
 # Binary
 Binary is a tool for editing Black Box Need for Speed games Global files, powered by [GlobalLib](https://github.com/NFSTools/GlobalLib "GlobalLib")
